@@ -284,15 +284,15 @@ async def on_ready():
 @kdb.event
 async def on_message(ctx):
     try:
+        if ctx.author.id == kdb.user.id: return  # ignore self
         if ctx.channel.category.id == relayCategory:
-            if not ctx.author.id == kdb.user.id:
-                try:
-                    if "%" == ctx.content[0]:
-                        await kdb.process_commands(ctx)
-                    else:
-                        mc_q.put({"key":"messagerelay", "name":str(ctx.channel.name), "content":ctx.content})
-                except:
-                    pass
+            try:
+                if "%" == ctx.content[0]:
+                    await kdb.process_commands(ctx)
+                else:
+                    mc_q.put({"key":"messagerelay", "name":str(ctx.channel.name), "content":ctx.content})
+            except:
+                pass
         else:
             if "%" == ctx.content[0]:
                 await kdb.process_commands(ctx)
