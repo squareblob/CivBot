@@ -72,9 +72,10 @@ class OliveClientProtocol(SpawningClientProtocol):
         print (timestring() + str (p_text))
         l_text = str(p_text).split()
         if " ".join(l_text[1:]) == "is brand new!":
-            ds_q.put({"key":"new player", "name":l_text[0]})
+            welcome_msg = get_rand_message()
+            ds_q.put({"key":"new player", "name":l_text[0], "msg":welcome_msg})
             self.newplayers.append(l_text[0])
-            self.ticker.add_delay(1800, self.send_welcome_message1)
+            self.ticker.add_delay(1800, lambda: self.send_welcome_message1(welcome_msg))
             #self.ticker.add_delay(1900, self.send_welcome_message2)
         elif l_text[0] == "From":
             name = l_text[1].strip(":")
@@ -153,10 +154,8 @@ class OliveClientProtocol(SpawningClientProtocol):
     def player_joined(self):
         print (timestring() + "joined the game as " + self.factory.profile.display_name + ".")
 
-    def send_welcome_message1(self):
-        #name = self.newplayers[0]
+    def send_welcome_message1(self, message):
         name = self.newplayers.pop(0)
-        message = get_rand_message()
         self.welcomeLog[name] = message
         self.send_chat("/tell "+name+" "+message)
         with open ("welcomelog.txt", "a+") as log:
@@ -171,9 +170,6 @@ class OliveClientProtocol(SpawningClientProtocol):
                 ds_q.put({"key":"relay", "channel":package["channel"], "content":"debug relay"})
             elif package["key"] == "messagerelay":
                 self.send_chat("/tell " + package["name"] + " " + package["content"])
-            elif package["key"] == "welcome":
-                self.newplayers = [package["name"]] + self.newplayers
-                self.ticker.add_delay(10, self.send_welcome_message1)
                 ds_q.put({"key":"relay", "channel":package["channel"], "content":"welcome messages for " + package["name"] + " queued"})
             elif package["key"] == "shutdown":
                 reactor.stop()
@@ -248,7 +244,7 @@ async def process_ds_q():
             #print (package)
             try:
                 if package["key"] == "new player":
-                    s = "" + package["name"] + " is brand nwe!"
+                    s = "" + package["name"] + " is brand new!\n"+package["msg"]
                     c = kdb.get_channel(botInfoChannel)
                     await c.send(clean_text_for_discord(s))
                     #await kdb.get_guild(guild).create_text_channel(package["name"], category=kdb.get_channel(relayCategory))
@@ -323,11 +319,6 @@ async def wiard(ctx, *, content):
 @kdb.group(pass_context=True)
 async def welcome(ctx):
     """minecraft welcome message management"""
-
-@welcome.command(pass_context=True)
-async def debug(ctx, *, content):
-    """sends welcome messages to a given player"""
-    mc_q.put({"key":"welcome", "name":content, "channel":ctx.channel})
 
 @welcome.command(pass_context=True)
 async def add(ctx, *, content):
