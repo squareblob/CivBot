@@ -294,7 +294,15 @@ async def on_message(ctx):
                 except:
                     pass
         else:
-            await kdb.process_commands(ctx)
+            if "%" == ctx.content[0]:
+                await kdb.process_commands(ctx)
+            else:  # regular chat message
+                lower_content = ctx.content.lower()
+                if 'delusional' in lower_content:
+                    await ctx.channel.send("Edit CivWiki <https://civclassic.miraheze.org/wiki/CivWiki:Editing_Guide>")
+                if ctx.content.startswith('[[') and ctx.content.endswith(']]'):
+                    await ctx.channel.send('https://civclassic.miraheze.org/wiki/' + ctx.content[2:-2])
+
     except AttributeError:
         print ("From " + str (ctx.author) + ": " + ctx.content)
 
