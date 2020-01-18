@@ -5,6 +5,8 @@ from quarry.net.auth import Profile
 from quarry.net.client import ClientFactory, SpawningClientProtocol
 import time, logging, datetime, asyncio, discord, random, queue, threading
 
+from config import *
+
 buffer = 10
 mc_q = queue.Queue(buffer)
 ds_q = queue.Queue(buffer)
@@ -18,14 +20,6 @@ def clean_text_for_discord(text):
 ####################
 # quarry bot setup #
 ####################
-
-with open ("config.txt", "r") as config:
-    configs = config.readlines()
-    username = configs[0].strip("\n")
-    password = configs[1].strip("\n")
-    host = configs[2].strip("\n")
-    port = int(configs[3].strip("\n"))
-    token = configs[4].strip("\n")
 
 playerLogInterval = 10
 
