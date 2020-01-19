@@ -3,7 +3,9 @@ from twisted.internet.protocol import ReconnectingClientFactory
 from twisted.internet import reactor, defer
 from quarry.net.auth import Profile
 from quarry.net.client import ClientFactory, SpawningClientProtocol
-import time, logging, datetime, asyncio, discord, random, queue, threading
+import time, logging, datetime, asyncio, discord, random, queue, threading, json
+import aiohttp, async_timeout
+from bs4 import BeautifulSoup
 
 from config import *
 
@@ -315,13 +317,97 @@ async def hello(ctx):
 
 @kdb.command(pass_context=True)
 async def motd(ctx):
-    """returns the motd"""
+    """returns the message of the day"""
     await ctx.channel.send(getmotd())
 
 @kdb.command(pass_context=True)
 async def wiard(ctx, *, content):
     """wiardifies a message"""
     await ctx.channel.send(wiardify(content))
+
+@kdb.command(pass_context=True)
+async def whois(ctx, *, content):
+    """Get info about that IGN from namemc.com and minecraft-statistic.net"""
+    ign = content.split(' ')[0]
+    info = await get_account_info_from_web(ign)
+    num_servers = len(info['servers'])
+    if num_servers == 10: num_servers = '9+'
+    if info['names'][-1][1]:
+        delta = datetime.datetime.now() - info['names'][-1][1]
+        delta = str(delta).split(':')[0] + 'h'
+        datestr = info['names'][-1][1].strftime("%b %d %Y %H:%M")
+        name_age = '%s ago (%s)' % (delta, datestr)
+    else: name_age = 'never'
+    joined_names = ' '.join(sorted(set(
+        name for (name, date) in info['names'][:-1])))
+    joined_names = joined_names or 'None'
+    joined_servers = ', '.join(
+        '%s (%sh)' % (ip, hours)
+        for (ip, motd, last_seen, hours) in info['servers'])
+    joined_servers = joined_servers or 'None'
+
+    ign_clean = ign.replace('_', '\\_')
+    joined_names_clean = joined_names.replace('_', '\\_')
+    joined_servers_clean = joined_servers.replace('_', '\\_')
+    text = '''
+**{ign_clean}**
+Last name change: {name_age}
+Past names: {joined_names_clean}
+Seen on {num_servers} servers: {joined_servers_clean}
+Sources: <{info[mcstats_url]}> <https://namemc.com/profile/{ign}> {info[head_url]}
+'''.format(**locals()).strip()
+    await ctx.channel.send(text)
+
+async def get_account_info_from_web(ign):
+    head_url = 'https://minotar.net/avatar/%s.png' % ign
+    # namemc = await get_url('https://namemc.com/profile/' + ign)
+
+    # first mcstats url: main page (top 10 servers)
+    mcstats_url = 'https://minecraft-statistic.net/en/player/%s.html' % ign
+    mcstats_1_html = await get_url(mcstats_url)
+    soup1 = BeautifulSoup(mcstats_1_html, 'html.parser')
+    servers = extract_mcstats_servers(soup1)
+
+    # oldest to newest: tuple(name, datetime or None)
+    names = [(
+        t.span.text,
+        parse_mcstats_name_change_time(t.next_sibling.next_sibling.span.text)
+        ) for t in soup1.find_all(class_='text-right') if t.span]
+
+    if not len(names): names = [(ign, None)]
+
+    # second  mcstats url: remaining servers
+    # BROKEN: apparently you need to pass the correct cookie
+    # mcstats_2_json = await get_url('https://minecraft-statistic.net/en/player/servers_ajax/' + ign)
+    # mcstats_2_jsonobj = json.loads(mcstats_2_raw)
+    # # TODO check ['status'] == 'ok'
+    # mcstats_2_html = mcstats_2_json['html']
+    # soup2 = BeautifulSoup(mcstats_2_html, 'html.parser')
+    # servers += extract_mcstats_servers(soup2)
+
+    l = locals()
+    return {k: l[k] for k in 'mcstats_url head_url names servers'.split()}
+
+def parse_mcstats_name_change_time(s):
+    if s == 'Name at registration': return None
+    return datetime.datetime.strptime(s, "%Y.%m.%d %H:%M")
+
+def extract_mcstats_servers(soup):
+    """Returns a list of tuples containing: address, motd, timestamp of last visit, hours played on server"""
+    return [(
+        t.find_all(class_='copy-ip')[0]['data-clipboard-text']
+            .replace(':25565', ''),
+        t.find_all(class_='lv-title')[0].text,
+        t['data-last-visit'],
+        int(t['data-total-time']) // 60
+        ) for t in soup.find_all(class_='servers-list-item')
+        if t.has_attr('data-last-visit')]
+
+async def get_url(url, timeout=10):
+    async with aiohttp.ClientSession() as session:
+        async with async_timeout.timeout(timeout):
+            async with session.get(url) as response:
+                return await response.text()
 
 #discord welcome messages
 @kdb.group(pass_context=True)
