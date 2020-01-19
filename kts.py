@@ -244,7 +244,7 @@ relayCategory = 665296878254161950
 
 kdb = commands.Bot(command_prefix=prefix, description=getmotd())
 
-botInfoChannel = 664293935362998346
+brandNewMsgChannel = 664474265277693982
 
 def search_relay_channel(name):
     #print ("searching for", name)
@@ -313,7 +313,7 @@ async def process_ds_q():
             try:
                 if package["key"] == "new player":
                     s = "" + package["name"] + " is brand new!\n"+package["msg"]
-                    c = kdb.get_channel(botInfoChannel)
+                    c = kdb.get_channel(brandNewMsgChannel)
                     await c.send(clean_text_for_discord(s))
                     #await kdb.get_guild(guild).create_text_channel(package["name"], category=kdb.get_channel(relayCategory))
                     log_new_player(package["name"])
