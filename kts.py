@@ -19,6 +19,30 @@ def clean_text_for_discord(text):
     text = text.replace("~~", "\~~")
     return text
 
+def get_response():
+    wordlist = ["crying",
+                "shaking",
+                "oscillating",
+                "deleting vault group",
+                "yelling",
+                "screaming",
+                "vibrating",
+                "overdosing",
+                "collapsing",
+                "writhing"]
+    random.shuffle(wordlist)
+    length = random.randrange(1, 5)
+    words = []
+    for i in range(length):
+        words.append(wordlist.pop())
+    if length == 1:
+        response = words[0]
+    elif length == 2 and random.random() > 0.6:
+        response = " and ".join(words)
+    else:
+        response = ", ".join(words)
+    return response
+
 ####################
 # quarry bot setup #
 ####################
@@ -311,9 +335,9 @@ async def on_message(ctx):
 
 #uncategorised
 @kdb.command(pass_context=True)
-async def hello(ctx):
+async def respond(ctx):
     """test command"""
-    await ctx.channel.send("COMMAND INVOKED")
+    await ctx.channel.send(get_response())
 
 @kdb.command(pass_context=True)
 async def motd(ctx):
