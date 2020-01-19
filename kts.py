@@ -6,6 +6,12 @@ from quarry.net.client import ClientFactory, SpawningClientProtocol
 import time, logging, datetime, asyncio, discord, random, queue, threading, json
 import aiohttp, async_timeout
 from bs4 import BeautifulSoup
+import re
+from PIL import Image, ImageDraw, ImageFont
+import random
+import datetime
+import string
+import json
 
 from config import *
 
@@ -235,6 +241,39 @@ def log_message_response(name):
     except FileNotFoundError:
         with open ("messageresponselog.txt", mode="a+") as log:
             log.write(str(datestring()+timestring()+name+"\n"))
+
+def create_image(pearled_player, pearled_by, now):
+    random.seed(a=pearled_player.lower() + pearled_by.lower() + now, version=2)
+    code = ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))
+    font = ImageFont.truetype("resources/Minecraftia.ttf", 24)
+    font_italic = ImageFont.truetype("resources/Minecraft-Italic.otf", 30)
+    im = Image.open("resources/blank_pearl.png")
+
+    req_width = 129 + font.getsize(pearled_player + "#" + code)[0] + 23
+    if req_width > im.width:
+        newImage = Image.new('RGB', (req_width, im.height))
+        newImage.paste(im, (0, 0))
+        crop = im.crop((453, 0, 456, 412))
+        end_sliver = im.crop((461, 0, 466, 412))
+        for i in range(im.width - 7, req_width, 3):
+            newImage.paste(crop, (i, 0))
+        newImage.paste(end_sliver, (newImage.width - 5, 0))
+        im = newImage
+
+    draw = ImageDraw.Draw(im)
+    colors = [[(85, 255, 255), (255, 255, 255), (170, 170, 170), (85, 85, 85)],
+              [(21, 63, 63), (63, 63, 63), (42, 42, 42), (21, 21, 21)]]
+
+    for i in reversed(range(0, 2)):
+        offset = -i * 3
+        # Top title; Endcode; Player; Seed; Date; Killed by
+        draw.text((10 - offset, 8 - offset), pearled_player, font=font_italic, fill=colors[i][0])
+        draw.text((10 + font.getsize(pearled_player)[0] + 12 + 2 - offset, 2 - offset), "(#0368)", font=font, fill=colors[i][1])
+        draw.text((129 - offset, 68 - offset), pearled_player, font=font, fill=colors[i][2])
+        draw.text((129 + font.getsize(pearled_player)[0] + 12 - offset, 68 - offset), "#" + code, font=font, fill=colors[i][3])
+        draw.text((165 - offset, 128 - offset), now, font=font, fill=colors[i][2])
+        draw.text((156 - offset, 158 - offset), pearled_by, font=font, fill=colors[i][2])
+    im.save('resources/output.png', "PNG")
     
 
 async def process_ds_q():
@@ -296,7 +335,7 @@ async def on_message(ctx):
             except:
                 pass
         else:
-            if "%" == ctx.content[0]:
+            if len(ctx.content) != 0 and "%" == ctx.content[0]:
                 await kdb.process_commands(ctx)
             else:  # regular chat message
                 lower_content = ctx.content.lower()
@@ -319,6 +358,56 @@ async def hello(ctx):
 async def motd(ctx):
     """returns the message of the day"""
     await ctx.channel.send(getmotd())
+
+@kdb.command(pass_context=True)
+async def pearl(ctx, *, content):
+    """Pearls a player."""
+    if len(content.split(" ")) > 1:
+        players = []
+        for p in content.split(" ")[:2]:
+            # https://github.com/clerie/mcuuid/issues/1
+            # if GetPlayerData(p) and hasattr(GetPlayerData(p), 'username'):
+            #     players.append(GetPlayerData(p).username)
+            if not re.match('^(\w|d){3,16}', p):
+                await ctx.channel.send("Invalid usernames supplied")
+                return
+            else:
+                players.append(p)
+
+        date = datetime.datetime.today().strftime('%m/%d/%Y')
+        if len(content.split(" ")) > 2 and re.match("\d{1,2}\/\d{1,2}\/\d{1,4}",content.split(" ")[2]):
+            date = re.match("\d{1,2}\/\d{1,2}\/\d{1,4}",content.split(" ")[2]).group(0)
+
+        create_image(players[0], players[1], date)
+        bot_message = await ctx.channel.send(file=discord.File("resources/output.png"))
+
+        with open('resources/pearl locations.txt', 'r') as file:
+            locations = json.load(file)
+        await asyncio.sleep(1)
+        locations[players[0].lower()] = bot_message.jump_url
+        with open('resources/pearl locations.txt', 'w') as file:
+            json.dump(locations, file)
+
+@kdb.command(pass_context=True)
+async def pplocate(ctx, *, content):
+    """Locates a players pearl"""
+    with open('resources/pearl locations.txt', 'r') as file:
+        locations = json.load(file)
+    if content.lower() in locations:
+        await ctx.channel.send(locations[content])
+    else:
+        await ctx.channel.send("**" + clean_text_for_discord(content) + "**'s pearl could not be located")
+
+@kdb.command(pass_context=True)
+async def ppfree(ctx, *, content):
+    """Frees a players pearl"""
+    with open('resources/pearl locations.txt', 'r') as file:
+        locations = json.load(file)
+    if content.lower() in locations:
+        await ctx.channel.send("You freed **" + clean_text_for_discord(content) + "**")
+        del locations[content.lower()]
+        with open('resources/pearl locations.txt', 'w') as file:
+            json.dump(locations, file)
 
 @kdb.command(pass_context=True)
 async def wiard(ctx, *, content):
