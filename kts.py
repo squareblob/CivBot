@@ -379,6 +379,7 @@ async def on_message(ctx):
 @kdb.command(pass_context=True)
 async def respond(ctx):
     """test command"""
+    await ctx.message.delete()
     await ctx.channel.send(get_response())
 
 @kdb.command(pass_context=True)
@@ -526,19 +527,15 @@ async def get_url(url, timeout=10):
                 return await response.text()
 
 #discord welcome messages
-@kdb.group(pass_context=True)
-async def welcome(ctx):
-    """minecraft welcome message management"""
-
-@welcome.command(pass_context=True)
-async def add(ctx, *, content):
+@kdb.command(pass_context=True)
+async def welcomeadd(ctx, *, content):
     """adds a welcome message to the list"""
     with open ("welcomes.txt", "a+") as welcomes:
         welcomes.write(content + "\n")
     await ctx.channel.send("added welcome message")
 
-@welcome.command(pass_context=True)
-async def get(ctx):
+@kdb.command(pass_context=True)
+async def welcomeget(ctx):
     """returns current welcome messages"""
     i = ""
     with open ("welcomes.txt", "r") as welcomes:
@@ -551,7 +548,7 @@ async def get(ctx):
             j += 1
     await ctx.channel.send(i)
 
-@welcome.command(pass_context=True)
+@kdb.command(pass_context=True)
 async def playerlog(ctx, *, content):
     """returns the welcome message sent to a given player"""
     with open ("welcomelog.txt", "r") as log:
@@ -559,8 +556,8 @@ async def playerlog(ctx, *, content):
             if line.split(" : ")[0].lower() == content.lower():
                 await ctx.channel.send(line.split(" : ")[1])
 
-@welcome.command(pass_context=True)
-async def remove(ctx, *, content):
+@kdb.command(pass_context=True)
+async def welcomeremove(ctx, *, content):
     """removes a given welcome messages"""
     w = []
     try:
@@ -581,17 +578,13 @@ async def remove(ctx, *, content):
     await ctx.channel.send("successfully removed message (probably)")
 
 #relay channel management
-@kdb.group(pass_context=True)
-async def relay(ctx, *, content):
-    """relay channel management"""
-        
-@relay.command(pass_context=True)
-async def spawn(ctx, *, content):
+@kdb.command(pass_context=True)
+async def relayspawn(ctx, *, content):
     """creates a relay channel with a specified name"""
     await kdb.get_guild(guild).create_text_channel(content, category=kdb.get_channel(relayCategory))
 
-@relay.command(pass_context=True)
-async def kill(ctx, *, content="this"):
+@kdb.command(pass_context=True)
+async def relaykill(ctx, *, content="this"):
     """deletes a relay channel with the specified name"""
     if content == "this":
         channel = ctx.channel
