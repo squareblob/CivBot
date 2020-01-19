@@ -29,7 +29,8 @@ def get_response():
                 "vibrating",
                 "overdosing",
                 "collapsing",
-                "writhing"]
+                "writhing",
+                "hyperventilating"]
     random.shuffle(wordlist)
     length = random.randrange(1, 5)
     words = []
@@ -37,7 +38,7 @@ def get_response():
         words.append(wordlist.pop())
     if length == 1:
         response = words[0]
-    elif length == 2 and random.random() > 0.6:
+    elif length == 2 and random.random() > 0.1:
         response = " and ".join(words)
     else:
         response = ", ".join(words)
