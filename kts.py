@@ -15,6 +15,8 @@ import json
 
 from config import *
 
+prefix = "&"
+
 buffer = 10
 mc_q = queue.Queue(buffer)
 ds_q = queue.Queue(buffer)
@@ -240,7 +242,7 @@ def getmotd():
 guild = 613024898024996914
 relayCategory = 665296878254161950
 
-kdb = commands.Bot(command_prefix="&", description=getmotd())
+kdb = commands.Bot(command_prefix=prefix, description=getmotd())
 
 botInfoChannel = 664293935362998346
 
@@ -353,14 +355,14 @@ async def on_message(ctx):
         if ctx.author.id == kdb.user.id: return  # ignore self
         if ctx.channel.category.id == relayCategory:
             try:
-                if "%" == ctx.content[0]:
+                if prefix == ctx.content[0]:
                     await kdb.process_commands(ctx)
                 else:
                     mc_q.put({"key":"messagerelay", "name":str(ctx.channel.name), "content":ctx.content})
             except:
                 pass
         else:
-            if len(ctx.content) != 0 and "%" == ctx.content[0]:
+            if len(ctx.content) != 0 and prefix == ctx.content[0]:
                 await kdb.process_commands(ctx)
             else:  # regular chat message
                 lower_content = ctx.content.lower()
