@@ -50,7 +50,7 @@ def wiardify(text):
     return t2
 
 def get_rand_message():
-    with open ("welcomes.txt", "r") as welcomes:
+    with open ("welcomemessages.txt", "r") as welcomes:
         return random.choice(welcomes.readlines()).strip("\n")
 
 class OliveClientProtocol(SpawningClientProtocol):
