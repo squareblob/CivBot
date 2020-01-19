@@ -240,7 +240,7 @@ def getmotd():
 guild = 613024898024996914
 relayCategory = 665296878254161950
 
-kdb = commands.Bot(command_prefix="%", description=getmotd())
+kdb = commands.Bot(command_prefix="&", description=getmotd())
 
 botInfoChannel = 664293935362998346
 
