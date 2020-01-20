@@ -8,10 +8,11 @@ import aiohttp, async_timeout
 from bs4 import BeautifulSoup
 import re
 from PIL import Image, ImageDraw, ImageFont
-import random
-import datetime
 import string
-import json
+import requests
+from faker import Faker
+import math
+from _operator import itemgetter
 
 from config import *
 
@@ -49,6 +50,53 @@ def get_response():
     else:
         response = ", ".join(words)
     return response
+
+
+def generate_pearl_image(pearled_player, pearled_by, now):
+    random.seed(a=pearled_player.lower() + pearled_by.lower() + now, version=2)
+    code = ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))
+    font = ImageFont.truetype("resources/Minecraftia.ttf", 24)
+    font_italic = ImageFont.truetype("resources/Minecraft-Italic.otf", 30)
+    im = Image.open("resources/Pearl_template.png")
+
+    req_width = 129 + font.getsize(pearled_player + "#" + code)[0] + 23
+    if req_width > im.width:
+        new_image = Image.new('RGB', (req_width, im.height))
+        new_image.paste(im, (0, 0))
+        crop = im.crop((453, 0, 456, 412))
+        end_sliver = im.crop((461, 0, 466, 412))
+        for i in range(im.width - 7, req_width, 3):
+            new_image.paste(crop, (i, 0))
+        new_image.paste(end_sliver, (new_image.width - 5, 0))
+        im = new_image
+
+    draw = ImageDraw.Draw(im)
+    colors = [[(85, 255, 255), (255, 255, 255), (170, 170, 170), (85, 85, 85)],
+              [(21, 63, 63), (63, 63, 63), (42, 42, 42), (21, 21, 21)]]
+
+    for i in reversed(range(0, 2)):
+        offset = -i * 3
+        # Top title; Endcode; Player; Seed; Date; Killed by
+        draw.text((10 - offset, 8 - offset), pearled_player, font=font_italic, fill=colors[i][0])
+        draw.text((10 + font.getsize(pearled_player)[0] + 12 + 2 - offset, 2 - offset), "(#0368)", font=font,
+                  fill=colors[i][1])
+        draw.text((129 - offset, 68 - offset), pearled_player, font=font, fill=colors[i][2])
+        draw.text((129 + font.getsize(pearled_player)[0] + 12 - offset, 68 - offset), "#" + code, font=font,
+                  fill=colors[i][3])
+        draw.text((165 - offset, 128 - offset), now, font=font, fill=colors[i][2])
+        draw.text((156 - offset, 158 - offset), pearled_by, font=font, fill=colors[i][2])
+    im.save('resources/output.png', "PNG")
+
+
+async def find_a_posted_image(ctx):
+    if len(ctx.message.attachments) == 0:
+        check_above = await ctx.message.channel.history(limit=12).flatten()
+        for o in check_above:
+            if len(o.attachments) != 0:
+                return requests.get(o.attachments[0].url)
+    else:
+        return requests.get(ctx.message.attachments[0].url)
+    return
 
 ####################
 # quarry bot setup #
@@ -257,6 +305,7 @@ def log_new_player(name):
     with open ("newplayerlog.txt", mode="a+") as log:
         log.write(str(datestring()+timestring()+name+"\n"))
 
+
 def log_message_response(name):
     try:
         with open ("messageresponselog.txt", mode="r+") as log:
@@ -267,39 +316,6 @@ def log_message_response(name):
         with open ("messageresponselog.txt", mode="a+") as log:
             log.write(str(datestring()+timestring()+name+"\n"))
 
-def create_image(pearled_player, pearled_by, now):
-    random.seed(a=pearled_player.lower() + pearled_by.lower() + now, version=2)
-    code = ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))
-    font = ImageFont.truetype("resources/Minecraftia.ttf", 24)
-    font_italic = ImageFont.truetype("resources/Minecraft-Italic.otf", 30)
-    im = Image.open("resources/blank_pearl.png")
-
-    req_width = 129 + font.getsize(pearled_player + "#" + code)[0] + 23
-    if req_width > im.width:
-        newImage = Image.new('RGB', (req_width, im.height))
-        newImage.paste(im, (0, 0))
-        crop = im.crop((453, 0, 456, 412))
-        end_sliver = im.crop((461, 0, 466, 412))
-        for i in range(im.width - 7, req_width, 3):
-            newImage.paste(crop, (i, 0))
-        newImage.paste(end_sliver, (newImage.width - 5, 0))
-        im = newImage
-
-    draw = ImageDraw.Draw(im)
-    colors = [[(85, 255, 255), (255, 255, 255), (170, 170, 170), (85, 85, 85)],
-              [(21, 63, 63), (63, 63, 63), (42, 42, 42), (21, 21, 21)]]
-
-    for i in reversed(range(0, 2)):
-        offset = -i * 3
-        # Top title; Endcode; Player; Seed; Date; Killed by
-        draw.text((10 - offset, 8 - offset), pearled_player, font=font_italic, fill=colors[i][0])
-        draw.text((10 + font.getsize(pearled_player)[0] + 12 + 2 - offset, 2 - offset), "(#0368)", font=font, fill=colors[i][1])
-        draw.text((129 - offset, 68 - offset), pearled_player, font=font, fill=colors[i][2])
-        draw.text((129 + font.getsize(pearled_player)[0] + 12 - offset, 68 - offset), "#" + code, font=font, fill=colors[i][3])
-        draw.text((165 - offset, 128 - offset), now, font=font, fill=colors[i][2])
-        draw.text((156 - offset, 158 - offset), pearled_by, font=font, fill=colors[i][2])
-    im.save('resources/output.png', "PNG")
-    
 
 async def process_ds_q():
     await kdb.wait_until_ready()
@@ -367,7 +383,7 @@ async def on_message(ctx):
                 if 'delusional' in lower_content:
                     await ctx.channel.send("Edit CivWiki <https://civclassic.miraheze.org/wiki/CivWiki:Editing_Guide>")
                 if ctx.content.startswith('[[') and ctx.content.endswith(']]'):
-                    await ctx.channel.send('https://civclassic.miraheze.org/wiki/' + ctx.content[2:-2])
+                    await ctx.channel.send('https://civclassic.miraheze.org/wiki/' + ctx.content[2:-2].replace(" ","%s"))
 
     except AttributeError:
         print ("From " + str (ctx.author) + ": " + ctx.content)
@@ -383,6 +399,108 @@ async def respond(ctx):
 async def motd(ctx):
     """returns the message of the day"""
     await ctx.channel.send(getmotd())
+
+@kdb.command(pass_context=True)
+async def animemer(ctx):
+    """returns the animemer codex"""
+    await ctx.channel.send(file=discord.File('resources/Animemer_template.png'))
+
+@kdb.command(pass_context=True)
+async def dox(ctx, content):
+    """'Doxes' a player"""
+    fake = Faker()
+    await ctx.channel.send("...Scanning information for " + content + "'s home address...")
+    await ctx.channel.trigger_typing()
+    await asyncio.sleep(3)
+    if random.randrange(0, 6) == 5:
+        try:
+            await ctx.guild.kick(ctx.message.author, reason="Dox attempt")
+            await ctx.channel.send("User was kicked from the server for attempted dox")
+        except discord.Forbidden:
+            pass
+    else:
+        Faker.seed(content)
+        await ctx.channel.send(":white_check_mark: " + fake.name() + "\n" + fake.address() + "\n")
+
+
+@kdb.command(pass_context=True)
+async def derelict(ctx, *args):
+    """Derelicts an image"""
+    result = await find_a_posted_image(ctx)
+    if result is not None:
+        with open("resources/output.png", 'wb') as f:
+            f.write(result.content)
+
+        background = Image.open("resources/output.png")
+        sign = Image.open("resources/Sign template.png")
+
+        if str(args) != "()":
+            input_string = args[:4]
+        else:
+            input_string = ['DERELICTION', ctx.message.author.display_name, datetime.datetime.today().strftime('%m/%d/%Y')]
+
+        allowed_chars = "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_'abcdefghijklmnopqrstuvwxyz{|}~⌂ÇüéâäàåçêëèïîìÄÅÉæÆôöòûùÿÖÜø£Ø×ƒáíóúñÑªº¿®¬½¼¡«»"
+        for v in range(0, len(input_string)):
+            for char in list(input_string[v]):
+                if char not in allowed_chars:
+                    input_string[v] = input_string[v].replace(char, '')
+
+        for i in range(0, len(input_string)):
+            font = ImageFont.truetype("resources/Minecraftia.ttf", 42 - (i * 2))
+            draw = ImageDraw.Draw(sign)
+            start_x = (i * 9) + 18
+            end_x = sign.width - ((i * 18) + 28)
+
+            while font.getsize(input_string[i])[0] > end_x - start_x:
+                input_string[i] = input_string[i][:-1]
+
+            true_start = (sign.width/2) - math.floor(font.getsize(input_string[i])[0] / 2) + 7
+            draw.text((true_start, (i * 50) + 7), input_string[i], font=font, fill=(0, 0, 0))
+
+        random_scale_factor = random.randrange(1, 5)
+
+        #Resize and maintain aspect ratio
+        basewidth = math.floor(max([background.height, background.width]) / (2.2 - random_scale_factor * .1))
+        wpercent = (basewidth / float(sign.size[0]))
+        hsize = int((float(sign.size[1]) * float(wpercent)))
+        sign = sign.resize((basewidth, hsize))
+
+        background.paste(sign, (background.width - sign.width - random.randrange(0, 30),
+                                background.height - sign.height + math.floor(
+                                    sign.height / (10 + random_scale_factor) + random_scale_factor * 10)), sign)
+
+        background.save('resources/output.png', "PNG")
+        await ctx.channel.send(file=discord.File('resources/output.png'))
+
+
+
+
+async def verb_at_image(ctx, location):
+    result = await find_a_posted_image(ctx)
+    if result is not None:
+        with open("resources/output.png", 'wb') as f:
+            f.write(result.content)
+        inner = Image.open("resources/output.png")
+        outer = Image.open(location)
+        input_im = inner.resize((415, 415))
+        newImage = Image.new('RGB', (outer.width, outer.height))
+        newImage.paste(input_im, (54, 37))
+        newImage.paste(outer, (0, 0), outer)
+        newImage.save('resources/output.png', "PNG")
+        await ctx.channel.send(file=discord.File('resources/output.png'))
+
+
+@kdb.command(pass_context=True)
+async def cryat(ctx, *args):
+    """Crys at the image"""
+    await verb_at_image(ctx, "resources/Cry_template.png")
+
+
+@kdb.command(pass_context=True)
+async def laughat(ctx, *args):
+    """Laughs at the image"""
+    await verb_at_image(ctx, "resources/Laugh_template.png")
+
 
 @kdb.command(pass_context=True)
 async def pearl(ctx, *, content):
@@ -403,7 +521,7 @@ async def pearl(ctx, *, content):
         if len(content.split(" ")) > 2 and re.match("\d{1,2}\/\d{1,2}\/\d{1,4}",content.split(" ")[2]):
             date = re.match("\d{1,2}\/\d{1,2}\/\d{1,4}",content.split(" ")[2]).group(0)
 
-        create_image(players[0], players[1], date)
+        generate_pearl_image(players[0], players[1], date)
         bot_message = await ctx.channel.send(file=discord.File("resources/output.png"))
 
         with open('resources/pearl locations.txt', 'r') as file:
@@ -438,6 +556,36 @@ async def ppfree(ctx, *, content):
 async def wiard(ctx, *, content):
     """wiardifies a message"""
     await ctx.channel.send(wiardify(content))
+
+@kdb.command(pass_context=True)
+async def whereis(ctx, x, z):
+    """Gives nearby markers from CCmap data"""
+    if re.match("[+-]?\d", x) and re.match("[+-]?\d", z):
+        distances = {}
+        with open("resources/settlements.civmap.json") as f:
+            ccmap = json.load(f)
+
+        for k in ccmap['features']:
+            distance = int(math.sqrt((int(x) - int(k['x'])) ** 2 + (int(z) - int(k['z'])) ** 2))
+            distances[k['id']] = distance
+        distances = {k: v for k, v in sorted(distances.items(), key=lambda item: item[1])}
+
+        out = str("<https://ccmap.github.io/#c="+ str(int(x)) + "," + str(int(z)) + "," + "r400>") + " ```asciidoc\n"
+        for d in range(0, 14):
+            ind = list(map(itemgetter('id'), ccmap['features'])).index(list(distances)[d])
+            rad = math.atan2(ccmap['features'][ind]['z'] - int(z), ccmap['features'][ind]['x'] - int(x))
+
+            dirs = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW']
+            ix = round(math.degrees(rad) / (360. / len(dirs)))
+            xtra = ""
+            if "Zoom Visibility" in ccmap['features'][ind]:
+                if ccmap['features'][ind]["Zoom Visibility"] == 1:
+                    xtra = " ::"
+
+            out += str(distances[list(distances)[d]]).rjust(4, " ") + "  blocks " + (dirs[ix % len(dirs)]).rjust(5,
+                                                                                                                 " ") + "  " + \
+                   ccmap['features'][ind]['name'] + xtra + "\n"
+        await ctx.channel.send((str(out) + "```"))
 
 @kdb.command(pass_context=True)
 async def whois(ctx, *, content):
