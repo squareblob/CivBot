@@ -1,22 +1,33 @@
-from discord.ext import commands
-from twisted.internet.protocol import ReconnectingClientFactory
-from twisted.internet import reactor, defer
-from quarry.net.auth import Profile
-from quarry.net.client import ClientFactory, SpawningClientProtocol
-import time, logging, datetime, asyncio, discord, random, queue, threading, json
-import aiohttp, async_timeout
-from bs4 import BeautifulSoup
-import re
-from PIL import Image, ImageDraw, ImageFont
-import string
-import requests
-from faker import Faker
+import asyncio
+import datetime
+import functools
+import json
+import logging
 import math
+import queue
+import random
+import re
+import string
+import threading
+import time
 from _operator import itemgetter
 
+import aiofiles
+import aiohttp
+import async_timeout
 from config import *
+from bs4 import BeautifulSoup
+import discord
+from discord.ext import commands
+import nbtlib
+from PIL import Image, ImageDraw, ImageFont
+from faker import Faker
+from quarry.net.auth import Profile
+from quarry.net.client import ClientFactory, SpawningClientProtocol
+from twisted.internet import defer, reactor
+from twisted.internet.protocol import ReconnectingClientFactory
 
-prefix = "&"
+prefix = "%"
 
 buffer = 10
 mc_q = queue.Queue(buffer)
@@ -53,7 +64,6 @@ def get_response():
         response = ", ".join(words)
     return response
 
-
 def generate_pearl_image(pearled_player, pearled_by, now):
     random.seed(a=pearled_player.lower() + pearled_by.lower() + now, version=2)
     code = ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))
@@ -89,15 +99,24 @@ def generate_pearl_image(pearled_player, pearled_by, now):
         draw.text((156 - offset, 158 - offset), pearled_by, font=font, fill=colors[i][2])
     im.save('resources/output.png', "PNG")
 
+async def download_file(url, outurl):
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url) as resp:
+            if resp.status == 200:
+                f = await aiofiles.open(outurl, mode='wb')
+                await f.write(await resp.read())
+                await f.close()
 
 async def find_a_posted_image(ctx):
     if len(ctx.message.attachments) == 0:
-        check_above = await ctx.message.channel.history(limit=12).flatten()
+        check_above = await ctx.message.channel.history(limit=14).flatten()
         for o in check_above:
             if len(o.attachments) != 0:
-                return requests.get(o.attachments[0].url)
+                await download_file(o.attachments[0].url, 'resources/output.png')
+                return True
     else:
-        return requests.get(ctx.message.attachments[0].url)
+        await download_file(ctx.message.attachments[0].url, 'resources/output.png')
+        return True
     return
 
 ####################
@@ -147,7 +166,7 @@ class OliveClientProtocol(SpawningClientProtocol):
     #serverbound packets
     def send_chat(self, text):
         self.send_packet("chat_message", self.buff_type.pack_string(text))
-    
+
     #clientbound packets
     def packet_chat_message(self, buff):
         p_text = buff.unpack_chat()
@@ -258,7 +277,7 @@ class OliveClientProtocol(SpawningClientProtocol):
                 reactor.stop()
             else:
                 print (package)
-            
+
 class OliveClientFactory(ReconnectingClientFactory, ClientFactory):
     protocol = OliveClientProtocol
     def startedConnecting(self, connector):
@@ -275,6 +294,7 @@ class OliveClientFactory(ReconnectingClientFactory, ClientFactory):
 #####################
 # discord bot setup #
 #####################
+
 
 def getmotd():
     return random.choice(["olive",
@@ -294,6 +314,7 @@ kdb = commands.Bot(command_prefix=prefix, description=getmotd())
 
 brandNewMsgChannel = 664474265277693982
 
+
 def search_relay_channel(name):
     #print ("searching for", name)
     for channel in kdb.get_all_channels():
@@ -302,6 +323,7 @@ def search_relay_channel(name):
                 #print (channel)
                 return channel
     return None
+
 
 def log_new_player(name):
     with open ("newplayerlog.txt", mode="a+") as log:
@@ -386,10 +408,47 @@ async def on_message(ctx):
                     await ctx.channel.send("Edit CivWiki <https://civclassic.miraheze.org/wiki/CivWiki:Editing_Guide>")
                 if ctx.content.startswith('[[') and ctx.content.endswith(']]'):
                     await ctx.channel.send('https://civclassic.miraheze.org/wiki/' + ctx.content[2:-2].replace(" ","%s"))
-
+            if len(ctx.attachments) != 0:
+                for x in ctx.attachments:
+                    if os.path.splitext(x.filename)[1] == ".schematic":
+                        await getschematic(ctx, x)
     except AttributeError:
         print ("From " + str (ctx.author) + ": " + ctx.content)
 
+async def getschematic(ctx, schematicfile):
+
+    await download_file(schematicfile.url, 'resources/test.schematic')
+    nbt_file = nbtlib.load('resources/test.schematic')
+    blocks = nbt_file['Schematic']['Blocks']
+
+    async with aiohttp.ClientSession() as session:
+        async with session.get('https://minecraft-ids.grahamedgecombe.com/items.json') as r:
+            if r.status == 200:
+                sch = await r.json(content_type='text/plain')
+
+    #really makes you think
+    block_ids = []
+    block_counts = []
+    for x in set(blocks):
+        block_ids.append(str(x).upper())
+        block_counts.append(str(blocks).replace("B; ", "").split(", ").count(str(x).upper()))
+
+    block_counts, block_ids = zip(*sorted(zip(block_counts, block_ids), reverse=True))
+
+    output = "```\n"
+    for i in range(0, len(block_ids)):
+        b_name = "None"
+        b_id_clean = int(re.sub("[^0-9]", "", block_ids[i]))
+        item = next((item for item in sch if item['type'] == b_id_clean), None)
+        if item is not None:
+            b_name = item['name']
+        if b_name.lower() == "air":
+            continue
+        if '-' in block_ids[i]:
+            b_name = "???"
+        output += b_name.rjust(30, " ") + "  " + str(block_counts[i]).ljust(2, " ") + "\n"
+
+    await ctx.channel.send(output + "```")
 
 #uncategorised
 @kdb.command(pass_context=True)
@@ -425,18 +484,37 @@ async def dox(ctx, content):
         Faker.seed(content)
         await ctx.channel.send(":white_check_mark: " + fake.name() + "\n" + fake.address() + "\n")
 
+def draw_derelict(input_string):
+    background = Image.open("resources/output.png")
+    sign = Image.open("resources/Sign template.png")
+    for i in range(0, len(input_string)):
+        font = ImageFont.truetype("resources/Minecraftia.ttf", 42 - (i * 2))
+        draw = ImageDraw.Draw(sign)
+        start_x = (i * 9) + 18
+        end_x = sign.width - ((i * 18) + 28)
+
+        while font.getsize(input_string[i])[0] > end_x - start_x:
+            input_string[i] = input_string[i][:-1]
+
+        true_start = (sign.width / 2) - math.floor(font.getsize(input_string[i])[0] / 2) + 7
+        draw.text((true_start, (i * 50) + 7), input_string[i], font=font, fill=(0, 0, 0))
+
+    random_scale_factor = random.randrange(1, 5)
+    # Resize and maintain aspect ratio
+    basewidth = math.floor(max([background.height, background.width]) / (2.2 - random_scale_factor * .1))
+    wpercent = (basewidth / float(sign.size[0]))
+    hsize = int((float(sign.size[1]) * float(wpercent)))
+    sign = sign.resize((basewidth, hsize))
+
+    background.paste(sign, (background.width - sign.width - random.randrange(0, 30),
+                            background.height - sign.height + math.floor(
+                                sign.height / (10 + random_scale_factor) + random_scale_factor * 10)), sign)
+    background.save('resources/output.png', "PNG")
 
 @kdb.command(pass_context=True)
 async def derelict(ctx, *args):
-    """Derelicts an image"""
-    result = await find_a_posted_image(ctx)
+    result = await find_a_posted_image(ctx, *args)
     if result is not None:
-        with open("resources/output.png", 'wb') as f:
-            f.write(result.content)
-
-        background = Image.open("resources/output.png")
-        sign = Image.open("resources/Sign template.png")
-
         if str(args) != "()":
             input_string = args[:4]
         else:
@@ -448,62 +526,35 @@ async def derelict(ctx, *args):
                 if char not in allowed_chars:
                     input_string[v] = input_string[v].replace(char, '')
 
-        for i in range(0, len(input_string)):
-            font = ImageFont.truetype("resources/Minecraftia.ttf", 42 - (i * 2))
-            draw = ImageDraw.Draw(sign)
-            start_x = (i * 9) + 18
-            end_x = sign.width - ((i * 18) + 28)
-
-            while font.getsize(input_string[i])[0] > end_x - start_x:
-                input_string[i] = input_string[i][:-1]
-
-            true_start = (sign.width/2) - math.floor(font.getsize(input_string[i])[0] / 2) + 7
-            draw.text((true_start, (i * 50) + 7), input_string[i], font=font, fill=(0, 0, 0))
-
-        random_scale_factor = random.randrange(1, 5)
-
-        #Resize and maintain aspect ratio
-        basewidth = math.floor(max([background.height, background.width]) / (2.2 - random_scale_factor * .1))
-        wpercent = (basewidth / float(sign.size[0]))
-        hsize = int((float(sign.size[1]) * float(wpercent)))
-        sign = sign.resize((basewidth, hsize))
-
-        background.paste(sign, (background.width - sign.width - random.randrange(0, 30),
-                                background.height - sign.height + math.floor(
-                                    sign.height / (10 + random_scale_factor) + random_scale_factor * 10)), sign)
-
-        background.save('resources/output.png', "PNG")
+        params = functools.partial(draw_derelict, input_string)
+        run_draw = await kdb.loop.run_in_executor(None, params)
         await ctx.channel.send(file=discord.File('resources/output.png'))
 
-
-
+def draw_verb_at_image(filepath):
+    inner = Image.open("resources/output.png")
+    outer = Image.open(filepath)
+    input_im = inner.resize((415, 415))
+    newImage = Image.new('RGB', (outer.width, outer.height))
+    newImage.paste(input_im, (54, 37))
+    newImage.paste(outer, (0, 0), outer)
+    newImage.save('resources/output.png', "PNG")
 
 async def verb_at_image(ctx, location):
     result = await find_a_posted_image(ctx)
     if result is not None:
-        with open("resources/output.png", 'wb') as f:
-            f.write(result.content)
-        inner = Image.open("resources/output.png")
-        outer = Image.open(location)
-        input_im = inner.resize((415, 415))
-        newImage = Image.new('RGB', (outer.width, outer.height))
-        newImage.paste(input_im, (54, 37))
-        newImage.paste(outer, (0, 0), outer)
-        newImage.save('resources/output.png', "PNG")
+        params = functools.partial(draw_verb_at_image, location)
+        run_draw = await kdb.loop.run_in_executor(None, params)
         await ctx.channel.send(file=discord.File('resources/output.png'))
-
 
 @kdb.command(pass_context=True)
 async def cryat(ctx, *args):
     """Crys at the image"""
     await verb_at_image(ctx, "resources/Cry_template.png")
 
-
 @kdb.command(pass_context=True)
 async def laughat(ctx, *args):
     """Laughs at the image"""
     await verb_at_image(ctx, "resources/Laugh_template.png")
-
 
 @kdb.command(pass_context=True)
 async def pearl(ctx, *, content):
@@ -524,7 +575,8 @@ async def pearl(ctx, *, content):
         if len(content.split(" ")) > 2 and re.match("\d{1,2}\/\d{1,2}\/\d{1,4}",content.split(" ")[2]):
             date = re.match("\d{1,2}\/\d{1,2}\/\d{1,4}",content.split(" ")[2]).group(0)
 
-        generate_pearl_image(players[0], players[1], date)
+        params = functools.partial(generate_pearl_image, players[0], players[1], date)
+        run_draw = await kdb.loop.run_in_executor(None, params)
         bot_message = await ctx.channel.send(file=discord.File("resources/output.png"))
 
         with open('resources/pearl locations.txt', 'r') as file:
@@ -561,6 +613,20 @@ async def wiard(ctx, *, content):
     await ctx.channel.send(wiardify(content))
 
 @kdb.command(pass_context=True)
+async def pickle(ctx, content):
+    """Pickles a player"""
+    with open('resources/Food adjectives.txt') as f:
+        lines = f.read().splitlines()
+    adjs = []
+    for a in lines:
+        if a[0].casefold() == content[0].casefold():
+            adjs.append(a)
+    if content.casefold() == "pirater":
+            adjs = ["pickled"]
+    if len(adjs) > 0:
+        await ctx.channel.send(random.choice(adjs).capitalize() + " " + clean_text_for_discord(content))
+
+@kdb.command(pass_context=True)
 async def whereis(ctx, x, z):
     """Gives nearby markers from CCmap data"""
     if re.match("[+-]?\d", x) and re.match("[+-]?\d", z):
@@ -582,7 +648,7 @@ async def whereis(ctx, x, z):
             ix = round(math.degrees(rad) / (360. / len(dirs)))
             xtra = ""
             if "Zoom Visibility" in ccmap['features'][ind]:
-                if ccmap['features'][ind]["Zoom Visibility"] == 1:
+                if ccmap['features'][ind]["Zoom Visibility"] <= 2:
                     xtra = " ::"
 
             out += str(distances[list(distances)[d]]).rjust(4, " ") + "  blocks " + (dirs[ix % len(dirs)]).rjust(5,
@@ -755,13 +821,13 @@ async def debug(ctx):
 @debug.command(pass_context=True)
 async def shutdown(ctx):
     """shuts the bot down"""
-    mc_q.put({"key":"shutdown"})
+    mc_q.put({"key": "shutdown"})
     await kdb.close()
 
 @debug.command(pass_context=True)
 async def mc(ctx):
     """checks if minecraft is connected (sometimes)"""
-    mc_q.put({"key":"debug", "channel":ctx.channel})
+    mc_q.put({"key": "debug", "channel": ctx.channel})
 
 #######
 # run #
@@ -774,7 +840,7 @@ def mc_main():
     try:
         factory = yield factory.connect(host, port)
     except Exception as e:
-        print (e)
+        print(e)
 
 def mc_error(err):
     raise err
