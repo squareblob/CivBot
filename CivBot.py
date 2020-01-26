@@ -11,6 +11,7 @@ import string
 import time
 from _operator import itemgetter
 from json import JSONDecodeError
+import io
 
 import requests
 
@@ -218,8 +219,12 @@ async def on_message(ctx):
                 lower_content = ctx.content.lower()
                 if 'delusional' in lower_content:
                     await ctx.channel.send("Edit CivWiki <https://civclassic.miraheze.org/wiki/CivWiki:Editing_Guide>")
-                if ctx.content.startswith('[[') and ctx.content.endswith(']]'):
-                    await ctx.channel.send('https://civclassic.miraheze.org/wiki/' + ctx.content[2:-2].replace(" ","%s"))
+                message = ""
+                pages = re.findall("\[\[([^\]]+)\]\]", ctx.content)
+                for page in pages:
+                    message += 'https://civclassic.miraheze.org/wiki/' + page.replace(" ", "%s") + "\n"
+                if len(pages) > 0:
+                    await ctx.channel.send(message)
             if len(ctx.attachments) != 0:
                 for x in ctx.attachments:
                     if os.path.splitext(x.filename)[1] == ".schematic":
@@ -228,7 +233,6 @@ async def on_message(ctx):
         print("From " + str (ctx.author) + ": " + ctx.content)
 
 async def getschematic(ctx, schematicfile):
-
     await download_file(schematicfile.url, 'resources/test.schematic')
     nbt_file = nbtlib.load('resources/test.schematic')
     blocks = nbt_file['Schematic']['Blocks']
@@ -438,20 +442,8 @@ async def pickle(ctx, content):
         await ctx.channel.send(random.choice(adjs).capitalize() + " " + clean_text_for_discord(content))
 
 
-async def draw_weezer(*args):
-    drawn_players = ["", "", "", ""]
-    joiners = ""
-    rect_corners = [
-        [(3, 300), (78, 94)],
-        [(78, 300), (148, 107)],
-        [(153, 300), (222, 94)],
-        [(226, 300), (294, 100)]
-    ]
-    background = Image.open("resources/images/weezer.png")
-    background.paste(Image.open("resources/images/weezertrue.png"), (0, 0))
-    background.save('resources/images/weezer.png', "PNG")
-    background = Image.open("resources/images/weezer.png")
-    draw = ImageDraw.Draw(background)
+
+
 
 
 def draw_dont_care(username):
@@ -488,45 +480,88 @@ async def dont_care(ctx, content):
         run_draw = await bot.loop.run_in_executor(None, params)
         bot_message = await ctx.channel.send(file=discord.File("resources/output.png"))
 
-@bot.command(pass_context=True)
-async def joinedweezer(ctx, content):
-    """`!joinedweezer <player1> <player2> <player3> <player4>`\nListing one player (minecraft username) is required, other three are optional.\nNow you too can join Weezer!"""
+def draw_weezer(players):
+    to_send = []
 
-    players = content.split("!joinedweezer ")[1].split(" ")
+    drawn_players = ["", "", "", ""]
+    joiners = ""
+    rect_corners = [
+        [(3, 300), (78, 94)],
+        [(78, 300), (148, 107)],
+        [(153, 300), (222, 94)],
+        [(226, 300), (294, 100)]
+    ]
+    background = Image.open("resources/weezer template.png")
+    draw = ImageDraw.Draw(background)
+
+    players = players[:4]
     for p in players:
         if not GetPlayerData(p).valid:
-            await ctx.channel.send(
-                discord.utils.escape_markdown(discord.utils.escape_mentions(
-                    p)) + " does not appear to be a valid player. Are you sure you typed correctly?")
+            to_send.append(discord.utils.escape_markdown(discord.utils.escape_mentions(p)) + " does not appear to be a valid player. Are you sure you typed correctly?")
         else:
             selected = False
             while not selected:
                 r = random.randint(-1, 3)
                 if drawn_players[r] == "":
                     drawn_players[r] = GetPlayerData(p).username
-                # draw.rectangle((rect_corners[r][0], rect_corners[r][1]), fill="#00acea")
-                #selected = True
+                    draw.rectangle((rect_corners[r][0], rect_corners[r][1]), fill="#00acea")
+                    selected = True
 
-    params = functools.partial(draw_weezer, "")
-    run_draw = await bot.loop.run_in_executor(None, params)
+    out_2 = None
+    if len(players) > len(to_send):
+        for x in range(0, len(drawn_players)):
+            if drawn_players[x] != "":
+                r = requests.get("https://mc-heads.net/player/" + GetPlayerData(drawn_players[x]).uuid + "/" + str(
+                    (rect_corners[x][0][1] - rect_corners[x][1][1]) / 2) + ".png")
+                with open("resources/test.png", 'wb') as f:
+                    f.write(r.content)
+                playertopaste = Image.open("resources/test.png")
+                background.paste(playertopaste, (rect_corners[x][0][0], rect_corners[x][1][1]),
+                                 mask=playertopaste)
+                joiners += ", " + drawn_players[x]
+        background.save('resources/output.png', "PNG")
+        if sum([x != "" for x in drawn_players]) > 1:
+            k = joiners.rfind(", ")
+            joiners = joiners[:k] + " and" + joiners[k + 1:]
 
-    for x in range(0, len(drawn_players)):
-        if drawn_players[x] != "":
-            r = requests.get("https://mc-heads.net/player/" + GetPlayerData(drawn_players[x]).uuid + "/" + str(
-                (rect_corners[x][0][1] - rect_corners[x][1][1]) / 2) + ".png")
-            with open("resources/images/p.png", 'wb') as f:
-                f.write(r.content)
-            playertopaste = Image.open("resources/images/p.png")
-            background.paste(playertopaste, (rect_corners[x][0][0], rect_corners[x][1][1]),
-                             mask=playertopaste)
-            joiners += ", " + drawn_players[x]
-    background.save('resources/images/weezer.png', "PNG")
-    if sum([x != "" for x in drawn_players]) > 1:
-        k = joiners.rfind(", ")
-        joiners = joiners[:k] + " and" + joiners[k + 1:]
+        out_2 = "**Oh my God" + joiners + " joined weezer!**"
+    return to_send, out_2
 
-    await ctx.channel.send("**Oh my God" + joiners + " joined weezer!**",
-                               file=discord.File('resources/images/weezer.png'))
+
+
+@bot.command(pass_context=True)
+async def joinedweezer(ctx, *args):
+    """`!joinedweezer <player1> <player2> <player3> <player4>`\nListing one player (minecraft username) is required, other three are optional.\nNow you too can join Weezer!"""
+    params = functools.partial(draw_weezer, list(args))
+    msgs, image = await bot.loop.run_in_executor(None, params)
+    for x in msgs:
+        await ctx.channel.send(x)
+    if image is not None:
+        await ctx.channel.send(image, file=discord.File('resources/output.png'))
+
+def draw_getalong(players):
+    img_shirt = Image.open("resources/shirt.png")
+    background = Image.new('RGB', (600, 500), color=(255, 255, 255))
+
+    for i, player in enumerate(players):
+        r = requests.get("https://mc-heads.net/player/" + player + "/160.png")
+        background.paste(Image.open(io.BytesIO(r.content)), ((150 + i * 150), (110 - i * 12)))
+    background.paste(img_shirt, (0, 0), mask=img_shirt)
+    background.save('resources/output.png', "PNG")
+
+@bot.command(pass_context=True)
+async def getalong(ctx, player1, player2):
+    """First we botted farms, then we botted vaults, now we finally have an opportunity to bot world peace."""
+    players = [player1, player2]
+    for x in players:
+        if not GetPlayerData(x).valid:
+            await ctx.channel.send(
+                discord.utils.escape_markdown(discord.utils.escape_mentions(
+                    x)) + " does not appear to be a valid player. Are you sure you typed correctly?")
+            return
+    params = functools.partial(draw_getalong, players)
+    msg = await bot.loop.run_in_executor(None, params)
+    await ctx.channel.send(file=discord.File('resources/output.png'))
 
 
 @bot.command(pass_context=True)
