@@ -1,5 +1,7 @@
-# CivBot Commands
-## Meme
+# CivBot
+Use https://discordapp.com/api/oauth2/authorize?client_id=614086832245964808&permissions=0&scope=bot to invite.
+## CivBot Commands
+### Meme
 
 `Derelict <text1> <text2> <text3> <text4>`
 * Places a dereliction sign on the previously posted image
@@ -55,7 +57,7 @@
 `dox [player]`
 * Tries to return a players full name and adress. (1 in 5 chance of kicking user)
 
-## Useful
+### Useful
 
 `whereis [x] [z]`
 * Gives nearby markers from CCmap data
