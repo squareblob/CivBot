@@ -57,7 +57,7 @@ Use https://discordapp.com/api/oauth2/authorize?client_id=614086832245964808&per
 ---
 
 `dox [player]`
-* Tries to return a players full name and adress. (1 in 5 chance of kicking user)
+* Tries to return a players full name and adress.
 
 ### Useful
 
