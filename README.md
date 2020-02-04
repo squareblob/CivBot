@@ -3,7 +3,7 @@ Use https://discordapp.com/api/oauth2/authorize?client_id=614086832245964808&per
 ## CivBot Commands
 ### Meme
 
-`Derelict <text1> <text2> <text3> <text4>`
+`derelict <text1> <text2> <text3> <text4>`
 * Places a dereliction sign on the previously posted image
 
 `joinedweezer [player1] <player2> <player3> <player4>`
@@ -41,7 +41,7 @@ Use https://discordapp.com/api/oauth2/authorize?client_id=614086832245964808&per
 * wiardifies text by changing vowels and consonants
 
 `pickle [name]`
-* Returns a food based Alliterative adjective
+* Returns a food based alliterative adjective
 
 `animemer`
 * Returns a screenshot of one of animemer's first ever reddit comments.
@@ -66,7 +66,7 @@ Use https://discordapp.com/api/oauth2/authorize?client_id=614086832245964808&per
 `whois [player]`
 * Get info about that IGN from namemc.com and minecraft-statistic.net
 
-`!invite`
+`invite`
 * gives CivBot invite
 
 ---
