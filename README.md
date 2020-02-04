@@ -1,5 +1,6 @@
 # CreditBot
-Use https://discordapp.com/api/oauth2/authorize?client_id=614086832245964808&permissions=0&scope=bot to invite. *Invite does not give CreditBot any permissions* 
+**https://discordapp.com/api/oauth2/authorize?client_id=614086832245964808&permissions=0&scope=bot to invite.**
+*Invite does not give CreditBot any permissions* 
 
 ![pearl](https://cdn.discordapp.com/attachments/614147625809346581/674289814182297640/output.png)
 ## CreditBot Commands
