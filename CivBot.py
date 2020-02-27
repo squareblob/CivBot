@@ -220,9 +220,9 @@ async def on_message(ctx):
                 if 'delusional' in lower_content:
                     await ctx.channel.send("Edit CivWiki <https://civclassic.miraheze.org/wiki/CivWiki:Editing_Guide>")
                 message = ""
-                pages = re.findall("\[\[([^\]]+)\]\]", ctx.content)
+                pages = re.findall("\[\[ *([^\]]+) *\]\]", ctx.content)
                 for page in pages:
-                    message += 'https://civclassic.miraheze.org/wiki/' + page.replace(" ", "%s") + "\n"
+                    message += 'https://civclassic.miraheze.org/wiki/' + page.replace(" ", "_") + "\n"
                 if len(pages) > 0:
                     await ctx.channel.send(message)
             if len(ctx.attachments) != 0:
