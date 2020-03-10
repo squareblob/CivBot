@@ -51,6 +51,12 @@ prefix = '%'
 `animemer`
 * Returns a screenshot of one of animemer's first ever reddit comments.
 
+`nato`
+* Messages NATO image response
+
+`entente`
+* Messages entente image response
+
 `motd`
 * returns the message of the day
 
@@ -88,4 +94,7 @@ prefix = '%'
 * TODO : Does not account for block data values (e.g. wood types) - will simply append '???'
 
 `[[CIVWIKI PAGE]]`
-* returns embed summary of linked civwiki page
+* returns embed summary of linked civwiki page. Note that pages can be prefixed with `w:` to link to wikipedia.
+
+`{{CIVWIKI TEMPLATE}}`
+* returns embed summary of linked civwiki template
