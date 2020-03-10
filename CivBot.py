@@ -290,6 +290,10 @@ async def animemer(ctx):
 async def entente(ctx):
     """Responds to an entente player"""
     await ctx.channel.send(file=discord.File('resources/entente.png'))
+    try:
+        await ctx.message.delete()
+    except:
+        pass
 
 @bot.command(pass_context=True)
 async def nato(ctx):
@@ -651,7 +655,7 @@ Sources: <{info[mcstats_url]}> <https://namemc.com/profile/{ign}> {info[head_url
 if __name__ == "__main__":
     config = configparser.ConfigParser()
     config.read('config.ini')
-    token = config.get('test', 'token')
+    token = config.get('auth', 'token')
 
     initial_extensions = ['cogs.VoiceRelay']
     for extension in initial_extensions:
