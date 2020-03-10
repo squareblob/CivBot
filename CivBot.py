@@ -214,15 +214,20 @@ async def on_message(ctx):
         if ctx.author.id == bot.user.id: return  # ignore self
         else:
             if len(ctx.content) != 0 and prefix == ctx.content[0]:
+
                 await bot.process_commands(ctx)
             else:  # regular chat message
                 lower_content = ctx.content.lower()
                 if 'delusional' in lower_content:
                     await ctx.channel.send("Edit CivWiki <https://civclassic.miraheze.org/wiki/CivWiki:Editing_Guide>")
                 message = ""
-                pages = re.findall("\[\[ *([^\]]+) *\]\]", ctx.content)
+                pages = list(set(re.findall("(\[\[ *[^\]]+ *\]\])", ctx.content) + re.findall("(\{\{ *[^\]]+ *\}\})", ctx.content)))
                 for page in pages:
-                    message += 'https://civclassic.miraheze.org/wiki/' + page.replace(" ", "_") + "\n"
+                    message = 'https://civclassic.miraheze.org/wiki/'
+                    if re.match("\{\{ *([^\]]+) *\}\}", page):
+                        message += "Template:"
+                    page = list(set(re.findall("\[\[ *([^\]]+) *\]\]", ctx.content) + re.findall("\{\{ *([^\]]+) *\}\}", ctx.content)))[0]
+                    message += page.replace(" ", "_") + "\n"
                 if len(pages) > 0:
                     await ctx.channel.send(message)
             if len(ctx.attachments) != 0:
@@ -280,6 +285,20 @@ async def motd(ctx):
 async def animemer(ctx):
     """returns the animemer codex"""
     await ctx.channel.send(file=discord.File('resources/Animemer_template.png'))
+
+@bot.command(pass_context=True)
+async def entente(ctx):
+    """Responds to an entente player"""
+    await ctx.channel.send(file=discord.File('resources/entente.png'))
+
+@bot.command(pass_context=True)
+async def nato(ctx):
+    """Responds to a NATO player"""
+    await ctx.channel.send(file=discord.File('resources/NATO.png'))
+    try:
+        await ctx.message.delete()
+    except:
+        pass
 
 @bot.command(pass_context=True)
 async def dox(ctx, content):
@@ -632,7 +651,7 @@ Sources: <{info[mcstats_url]}> <https://namemc.com/profile/{ign}> {info[head_url
 if __name__ == "__main__":
     config = configparser.ConfigParser()
     config.read('config.ini')
-    token = config.get('auth', 'token')
+    token = config.get('test', 'token')
 
     initial_extensions = ['cogs.VoiceRelay']
     for extension in initial_extensions:
