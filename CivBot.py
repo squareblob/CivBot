@@ -27,8 +27,10 @@ from PIL import Image, ImageDraw, ImageFont, ImageOps
 from discord.ext.commands import has_permissions
 from faker import Faker
 from mcuuid.api import GetPlayerData
+from fuzzywuzzy import fuzz
 import pickle as pickle1
 
+discord_loc = "resources/discord_data.json"
 prefix = "%"
 
 def clean_text_for_discord(text):
@@ -276,6 +278,123 @@ async def respond(ctx):
     """Gives a Civ response"""
     await ctx.channel.send(get_response())
 
+
+@bot.group()
+async def civdiscord(ctx):
+    if ctx.invoked_subcommand is None:
+        await ctx.send('Invalid command passed...')
+
+def getpath(nested_dict, value, prepath=()):
+    for k, v in nested_dict.items():
+        path = prepath + (k,)
+        if v == value:
+            return path
+        elif hasattr(v, 'items'): # v is a dict
+            p = getpath(v, value, path) # recursive call
+            if p is not None:
+                return p
+
+@civdiscord.command()
+async def search(ctx, content):
+    with open(discord_loc) as json_file:
+        discord_data = json.load(json_file)
+    return_paths = []
+
+    matches = []
+    keys = []
+
+    for key in discord_data:
+        if 'current_name' in discord_data[key].keys():
+            if len(content) > 4:
+                match = fuzz.token_set_ratio(content, discord_data[key]['current_name'])
+            else:
+                match = fuzz.ratio(content, discord_data[key]['current_name'])
+            #print(str(match) + str(discord_data[key]['current_name']))
+        if 'nickname' in discord_data[key].keys():
+            pass
+            #print(discord_data[key]['nickname'])
+        if match > 50:
+            if 'valid_invites' in discord_data[key].keys() and len(discord_data[key]['valid_invites']) > 0:
+                keys.append(key)
+                matches.append(match)
+    if len(matches) > 0:
+        matches, keys = zip(*sorted(zip(matches, keys), reverse=True))
+        resp = "Only showing top 4 matches\n" if len(matches) > 4 else ""
+        stop = 4 if len(matches) >= 4 else len(matches)
+        for i in range(0, stop):
+            resp += discord_data[keys[i]]['valid_invites'][0] + "\n"
+
+        await ctx.send(resp)
+    else:
+        await ctx.send("No matches could be found")
+
+@civdiscord.command()
+async def add(ctx, content):
+    #print(repr(str(content)))
+    try:
+        invite = await bot.fetch_invite(content)
+        if invite is not None:
+            inv_id = str(invite.guild.id)
+
+            with open(discord_loc) as json_file:
+                discord_data = json.load(json_file)
+
+            if inv_id not in discord_data.keys():
+                discord_data[inv_id] = {}
+                discord_data[inv_id]['valid_invites'] = [str(content)]
+                discord_data[inv_id]['invalid_invites'] = []
+                discord_data[inv_id]['current_name'] = str(invite.guild.name)
+                discord_data[inv_id]['approximate_member_count'] = str(invite.approximate_member_count)
+
+                with open(discord_loc, 'w') as outfile:
+                    json.dump(discord_data, outfile)
+                await ctx.send("Added a new guild")
+            else:
+                if str(content) in discord_data[inv_id]['valid_invites']:
+                    await ctx.send("This invite code has already been submitted")
+                else:
+                    discord_data[inv_id]['valid_invites'].append(str(content))
+                    with open(discord_loc, 'w') as outfile:
+                        json.dump(discord_data, outfile)
+
+                    await ctx.send("Invite code was successfully added")
+
+    except discord.NotFound:
+        await ctx.send("This is not a valid invite")
+
+
+@civdiscord.command()
+async def nick(ctx, content):
+    pass
+    #await ctx.send(content)
+
+@bot.command(pass_context=True)
+async def generateplugin(ctx, content='1'):
+    """Generates a civ server plugin"""
+    with open('resources/Techs.txt') as f:
+        plugin_base = [line.rstrip().replace(" ","_") for line in f]
+    prefix = ["Better", "Civ", "Realistic", "Old", "Simple", "Meme", "Add", "Quirky"]
+    base = ["Biomes", "Bastion", "Item", "Citadel", "Enchanting", "Combat", "Brewery", "Border", "Teleports", "Instant_Death", "Block_Puzzles", "Information_Overload", "Disinformation", "Gravity", "Bullet_Hell", "Brawl", "Disease", "Crop"]
+    plugin_base = plugin_base + base
+    suffix = ["Core", "Alert", "-spawn", "Colors", "Layer", "Exchange", "Mod", "Stick", "Mana", "Spy", "Plus", "Manager","Fix","Alts","Tweaks","Tools","fuscator","Pearl","limits","Ore","egg", "Shards", "Cull", "Contraptions", "PvP", "Bank"]
+
+    num = 1
+    response = ""
+    if content.isdigit():
+        if int(content) <= 4:
+            num = int(content)
+        else:
+            num = 4
+    for x in range(0, num):
+        gen_prefix = ""
+        gen_suffix = ""
+        if random.randrange(10) >= 0:
+            gen_suffix = random.choice(suffix)
+        if (random.randrange(10) >= 8 and gen_prefix == "") or random.randrange(10) >= 6:
+            gen_prefix = random.choice(prefix)
+        response += gen_prefix + random.choice(plugin_base) + gen_suffix + "\n"
+    await ctx.channel.send(response)
+
 @bot.command(pass_context=True)
 async def motd(ctx):
     """returns the message of the day"""
@@ -464,11 +583,6 @@ async def pickle(ctx, content):
     if len(adjs) > 0:
         await ctx.channel.send(random.choice(adjs).capitalize() + " " + clean_text_for_discord(content))
 
-
-
-
-
-
 def draw_dont_care(username):
     r = requests.get("https://mc-heads.net/avatar/" + str(username) + "/325.png")
 
@@ -655,7 +769,7 @@ Sources: <{info[mcstats_url]}> <https://namemc.com/profile/{ign}> {info[head_url
 if __name__ == "__main__":
     config = configparser.ConfigParser()
     config.read('config.ini')
-    token = config.get('auth', 'token')
+    token = config.get('test', 'token')
 
     initial_extensions = ['cogs.VoiceRelay']
     for extension in initial_extensions:
