@@ -28,9 +28,11 @@ from discord.ext.commands import has_permissions
 from faker import Faker
 from mcuuid.api import GetPlayerData
 from fuzzywuzzy import fuzz
+from fuzzywuzzy import process
 import pickle as pickle1
 
-discord_loc = "resources/discord_data.json"
+#discord_loc = "resources/discord_data.json"
+discord_loc = "/home/triangleblob/Squarebot_new/core_stable/discord data/discord_data.json"
 prefix = "%"
 
 def clean_text_for_discord(text):
@@ -299,20 +301,23 @@ async def search(ctx, content):
     with open(discord_loc) as json_file:
         discord_data = json.load(json_file)
     return_paths = []
-
     matches = []
     keys = []
 
     for key in discord_data:
+        #fix
         if 'current_name' in discord_data[key].keys():
             if len(content) > 4:
                 match = fuzz.token_set_ratio(content, discord_data[key]['current_name'])
             else:
                 match = fuzz.ratio(content, discord_data[key]['current_name'])
-            #print(str(match) + str(discord_data[key]['current_name']))
         if 'nickname' in discord_data[key].keys():
-            pass
-            #print(discord_data[key]['nickname'])
+            test, match = process.extractOne(content, discord_data[key]['nickname'])
+            # for x in discord_data[key]['nickname']:
+            #     if len(content) > 4:
+            #         match = fuzz.token_set_ratio(content, x)
+            #     else:
+            #         match = fuzz.ratio(content, x)
         if match > 50:
             if 'valid_invites' in discord_data[key].keys() and len(discord_data[key]['valid_invites']) > 0:
                 keys.append(key)
@@ -322,51 +327,118 @@ async def search(ctx, content):
         resp = "Only showing top 4 matches\n" if len(matches) > 4 else ""
         stop = 4 if len(matches) >= 4 else len(matches)
         for i in range(0, stop):
-            resp += discord_data[keys[i]]['valid_invites'][0] + "\n"
+            rating = 0
+            stars = None
+            if 'rating' in discord_data[keys[i]].keys():
+                for l in discord_data[keys[i]]["rating"].keys():
+                    rating += discord_data[keys[i]]["rating"][l]
+                stars = ("".join([":star:" for x in range(0, int(rating))]) + ('+' if rating > int(rating)+.4 else ""))
+
+            resp += discord_data[keys[i]]['valid_invites'][0] + (" " + stars if stars is not None else "") + "\n"
 
         await ctx.send(resp)
     else:
         await ctx.send("No matches could be found")
 
-@civdiscord.command()
-async def add(ctx, content):
-    #print(repr(str(content)))
+async def checkinvite(ctx, content):
     try:
         invite = await bot.fetch_invite(content)
         if invite is not None:
-            inv_id = str(invite.guild.id)
-
             with open(discord_loc) as json_file:
                 discord_data = json.load(json_file)
-
-            if inv_id not in discord_data.keys():
-                discord_data[inv_id] = {}
-                discord_data[inv_id]['valid_invites'] = [str(content)]
-                discord_data[inv_id]['invalid_invites'] = []
-                discord_data[inv_id]['current_name'] = str(invite.guild.name)
-                discord_data[inv_id]['approximate_member_count'] = str(invite.approximate_member_count)
-
-                with open(discord_loc, 'w') as outfile:
-                    json.dump(discord_data, outfile)
-                await ctx.send("Added a new guild")
-            else:
-                if str(content) in discord_data[inv_id]['valid_invites']:
-                    await ctx.send("This invite code has already been submitted")
-                else:
-                    discord_data[inv_id]['valid_invites'].append(str(content))
-                    with open(discord_loc, 'w') as outfile:
-                        json.dump(discord_data, outfile)
-
-                    await ctx.send("Invite code was successfully added")
-
+            return discord_data, invite
     except discord.NotFound:
         await ctx.send("This is not a valid invite")
-
+        return None
 
 @civdiscord.command()
-async def nick(ctx, content):
-    pass
-    #await ctx.send(content)
+async def add(ctx, content):
+    discord_data, invite = await checkinvite(ctx, content)
+    if discord_data is not None:
+        inv_id = str(invite.guild.id)
+        if inv_id not in discord_data.keys():
+            discord_data[inv_id] = {}
+            discord_data[inv_id]['valid_invites'] = [str(content)]
+            discord_data[inv_id]['invalid_invites'] = []
+            discord_data[inv_id]['current_name'] = str(invite.guild.name)
+            discord_data[inv_id]['approximate_member_count'] = str(invite.approximate_member_count)
+            with open(discord_loc, 'w') as outfile:
+                json.dump(discord_data, outfile)
+            await ctx.send("Added a new guild")
+        else:
+            if str(content) in discord_data[inv_id]['valid_invites']:
+                await ctx.send("This invite code has already been submitted")
+            else:
+                discord_data[inv_id]['valid_invites'].append(str(content))
+                with open(discord_loc, 'w') as outfile:
+                    json.dump(discord_data, outfile)
+                await ctx.send("Invite code was successfully added")
+
+@civdiscord.command()
+async def nick(ctx, inv_code, name):
+    '''Adds a nickname to discord server entry'''
+    try:
+        # print(content)
+        # print(content.split(" "))
+        # inv_code = content.split(" ")[0]
+        # name = content.split(" ")[1]
+        #print(inv_code)
+        discord_data, invite = await checkinvite(ctx, inv_code)
+        print(inv_code)
+        if discord_data is not None:
+            inv_id = str(invite.guild.id)
+            if inv_id not in discord_data.keys():
+                ctx.send("This invite id must first be submitted. Use %civdiscord add INVITE")
+            else:
+                if 'nickname' not in discord_data[inv_id].keys():
+                    discord_data[inv_id]['nickname'] = []
+
+                if name in discord_data[inv_id]['nickname']:
+                    await ctx.send(":x:Nickname has already been added")
+                else:
+                    discord_data[inv_id]['nickname'].append(name)
+                    with open(discord_loc, 'w') as outfile:
+                        json.dump(discord_data, outfile)
+                    await ctx.send("Nickname was added")
+    except FileNotFoundError as e:
+   # except Exception as e:
+       # print(e)
+        await ctx.send("Nickname must be in format \"invite_code nickname\"")
+
+@civdiscord.command()
+async def rate(ctx,  inv_code, rating):
+    '''Rates a discord server'''
+    try:
+        # inv_code = content.split()[0]
+        # rating = content.split()[1]
+        discord_data, invite = await checkinvite(ctx, inv_code)
+        if discord_data is not None:
+            inv_id = str(invite.guild.id)
+            if inv_id not in discord_data.keys():
+                ctx.send("This invite id must first be submitted. Use %civdiscord add INVITE")
+            else:
+                if 'rating' not in discord_data[inv_id].keys():
+                    discord_data[inv_id]['rating'] = {}
+
+                old_rating = None
+                if str(ctx.author.id) in discord_data[inv_id]['rating'].keys():
+                    old_rating = int(discord_data[inv_id]['rating'][str(ctx.author.id)])
+                    print("old-rating="+ str(old_rating))
+                if rating.isdigit() and 1 <= int(rating) <= 5:
+                    rating = int(rating)
+                    msg = ""
+                    discord_data[inv_id]['rating'][str(ctx.author.id)] = rating
+                    if old_rating is not None:
+                        msg += "Old rating :" + ("".join([":star:" for x in range(0, int(old_rating))]) + ('+' if old_rating > int(old_rating)+.4 else "")) + "\n"
+                    msg += "Rating :" + ("".join([":star:" for x in range(0, int(rating))]) + ('+' if rating > int(rating)+.4 else "")) + "\n"
+                    with open(discord_loc, 'w') as outfile:
+                        json.dump(discord_data, outfile)
+                    await ctx.send(msg)
+                else:
+                    await ctx.send("Rating must be integer between 1 and 5 stars")
+    except FileNotFoundError:
+        await ctx.send("Nickname must be in format \"invite_code nickname\". Invite code must be valid")
+
 
 @bot.command(pass_context=True)
 async def generateplugin(ctx, content='1'):
@@ -769,7 +841,7 @@ Sources: <{info[mcstats_url]}> <https://namemc.com/profile/{ign}> {info[head_url
 if __name__ == "__main__":
     config = configparser.ConfigParser()
     config.read('config.ini')
-    token = config.get('test', 'token')
+    token = config.get('auth', 'token')
 
     initial_extensions = ['cogs.VoiceRelay']
     for extension in initial_extensions:
