@@ -31,8 +31,6 @@ from fuzzywuzzy import fuzz
 from fuzzywuzzy import process
 import pickle as pickle1
 
-#discord_loc = "resources/discord_data.json"
-discord_loc = "/home/triangleblob/Squarebot_new/core_stable/discord data/discord_data.json"
 prefix = "%"
 
 def clean_text_for_discord(text):
@@ -280,6 +278,10 @@ async def respond(ctx):
     """Gives a Civ response"""
     await ctx.channel.send(get_response())
 
+@bot.command(pass_context=True)
+async def invite(ctx):
+    """CivBot invite"""
+    await ctx.channel.send("https://discordapp.com/api/oauth2/authorize?client_id=614086832245964808&permissions=0&scope=bot")
 
 @bot.group()
 async def civdiscord(ctx):
@@ -332,6 +334,7 @@ async def search(ctx, content):
             if 'rating' in discord_data[keys[i]].keys():
                 for l in discord_data[keys[i]]["rating"].keys():
                     rating += discord_data[keys[i]]["rating"][l]
+                rating = rating/len(discord_data[keys[i]]["rating"])
                 stars = ("".join([":star:" for x in range(0, int(rating))]) + ('+' if rating > int(rating)+.4 else ""))
 
             resp += discord_data[keys[i]]['valid_invites'][0] + (" " + stars if stars is not None else "") + "\n"
@@ -839,9 +842,11 @@ Sources: <{info[mcstats_url]}> <https://namemc.com/profile/{ign}> {info[head_url
     await ctx.channel.send(text)
 
 if __name__ == "__main__":
+    config_type = 'auth'
     config = configparser.ConfigParser()
     config.read('config.ini')
-    token = config.get('auth', 'token')
+    token = config.get(config_type, 'token')
+    discord_loc = config.get(config_type, 'discord_loc')
 
     initial_extensions = ['cogs.VoiceRelay']
     for extension in initial_extensions:
