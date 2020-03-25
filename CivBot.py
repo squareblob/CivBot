@@ -9,9 +9,11 @@ import random
 import re
 import string
 import time
+import uuid
 from _operator import itemgetter
 from json import JSONDecodeError
 import io
+from os import path
 
 import requests
 
@@ -282,6 +284,139 @@ async def respond(ctx):
 async def invite(ctx):
     """CivBot invite"""
     await ctx.channel.send("https://discordapp.com/api/oauth2/authorize?client_id=614086832245964808&permissions=0&scope=bot")
+
+
+@bot.group()
+async def chart(ctx):
+    if ctx.invoked_subcommand is None:
+        await ctx.send('Invalid command passed...')
+
+def draw_chart(chart_data, chart_code):
+    x_axis = chart_data[str(chart_code)]["x_axis"]
+    y_axis = chart_data[str(chart_code)]["y_axis"]
+
+    #DRAW TEXT
+    background = Image.open("resources/grid2500.png")
+    font = ImageFont.truetype("resources/NotoSans-Bold.ttf", 128)
+    img_txt = Image.new('L', font.getsize(y_axis))
+    draw_txt = ImageDraw.Draw(img_txt)
+    draw_txt.text((0, 0), y_axis, font=font, fill=255)
+    t = img_txt.rotate(90, expand=1)
+    background.paste(ImageOps.colorize(t, (0, 0, 0), (0, 0, 0)),
+                     (-10, int((background.height - font.getsize(y_axis)[0]) / 2)), t)
+    draw = ImageDraw.Draw(background)
+    draw.text((int((background.width - font.getsize(x_axis)[0]) / 2), 2320), x_axis, (0, 0, 0), font=font)
+
+    #DRAW faces
+    #pprint.pprint(chart_data)
+    for player_name in chart_data[str(chart_code)]['chart_data'].keys():
+        x_cord_total = 0
+        y_cord_total = 0
+        for discord_id in chart_data[str(chart_code)]['chart_data'][str(player_name)]:
+            x_cord_total += float(chart_data[str(chart_code)]['chart_data'][str(player_name)][str(discord_id)]["x_coord"])
+            y_cord_total += float(chart_data[str(chart_code)]['chart_data'][str(player_name)][str(discord_id)]["y_coord"])
+
+        total = len(chart_data[str(chart_code)]['chart_data'][str(player_name)])
+        #print(total)
+        coords = [x_cord_total/total, y_cord_total/total]
+
+        face_width = 120
+        fixed_coords = [int((coords[0] / 100) * background.width - (face_width / 2)),
+                        int((background.height - ((coords[1] / 100) * background.height)) - (face_width / 2))]
+        #print(fixed_coords)
+
+        if GetPlayerData(player_name).valid:
+            if path.exists("resources/playerheads/" + str(player_name) + ".png"):
+                #print("pathexists")
+                pass
+            else:
+                r = requests.get(
+                    "https://mc-heads.net/avatar/" + GetPlayerData(player_name).uuid + "/" + str(face_width) + ".png")
+                with open("resources/playerheads/" + str(player_name) + ".png", 'wb') as f:
+                    f.write(r.content)
+            playertopaste = Image.open("resources/playerheads/" + player_name + ".png")
+            background.paste(playertopaste, tuple(fixed_coords))
+
+    background.save('resources/output.png', "PNG")
+
+@chart.command()
+async def view(ctx, chart_code):
+    with open("resources/chart_creator.txt") as json_file:
+        chart_data = json.load(json_file)
+    if str(chart_code) in chart_data.keys():
+        params = functools.partial(draw_chart, chart_data, chart_code)
+        run_draw = await bot.loop.run_in_executor(None, params)
+        await ctx.channel.send(file=discord.File('resources/output.png'))
+
+@chart.command()
+async def edit(ctx, chart_code, playername, xpos, ypos):
+    with open("resources/chart_creator.txt") as json_file:
+        chart_data = json.load(json_file)
+
+    # Check validity.
+    try:
+        if float(xpos) > 100 or float(xpos) < 0 or float(ypos) > 100 or float(ypos) < 0:
+            await ctx.send("input must range between 0 to 100")
+            return
+    except ValueError:
+        await ctx.send("Must be number")
+        return
+    if not GetPlayerData(playername).valid:
+        await ctx.send("this is not a valid playername")
+        return
+    if str(chart_code) in chart_data.keys():
+        if not str(playername) in chart_data[chart_code]['chart_data'].keys():
+            chart_data[chart_code]['chart_data'][str(playername)] = {}
+
+        chart_data[chart_code]['chart_data'][str(playername)][str(ctx.author.id)] = {
+            "x_coord": str(xpos),
+            "y_coord": str(ypos)
+        }
+
+        with open("resources/chart_creator.txt", "w") as json_file:
+            json.dump(chart_data, json_file)
+
+        # optional : show chart after posting
+        params = functools.partial(draw_chart, chart_data, chart_code)
+        run_draw = await bot.loop.run_in_executor(None, params)
+        await ctx.channel.send(file=discord.File('resources/output.png'))
+    else:
+        await ctx.send("chart not found")
+    # make create chart method, view
+
+@chart.command()
+async def create(ctx, chart_name):
+    '''Creates a chart with given chart name'''
+    with open("resources/chart_creator.txt") as json_file:
+        chart_data = json.load(json_file)
+
+    await ctx.send('Name X-axis:')
+    def pred(m):
+        return m.author == ctx.author and m.channel == ctx.channel
+
+    x_axis = await bot.wait_for('message', check=pred, timeout=60.0)
+    await ctx.send('Name Y-axis:')
+    y_axis = await bot.wait_for('message', check=pred, timeout=60.0)
+    #print(str(x_axis.content))
+
+    if len(x_axis.content) > 20 or len(y_axis.content) > 20:
+        await ctx.send('Both X-axis and Y-axis must be under 20')
+        return
+
+    while True:
+        chart_id = str(uuid.uuid4())[:6]
+        if str(chart_id) not in chart_data.keys():
+            break
+    chart_data[str(chart_id)] = {}
+    chart_data[str(chart_id)]['chart_name'] = str(chart_name)
+    chart_data[str(chart_id)]['chart_owner'] = ctx.author.id
+    chart_data[str(chart_id)]['x_axis'] = str(x_axis.content)
+    chart_data[str(chart_id)]['y_axis'] = str(y_axis.content)
+    chart_data[str(chart_id)]['chart_data'] = {}
+
+    with open("resources/chart_creator.txt", "w") as json_file:
+        json.dump(chart_data, json_file)
+    await ctx.send(':white_check_mark: Chart created. Chart can be accessed with the code ' + str(chart_id))
 
 @bot.group()
 async def civdiscord(ctx):
@@ -842,7 +977,7 @@ Sources: <{info[mcstats_url]}> <https://namemc.com/profile/{ign}> {info[head_url
     await ctx.channel.send(text)
 
 if __name__ == "__main__":
-    config_type = 'auth'
+    config_type = 'test'
     config = configparser.ConfigParser()
     config.read('config.ini')
     token = config.get(config_type, 'token')
