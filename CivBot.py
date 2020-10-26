@@ -222,6 +222,8 @@ async def on_message(ctx):
                 lower_content = ctx.content.lower()
                 if 'delusional' in lower_content:
                     await ctx.channel.send("Edit CivWiki <https://civclassic.miraheze.org/wiki/CivWiki:Editing_Guide>")
+                if 'lusitanian' in lower_content:
+                    await ctx.channel.send(file=discord.File('resources/Lusitan.png'))
                 message = ""
                 pages = list(set(re.findall("(\[\[ *[^\]]+ *\]\])", ctx.content) + re.findall("(\{\{ *[^\]]+ *\}\})", ctx.content)))
                 for page in pages:
