@@ -1,10 +1,11 @@
 # CreditBot
-**https://discordapp.com/api/oauth2/authorize?client_id=614086832245964808&permissions=0&scope=bot to invite.**
-*Invite does not give CreditBot any permissions* 
 
-prefix = '%'
+## [invite code](https://discordapp.com/api/oauth2/authorize?client_id=614086832245964808&permissions=0&scope=bot)
+*Invite does not give CreditBot any permissions.*
 
-![pearl](https://cdn.discordapp.com/attachments/614147625809346581/674289814182297640/output.png)
+prefix | %
+------------ | -------------
+
 ## CreditBot Commands
 ### Meme
 
@@ -68,6 +69,17 @@ prefix = '%'
 `dox [player]`
 * Tries to return a players full name and adress.
 
+---
+
+`chart create <chart name>`
+* Creates a chart
+
+`chart view <chart code>`
+* view a chart
+
+`chart edit <chart code> <minecraft username> <xcoord> <ycoord>`
+* edit a chart
+
 ### Useful
 
 `whereis [x] [z]`
@@ -82,6 +94,27 @@ prefix = '%'
 
 ---
 
+`[[CIVWIKI PAGE]]`
+* returns embed summary of linked civwiki page. Note that pages can be prefixed with `w:` to link to wikipedia.
+
+`{{CIVWIKI TEMPLATE}}`
+* returns embed summary of linked civwiki template
+
+---
+`civdiscord search <searchterm>`
+* Searches for fuzzy match in [Discord Servers Wiki collection](https://civclassic.miraheze.org/wiki/Discord_Servers)
+
+`civdiscord add <discord invite>`
+* Adds a discord to [Discord Servers Wiki collection](https://civclassic.miraheze.org/wiki/Discord_Servers)
+
+`civdiscord nick <invite> <nickname>`
+* Nicknames a discord, which can be used to aide searches
+
+`civdiscord rate <invite> <rating(1-5)>`
+* (WIP) Rates a discord. 
+
+### Broken
+
 `selectvoicechannels`
 * Selects which voice channels to relay member amount of. Requires `manage_channels` permission.
 
@@ -93,8 +126,6 @@ prefix = '%'
 * Returns list of material
 * TODO : Does not account for block data values (e.g. wood types) - will simply append '???'
 
-`[[CIVWIKI PAGE]]`
-* returns embed summary of linked civwiki page. Note that pages can be prefixed with `w:` to link to wikipedia.
+---
 
-`{{CIVWIKI TEMPLATE}}`
-* returns embed summary of linked civwiki template
+![pearl](https://cdn.discordapp.com/attachments/614147625809346581/674289814182297640/output.png)
