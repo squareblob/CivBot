@@ -4,14 +4,13 @@ import datetime
 import functools
 import json
 import math
-import pprint
+import os
 import random
 import re
 import string
 import time
 import uuid
 from _operator import itemgetter
-from json import JSONDecodeError
 import io
 from os import path
 
@@ -20,26 +19,27 @@ import requests
 import aiofiles
 import aiohttp
 import async_timeout
-from config import *
 from bs4 import BeautifulSoup
 import discord
-from discord.ext import commands, tasks
+from discord.ext import commands
 import nbtlib
 from PIL import Image, ImageDraw, ImageFont, ImageOps
-from discord.ext.commands import has_permissions
 from faker import Faker
 from mcuuid.api import GetPlayerData
 from fuzzywuzzy import fuzz
 from fuzzywuzzy import process
 import pickle as pickle1
+import pycountry
 
 prefix = "%"
+
 
 def clean_text_for_discord(text):
     text = text.replace("_", "\_")
     text = text.replace("*", "\*")
     text = text.replace("~~", "\~~")
     return text
+
 
 def get_response():
     wordlist = ["crying",
@@ -53,6 +53,7 @@ def get_response():
                 "collapsing",
                 "writhing",
                 "hyperventilating"]
+
     random.shuffle(wordlist)
     length = random.randrange(1, 5)
     words = []
@@ -65,6 +66,7 @@ def get_response():
     else:
         response = ", ".join(words)
     return response
+
 
 def generate_pearl_image(pearled_player, pearled_by, now):
     random.seed(a=pearled_player.lower() + pearled_by.lower() + now, version=2)
@@ -102,6 +104,7 @@ def generate_pearl_image(pearled_player, pearled_by, now):
         draw.text((156 - offset, 158 - offset), pearled_by, font=font, fill=colors[i][2])
     im.save('resources/output.png', "PNG")
 
+
 async def download_file(url, outurl):
     async with aiohttp.ClientSession() as session:
         async with session.get(url) as resp:
@@ -109,6 +112,7 @@ async def download_file(url, outurl):
                 f = await aiofiles.open(outurl, mode='wb')
                 await f.write(await resp.read())
                 await f.close()
+
 
 async def find_a_posted_image(ctx):
     if len(ctx.message.attachments) == 0:
@@ -121,6 +125,7 @@ async def find_a_posted_image(ctx):
         await download_file(ctx.message.attachments[0].url, 'resources/output.png')
         return True
     return
+
 
 async def get_account_info_from_web(ign):
     head_url = 'https://minotar.net/avatar/%s.png' % ign
@@ -151,9 +156,11 @@ async def get_account_info_from_web(ign):
     l = locals()
     return {k: l[k] for k in 'mcstats_url head_url names servers'.split()}
 
+
 def parse_mcstats_name_change_time(s):
     if s == 'Name at registration': return None
     return datetime.datetime.strptime(s, "%Y.%m.%d %H:%M")
+
 
 def extract_mcstats_servers(soup):
     """Returns a list of tuples containing: address, motd, timestamp of last visit, hours played on server"""
@@ -166,11 +173,13 @@ def extract_mcstats_servers(soup):
         ) for t in soup.find_all(class_='servers-list-item')
         if t.has_attr('data-last-visit')]
 
+
 async def get_url(url, timeout=10):
     async with aiohttp.ClientSession() as session:
         async with async_timeout.timeout(timeout):
             async with session.get(url) as response:
                 return await response.text()
+
 
 def wiardify(text):
     vowels = "aeiou"
@@ -186,6 +195,7 @@ def wiardify(text):
             t2 += text[i]
     return t2
 
+
 def getmotd():
     random.seed(datetime.datetime.today().strftime('%m/%d/%Y'))
     return random.choice(["olive",
@@ -198,7 +208,55 @@ def getmotd():
                           "i think i'm going to take a meme detox",
                           ])
 
+
 bot = commands.Bot(command_prefix=prefix, description="CivBot")
+
+
+@bot.command(pass_context=True)
+async def oracle(ctx):
+    """Gives a oracle response"""
+    wordlist = ["That is definitely not canon and may in fact be illegal",
+                "Roleplay Detected",
+                "this is the sort of thing said by the sort of people squareblob sort of vowed to sort of destroy",
+                "Good luck you little bingus",
+                "you can't create an idea, idiot",
+                "Supercringe giganormie"]
+    await ctx.channel.send(random.choice(wordlist))
+
+
+@bot.command(pass_context=True)
+async def thraldrek(ctx):
+    """Gives a thraldrek response"""
+    wordlist = ["Isn't " + ctx.author.name + " from " + random.choice(list(pycountry.countries)).name]
+    await ctx.channel.send(random.choice(wordlist))
+
+
+@bot.command(pass_context=True)
+async def topher(ctx):
+    """Gives a topher response"""
+    # todo get most recent 10 messages, and do not reuse.
+    lines = open('resources/wordlist_topher.txt').read().splitlines()
+    message = str(random.choice(lines))
+    message = message.replace('%user', ctx.author.name).replace('\\n', '\n')
+    if '%randemoji' in message:
+        emojis = ctx.guild.emojis
+        if len(emojis) == 0:
+            message = "Topher says : add a custom emoji"
+        else:
+            emoji = random.choice(emojis)
+            message = message.replace('%randemoji', ":" + emoji.name + ":")
+    if '%randuser' in message:
+        user = random.choice(ctx.guild.members)
+        message = message.replace('%randuser', user.name)
+    await ctx.channel.send(message)
+    if random.randint(0, 3) == 3:
+        await ctx.channel.send(file=discord.File('resources/topher.gif'))
+
+
+@bot.command(pass_context=True)
+async def freestyle(ctx):
+    await ctx.channel.send(file=discord.File('resources/topher.gif'))
+
 
 @bot.event
 async def on_ready():
@@ -211,6 +269,7 @@ async def on_ready():
 
     with open('resources/VC_temp_storage.pickle', 'wb') as handle:
         pickle1.dump([], handle, protocol=pickle1.HIGHEST_PROTOCOL)
+
 
 @bot.event
 async def on_message(ctx):
@@ -241,6 +300,7 @@ async def on_message(ctx):
     except AttributeError:
         print("From " + str (ctx.author) + ": " + ctx.content)
 
+
 async def getschematic(ctx, schematicfile):
     await download_file(schematicfile.url, 'resources/test.schematic')
     nbt_file = nbtlib.load('resources/test.schematic')
@@ -251,7 +311,7 @@ async def getschematic(ctx, schematicfile):
             if r.status == 200:
                 sch = await r.json(content_type='text/plain')
 
-    #really makes you think
+    # really makes you think
     block_ids = []
     block_counts = []
     for x in set(blocks):
@@ -275,10 +335,12 @@ async def getschematic(ctx, schematicfile):
 
     await ctx.channel.send(output + "```")
 
+
 @bot.command(pass_context=True)
 async def respond(ctx):
     """Gives a Civ response"""
     await ctx.channel.send(get_response())
+
 
 @bot.command(pass_context=True)
 async def invite(ctx):
@@ -288,14 +350,16 @@ async def invite(ctx):
 
 @bot.group()
 async def chart(ctx):
+    '''Create x,y charts with Minecraft faces'''
     if ctx.invoked_subcommand is None:
-        await ctx.send('Invalid command passed...')
+        await ctx.send('Invalid command passed...\nOptions include `view`,`edit`,`create`')
+
 
 def draw_chart(chart_data, chart_code):
     x_axis = chart_data[str(chart_code)]["x_axis"]
     y_axis = chart_data[str(chart_code)]["y_axis"]
 
-    #DRAW TEXT
+    # DRAW TEXT
     background = Image.open("resources/grid2500.png")
     font = ImageFont.truetype("resources/NotoSans-Bold.ttf", 128)
     img_txt = Image.new('L', font.getsize(y_axis))
@@ -307,8 +371,7 @@ def draw_chart(chart_data, chart_code):
     draw = ImageDraw.Draw(background)
     draw.text((int((background.width - font.getsize(x_axis)[0]) / 2), 2320), x_axis, (0, 0, 0), font=font)
 
-    #DRAW faces
-    #pprint.pprint(chart_data)
+    # DRAW faces
     for player_name in chart_data[str(chart_code)]['chart_data'].keys():
         x_cord_total = 0
         y_cord_total = 0
@@ -317,17 +380,12 @@ def draw_chart(chart_data, chart_code):
             y_cord_total += float(chart_data[str(chart_code)]['chart_data'][str(player_name)][str(discord_id)]["y_coord"])
 
         total = len(chart_data[str(chart_code)]['chart_data'][str(player_name)])
-        #print(total)
         coords = [x_cord_total/total, y_cord_total/total]
-
         face_width = 120
         fixed_coords = [int((coords[0] / 100) * background.width - (face_width / 2)),
                         int((background.height - ((coords[1] / 100) * background.height)) - (face_width / 2))]
-        #print(fixed_coords)
-
         if GetPlayerData(player_name).valid:
             if path.exists("resources/playerheads/" + str(player_name) + ".png"):
-                #print("pathexists")
                 pass
             else:
                 r = requests.get(
@@ -336,11 +394,12 @@ def draw_chart(chart_data, chart_code):
                     f.write(r.content)
             playertopaste = Image.open("resources/playerheads/" + player_name + ".png")
             background.paste(playertopaste, tuple(fixed_coords))
-
     background.save('resources/output.png', "PNG")
+
 
 @chart.command()
 async def view(ctx, chart_code):
+    '''Views a saved chart'''
     with open("resources/chart_creator.txt") as json_file:
         chart_data = json.load(json_file)
     if str(chart_code) in chart_data.keys():
@@ -348,12 +407,12 @@ async def view(ctx, chart_code):
         run_draw = await bot.loop.run_in_executor(None, params)
         await ctx.channel.send(file=discord.File('resources/output.png'))
 
+
 @chart.command()
 async def edit(ctx, chart_code, playername, xpos, ypos):
+    '''Edits a chart with given chart code, Minecraft username, x coord and y coord.'''
     with open("resources/chart_creator.txt") as json_file:
         chart_data = json.load(json_file)
-
-    # Check validity.
     try:
         if float(xpos) > 100 or float(xpos) < 0 or float(ypos) > 100 or float(ypos) < 0:
             await ctx.send("input must range between 0 to 100")
@@ -384,6 +443,7 @@ async def edit(ctx, chart_code, playername, xpos, ypos):
         await ctx.send("chart not found")
     # make create chart method, view
 
+
 @chart.command()
 async def create(ctx, chart_name):
     '''Creates a chart with given chart name'''
@@ -397,7 +457,6 @@ async def create(ctx, chart_name):
     x_axis = await bot.wait_for('message', check=pred, timeout=60.0)
     await ctx.send('Name Y-axis:')
     y_axis = await bot.wait_for('message', check=pred, timeout=60.0)
-    #print(str(x_axis.content))
 
     if len(x_axis.content) > 20 or len(y_axis.content) > 20:
         await ctx.send('Both X-axis and Y-axis must be under 20')
@@ -418,10 +477,12 @@ async def create(ctx, chart_name):
         json.dump(chart_data, json_file)
     await ctx.send(':white_check_mark: Chart created. Chart can be accessed with the code ' + str(chart_id))
 
+
 @bot.group()
 async def civdiscord(ctx):
     if ctx.invoked_subcommand is None:
         await ctx.send('Invalid command passed...')
+
 
 def getpath(nested_dict, value, prepath=()):
     for k, v in nested_dict.items():
@@ -433,6 +494,7 @@ def getpath(nested_dict, value, prepath=()):
             if p is not None:
                 return p
 
+
 @civdiscord.command()
 async def search(ctx, content):
     with open(discord_loc) as json_file:
@@ -442,7 +504,7 @@ async def search(ctx, content):
     keys = []
 
     for key in discord_data:
-        #fix
+        # fix
         if 'current_name' in discord_data[key].keys():
             if len(content) > 4:
                 match = fuzz.token_set_ratio(content, discord_data[key]['current_name'])
@@ -478,6 +540,7 @@ async def search(ctx, content):
     else:
         await ctx.send("No matches could be found")
 
+
 async def checkinvite(ctx, content):
     try:
         invite = await bot.fetch_invite(content)
@@ -488,6 +551,7 @@ async def checkinvite(ctx, content):
     except discord.NotFound:
         await ctx.send("This is not a valid invite")
         return None
+
 
 @civdiscord.command()
 async def add(ctx, content):
@@ -512,15 +576,11 @@ async def add(ctx, content):
                     json.dump(discord_data, outfile)
                 await ctx.send("Invite code was successfully added")
 
+
 @civdiscord.command()
 async def nick(ctx, inv_code, name):
     '''Adds a nickname to discord server entry'''
     try:
-        # print(content)
-        # print(content.split(" "))
-        # inv_code = content.split(" ")[0]
-        # name = content.split(" ")[1]
-        #print(inv_code)
         discord_data, invite = await checkinvite(ctx, inv_code)
         print(inv_code)
         if discord_data is not None:
@@ -539,16 +599,13 @@ async def nick(ctx, inv_code, name):
                         json.dump(discord_data, outfile)
                     await ctx.send("Nickname was added")
     except FileNotFoundError as e:
-   # except Exception as e:
-       # print(e)
         await ctx.send("Nickname must be in format \"invite_code nickname\"")
+
 
 @civdiscord.command()
 async def rate(ctx,  inv_code, rating):
     '''Rates a discord server'''
     try:
-        # inv_code = content.split()[0]
-        # rating = content.split()[1]
         discord_data, invite = await checkinvite(ctx, inv_code)
         if discord_data is not None:
             inv_id = str(invite.guild.id)
@@ -605,15 +662,18 @@ async def generateplugin(ctx, content='1'):
         response += gen_prefix + random.choice(plugin_base) + gen_suffix + "\n"
     await ctx.channel.send(response)
 
+
 @bot.command(pass_context=True)
 async def motd(ctx):
     """returns the message of the day"""
     await ctx.channel.send(getmotd())
 
+
 @bot.command(pass_context=True)
 async def animemer(ctx):
     """returns the animemer codex"""
     await ctx.channel.send(file=discord.File('resources/Animemer_template.png'))
+
 
 @bot.command(pass_context=True)
 async def entente(ctx):
@@ -624,6 +684,7 @@ async def entente(ctx):
     except:
         pass
 
+
 @bot.command(pass_context=True)
 async def nato(ctx):
     """Responds to a NATO player"""
@@ -632,6 +693,7 @@ async def nato(ctx):
         await ctx.message.delete()
     except:
         pass
+
 
 @bot.command(pass_context=True)
 async def dox(ctx, content):
@@ -649,6 +711,7 @@ async def dox(ctx, content):
     else:
         Faker.seed(content)
         await ctx.channel.send(":white_check_mark: " + fake.name() + "\n" + fake.address() + "\n")
+
 
 def draw_derelict(input_string):
     background = Image.open("resources/output.png")
@@ -677,6 +740,7 @@ def draw_derelict(input_string):
                                 sign.height / (10 + random_scale_factor) + random_scale_factor * 10)), sign)
     background.save('resources/output.png', "PNG")
 
+
 @bot.command(pass_context=True)
 async def derelict(ctx, *args):
     """Derelicts an image"""
@@ -697,6 +761,22 @@ async def derelict(ctx, *args):
         run_draw = await bot.loop.run_in_executor(None, params)
         await ctx.channel.send(file=discord.File('resources/output.png'))
 
+
+def greyscaleimage():
+    inner = Image.open("resources/output.png").convert('L')
+    inner.save('resources/output.png', "PNG")
+
+
+@bot.command(pass_context=True)
+async def grey(ctx):
+    """Makes an image greyscale"""
+    result = await find_a_posted_image(ctx)
+    if result is not None:
+        params = functools.partial(greyscaleimage)
+        run_draw = await bot.loop.run_in_executor(None, params)
+        await ctx.channel.send(file=discord.File('resources/output.png'))
+
+
 def draw_verb_at_image(filepath):
     inner = Image.open("resources/output.png")
     outer = Image.open(filepath)
@@ -706,6 +786,7 @@ def draw_verb_at_image(filepath):
     newImage.paste(outer, (0, 0), outer)
     newImage.save('resources/output.png', "PNG")
 
+
 async def verb_at_image(ctx, location):
     result = await find_a_posted_image(ctx)
     if result is not None:
@@ -713,15 +794,18 @@ async def verb_at_image(ctx, location):
         run_draw = await bot.loop.run_in_executor(None, params)
         await ctx.channel.send(file=discord.File('resources/output.png'))
 
+
 @bot.command(pass_context=True)
 async def cryat(ctx, *args):
     """Crys at the image"""
     await verb_at_image(ctx, "resources/Cry_template.png")
 
+
 @bot.command(pass_context=True)
 async def laughat(ctx, *args):
     """Laughs at the image"""
     await verb_at_image(ctx, "resources/Laugh_template.png")
+
 
 @bot.command(pass_context=True)
 async def pearl(ctx, *, content):
@@ -753,6 +837,7 @@ async def pearl(ctx, *, content):
         with open('resources/pearl locations.txt', 'w') as file:
             json.dump(locations, file)
 
+
 @bot.command(pass_context=True)
 async def pplocate(ctx, *, content):
     """Locates a players pearl"""
@@ -762,6 +847,7 @@ async def pplocate(ctx, *, content):
         await ctx.channel.send(locations[content])
     else:
         await ctx.channel.send("**" + clean_text_for_discord(content) + "**'s pearl could not be located")
+
 
 @bot.command(pass_context=True, brief = "Frees a players pearl")
 async def ppfree(ctx, *, content):
@@ -774,10 +860,12 @@ async def ppfree(ctx, *, content):
         with open('resources/pearl locations.txt', 'w') as file:
             json.dump(locations, file)
 
+
 @bot.command(pass_context=True)
 async def wiard(ctx, *, content):
     """wiardifies a message"""
     await ctx.channel.send(wiardify(content))
+
 
 @bot.command(pass_context=True)
 async def pickle(ctx, content):
@@ -792,6 +880,7 @@ async def pickle(ctx, content):
             adjs = ["pickled"]
     if len(adjs) > 0:
         await ctx.channel.send(random.choice(adjs).capitalize() + " " + clean_text_for_discord(content))
+
 
 def draw_dont_care(username):
     r = requests.get("https://mc-heads.net/avatar/" + str(username) + "/325.png")
@@ -826,6 +915,7 @@ async def dont_care(ctx, content):
         params = functools.partial(draw_dont_care, content)
         run_draw = await bot.loop.run_in_executor(None, params)
         bot_message = await ctx.channel.send(file=discord.File("resources/output.png"))
+
 
 def draw_weezer(players):
     to_send = []
@@ -875,7 +965,6 @@ def draw_weezer(players):
     return to_send, out_2
 
 
-
 @bot.command(pass_context=True)
 async def joinedweezer(ctx, *args):
     """`!joinedweezer <player1> <player2> <player3> <player4>`\nListing one player (minecraft username) is required, other three are optional.\nNow you too can join Weezer!"""
@@ -886,6 +975,7 @@ async def joinedweezer(ctx, *args):
     if image is not None:
         await ctx.channel.send(image, file=discord.File('resources/output.png'))
 
+
 def draw_getalong(players):
     img_shirt = Image.open("resources/shirt.png")
     background = Image.new('RGB', (600, 500), color=(255, 255, 255))
@@ -895,6 +985,7 @@ def draw_getalong(players):
         background.paste(Image.open(io.BytesIO(r.content)), ((150 + i * 150), (110 - i * 12)))
     background.paste(img_shirt, (0, 0), mask=img_shirt)
     background.save('resources/output.png', "PNG")
+
 
 @bot.command(pass_context=True)
 async def getalong(ctx, player1, player2):
@@ -977,7 +1068,7 @@ Sources: <{info[mcstats_url]}> <https://namemc.com/profile/{ign}> {info[head_url
     await ctx.channel.send(text)
 
 if __name__ == "__main__":
-    config_type = 'test'
+    config_type = 'auth'
     config = configparser.ConfigParser()
     config.read('config.ini')
     token = config.get(config_type, 'token')
