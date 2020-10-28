@@ -182,8 +182,8 @@ async def get_url(url, timeout=10):
 
 
 def wiardify(text):
-    vowels = "aeiou"
-    consonants = "bcdfghjklmnpqrstvwxyz"
+    vowels = "aeiouy"
+    consonants = "bcdfghjklmnpqrstvwxz"
     t2 = ""
     for i in range(len(text)):
         try:
