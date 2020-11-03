@@ -978,10 +978,31 @@ async def joinedweezer(ctx, *args):
         await ctx.channel.send(image, file=discord.File('resources/output.png'))
 
 
+def draw_step(number):
+    img_background = Image.open("resources/oil_template.png")
+    draw = ImageDraw.Draw(img_background)
+    font = ImageFont.truetype("resources/NotoSans-Bold.ttf", 30)
+    draw.text((40, 0), str(number) + ") cover yourself in oil", (30,30, 30), font=font)
+    img_background.save('resources/output.png', "PNG")
+
+
+@bot.command(pass_context=True)
+async def step(ctx, number):
+    try:
+        number = int(number)
+        if number < 0 or number > 9999:
+            await ctx.channel.send("Must be an integer between 0 and 9999")
+            return
+        params = functools.partial(draw_step, number)
+        msg = await bot.loop.run_in_executor(None, params)
+        await ctx.channel.send(file=discord.File('resources/output.png'))
+    except ValueError:
+        await ctx.channel.send("Must be an integer")
+
+
 def draw_getalong(players):
     img_shirt = Image.open("resources/shirt.png")
     background = Image.new('RGB', (600, 500), color=(255, 255, 255))
-
     for i, player in enumerate(players):
         r = requests.get("https://mc-heads.net/player/" + player + "/160.png")
         background.paste(Image.open(io.BytesIO(r.content)), ((150 + i * 150), (110 - i * 12)))
