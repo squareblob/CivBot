@@ -701,7 +701,7 @@ async def nato(ctx):
 async def dox(ctx, content):
     """'Doxes' a player"""
     fake = Faker()
-    await ctx.channel.send("...Scanning information for " + content + "'s home address...")
+    await ctx.channel.send("...Scanning information for " + discord.utils.escape_mentions(content) + "'s home address...")
     await ctx.channel.trigger_typing()
     await asyncio.sleep(3)
     if random.randrange(0, 6) == 5:
