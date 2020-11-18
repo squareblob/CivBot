@@ -30,6 +30,8 @@ from fuzzywuzzy import fuzz
 from fuzzywuzzy import process
 import pickle as pickle1
 
+from perchance import perchance_gen, perchance_parse
+
 prefix = "%"
 
 def clean_text_for_discord(text):
@@ -866,6 +868,12 @@ async def wiard(ctx, *, content):
     """wiardifies a message"""
     await ctx.channel.send(wiardify(content))
 
+perchance_civ_classic = perchance_parse(open('resources/perchance.txt').read())
+
+@kdb.command(pass_context=True)
+async def drama(ctx, *, content):
+    """Generates CivClassic drama"""
+    await ctx.channel.send(perchance_gen(perchance_civ_classic))
 
 @bot.command(pass_context=True)
 async def pickle(ctx, content):

@@ -1,0 +1,446 @@
+title
+  CivClassic Reddit Post Generator
+  
+output
+  [outputreal.sentenceCase]
+  [outputreal.sentenceCase]. I am [respond.sentenceCase] ^1/3
+  [outputreal.sentenceCase] - nah, nevermind ^1/150
+  [outputreal.sentenceCase] {LOL| LOL (Laugh Out Loud)} ^1/150
+  [outputreal.sentenceCase] tbh ^1/150
+  %wiard [outputreal.sentenceCase] ^1/150
+  %laughat [outputreal.sentenceCase] ^1/150
+  %cryat [outputreal.sentenceCase] ^1/150
+  [outputreal.sentenceCase]. Wonder why. ^1/150
+  [outputreal.sentenceCase]. Wholesome! ^1/150
+  [outputreal.sentenceCase]. The current exchange rate is {12-40} iron to 1 diamond. ^1/150
+  /g ! [outputreal.sentenceCase] ^1/150
+  [outputreal.sentenceCase]. Kinda quirky ngl ^1/150
+  [outputreal.sentenceCase] again ^1/150
+
+outputreal
+  [drama] and [drama] ^1/3
+  [drama] [twist]
+  [drama] ^1/2
+  [actor] lied and [actor] died ^1/100
+  [actor] moment ^1/200
+  [actor] pie ^1/200
+  
+actorOrPlace
+  [actor]
+  [place]
+
+place
+  [nation] ^5
+  [otherplace]
+
+actors
+  [actor] ^10
+  [actor] and [actor]
+  [actorLoop], [actor], and [actor]
+  that little [actor] guy ^1/10
+
+// loop with base-2 exponential probabilities
+actorLoop
+  [actor]
+  [actorLoop], [actor]
+
+actor
+  [nation] ^5
+  [player] ^5
+  [otheractor]
+  everyone in [place]
+
+otheractor
+  whoever is reading this right now
+  40 men in prot
+  a bot
+  a newfriend
+  Big Chungus
+  the admins
+  CivBot
+  Kira
+  the MtAugusta bot
+  HCF
+  CivSPAN
+  Empty Promises
+  Liberty Gazette
+  Joe Biden
+  Your mom
+  Obama
+  Bashar al-Assad
+  everybody
+  nobody
+  ham_was_here
+  a civ dad
+  NATO
+  SATO
+  a bgpost
+  a squarespiral
+  Kira
+  
+otherplace
+  0,0
+  real life
+  Westminster
+  Devoted
+  CivClassics
+  CivRealms
+  CivEx
+  NATO
+  SATO
+  Entente
+  Brazil 
+  r/MtAugusta
+  r/MtAugustaJustice
+  a hole in the ground
+  a hotel in Russia
+  Argentina
+  hell
+
+player
+  adeadhead
+  Ahri
+  AllenY
+  Ameliorate
+  Amelorate
+  {animeme_master|animaymay}
+  ashnwill
+  awoo
+  Bagi
+  bgbba
+  Bonkill
+  Convoy
+  BritishWanderer
+  Callum
+  ChrisChrispie
+  Citylion
+  ComradeNick
+  ComradeRick
+  coolioomoose
+  Crimeo
+  Crimsonblod
+  cwage
+  Daddy1015
+  Diet_Cola
+  Dr_Oracle
+  Falvyu
+  Fier
+  fk_54
+  Gantoe
+  guru gantoe
+  Gjum
+  Gobblin
+  Godomasta
+  GreatLordOz
+  HenryDraton
+  Infra
+  Jayms
+  Lodish
+  Lokilog
+  LordOfMarzipan
+  Maxopoly
+  Matticus_Rex
+  Medwedian
+  Metriximor
+  Mickale
+  mike0war
+  MrLlamma
+  MtAugusta
+  ObtainableSpatula
+  Okx
+  OLivay
+  Orinnari
+  pamplemousse
+  Pirater
+  Poortea
+  ProgramMC
+  ProgrammerDan
+  Psygate
+  QJI
+  Raven
+  RektTangle
+  S4NTA
+  sgtshannon
+  Shadedoom
+  Sharpcastle
+  Shtim
+  sintralin
+  Slushhi
+  SoundTech
+  specificlanguage
+  squareblob
+  Stonato
+  S_Q_U_A_R_E
+  Tealnerd
+  The Hobbyist
+  TheOrangeWizard
+  Thraldrek
+  Topher
+  TopWolf
+  Trevie303
+  Tritonio
+  Truck_Man1234
+  ttk2
+  virizion
+  Wingzero54
+  wjkroeker
+  Xavter
+  
+nation
+  [funnynation] ^10
+  [unfunnynation]
+  
+funnynation
+  some one-man nation
+  Bloom
+  Rhodesia
+  Columbia
+  The Commonwealth
+  Hjaltland
+  Gensokyo
+  Hallow
+  the Holy Jaded Empire
+  Imperial Truidence
+  Yoahtl
+  Lusitania
+  Icenia
+  Caledonia
+  Lexington
+  Mir
+  Mount Augusta
+  Mount September
+  Pacem
+  SPQR
+  Varkonia
+  South Augusta
+  Tvtopia
+  Tierra de Conciencia
+  The Big Dogs
+
+unfunnynation
+  Air Bud Republic
+  Airhaven
+  Albion
+  Alponia
+  Anguish
+  the Antipodean Union
+  Appomattox
+  Astoria
+  Atlantis
+  Augsburg
+  Bibelebonse Berg
+  Blackwater
+  the Brotherhood of Steel
+  Carpathia
+  Ceylon
+  Champtown
+  the Chanseatic State
+  the City of England
+  CivWikistan
+  Nyasaland
+  Coventhia
+  Dagon
+  the Entranan Republic
+  Unitas
+  Gabon
+  Gondolin
+  Grand Imperium
+  Greenmarsh
+  Impasse
+  Iria
+  Jefferson Confederacy
+  Kaltsburg
+  Kanagawa
+  the Knights Templar
+  Königsberg
+  Laconia
+  Leuven
+  Loveshack
+  Luxemburg
+  Maltovia
+  Mithrin
+  Mount Chungusta
+  Nevrast
+  Nipplerock
+  Nro'meagh
+  Nyasaland
+  Odresh
+  Oistins
+  Okashima
+  Ossenkirch
+  Panem
+  Pinkerton
+  Polska
+  Pripyat
+  Resimere
+  Rhodesia
+  Sovia
+  Stonewall
+  Tambov
+  Tel Aviv
+  Thalassocracy
+  Trekestan
+  Tungsten
+  the Union of Socialist Augusta
+  Valyria
+  Verda
+  Vinland
+  Volterra
+  Vítelia
+  Wayrest
+  Westeros
+  Xalta Moro
+
+drama
+  [place] made a trade embargo with [place]
+  [actors] world downloaded the vault belonging to [place]
+  [actors] claimed over [place]
+  [nation] annexed [place]
+  [actors] used unknown alts to assassinate the leader of [place]
+  [actors] funded poortea alts to raid [place]
+  [actors] fabricated fake evidence that shows duping done by the leader of [place]
+  [actors] built a border wall right up against [place]
+  [actors] built a penis shaped embassy in the middle of [place]
+  [actors] pearled someone in [place]
+  [actor] has totally obby bombed [place]
+  [actor] has totally cobble bombed [place]
+  [actor] has totally tnt bombed [place]
+  [actors] insulted the diplomat from [place]
+  [actor] is literally seething over [place]
+  [actors] accidentally shot and pearled someone from [place]
+  [actor] has just brought on 20 NATO clickers to attack [place]
+  [place] first annexed and then immediately seceded from [place]
+  [actors] died in [place]
+  [actors] built an obsidian bunker directly inside the claims of [place]
+  [actors] doxxed the members of [place]
+  [actors] said Hantzu was babyraging over [place]
+  [actors] built a secret 'friendly' bunker underneath [place]
+  [nation] is a tier four nation throwing pebbles at the tier one nation of [place]
+  [actor] is a mere puppet controlled by  [place]
+  [actors] tried to expand the GOR through [place]
+  [actors] registered to vote in [place]
+  [actors] forgot to buy an obby loiscence from [place]
+  [actors] made propaganda against [place]
+  [actor] was irrelevant to [place]
+  [actors] built a 'farm' with a decorative snitch curtain 700 blocks from [place]
+  [actors] raised the ground level by 15 blocks in [place]
+  [actors] built map art of [player] in [place]
+  [actors] couped [place]
+  [player] stole the discord permissions of [place]
+  [actors] joined [place]
+  [actor] has information that will lead to the arrest of [player]
+  [actors] broke into [place] only to find [actorOrPlace]
+  [actors] allied with [actorOrPlace]
+  [actors] sent all their newfriends to [actorOrPlace]
+  [actors] organized a movie night with [actorOrPlace]
+  [actors] had the entire army logboxed by [actorOrPlace]
+  [actors] survived an ambush from [actorOrPlace]
+  [actors] got caught hacking by [actorOrPlace]
+  [actors] made a bot army to fight [actorOrPlace]
+  [actors] hired a MTA elawyer to discredit [actorOrPlace]
+  [actors] had newfriend pit traps built by [actorOrPlace]
+  [actors] got killed by [actorOrPlace]
+  [player] is an alt of [actorOrPlace]
+  [actor] fell in love with [actorOrPlace]
+  [actors] drank cherry juice with [actorOrPlace]
+  [actor] is a chickenshit outfit
+  [actors] told [actor] to stfu
+  [actors] died
+  [actors] revealed that they caused the Somber War
+  [actors] revealed that they masterminded the Somber War
+  [actors] doxxed themselves
+  [actors] went afk
+  [actors] lagged out
+  [player] lagged out during a fight
+  [actor] is working on praxis
+  [actors] finished Praxis
+  [actors] came back after a civrealms ban
+  [actors] spammed !
+  [player] mistyped a command into global chat
+  [actor] is breaching the MtA bill of rights
+  [actor] is drawing civball
+  [actors] stole Icenian UBI
+  [actors] vote brigaded the MtA election
+  [actors] won the Olympics
+  [actors] repeatedly found themselves stagnating in life
+  [actors] killed the server
+  [actors] dropchested all their valuables
+  [actors] edited CivWiki
+  [actors] fell in love
+  [actors] squarespiralled
+  [actors] dropped in
+  [actors] dropped out
+  [actors] explored the entire Dr Oracle collection
+  [actor] gave a post-attempt monologue of a failure
+  [player] is one of the most unreasonable, unrealistic, and stupidest civ players I have ever talked to.
+  [actors] deleted the discord archives
+  [actor] is smarter than we give them credit for
+  [actors] got banned for logging in with a VPN
+  [player] was elected the leader of [nation]
+  [actor] is learning a specific language
+  [actors] called [actors] a "fucking thieving, stealing piece of shit"
+  [player] asked what bloppa is
+  [actors] forgot their latin homework
+  [player] forgot they were a prot pinata
+  [actor] is [respond]
+  [player] called [player] a zillennial
+  
+twist
+  without checking /tps
+  which made a big dent in the TPS
+  just be fore the server TPS grinded to a halt
+  and now there's a CivBot command for this
+  and a Maester wrote a book about it
+  and the admins have banned all people involved
+  and now there's a {15-500} comment thread about it on the subreddit
+  then their DMs were leaked, whoopsie.
+  and hired Crimeo to e-lawyer for them ^1/10
+  and hired The Hobbyist to e-lawyer for them ^1/10
+  and hired [player] to e-lawyer for them
+  and now Teal spent the server money on shoes
+  and now there's a massive bgbba rant post
+  and now every cactus farm on the server is worldedited out
+  and now they're in the Hallow quote collection
+  and now [player] is no longer a superfriend
+  and now essence costs have been doubled
+  and now this is in [player]'s quitting post
+  after figuring out a new way to get up these giant cliffs
+  and a trial was requested in Mount Augusta
+  and someone made mapart of it
+  and now #general has been spammed so that its unreadable
+  and a Reddit post about this attracted more people to play Civ
+  and now they has no intention with complying with botting rules
+  which caused another year-long war
+  and then they joined a terrorist cell
+  and they became really good allies after that
+  but instead they rebranded, and everything's ok now
+  and then they met up irl
+  and then they yelled at each other on the subreddit
+  and now they all hate each other
+  but it's fine because none of them existed in the first place
+  and now [player] lost discord admin privileges
+  and now [player] is worshipped as a God
+  and now everyone is perma pearled
+  and the scheme turned out to be cringe roleplay
+  
+respond
+  [respondWord]
+  [respondWord] and [respondWord]
+  [respondLoop], [respondWord], and [respondWord]
+
+respondLoop
+  [respondWord]
+  [respondWord], [respondLoop]
+
+respondWord
+  crying
+  shaking
+  oscillating
+  deleting vault group
+  yelling
+  screaming
+  vibrating
+  overdosing
+  collapsing
+  writhing
+  hyperventilating
