@@ -3,6 +3,7 @@ title
   
 output
   [outputreal.sentenceCase]
+  [outputreal.sentenceCase]. LMFAOOOOOOOO ^1/100
   [outputreal.sentenceCase]. I am [respond.sentenceCase] ^1/12
   [outputreal.sentenceCase] — nah, nevermind ^1/100
   [outputreal.sentenceCase] LOL ^1/100
@@ -13,9 +14,15 @@ output
   [outputreal.sentenceCase] again ^1/100
   /msg [player] [outputreal.sentenceCase] ^1/300
   [outputreal.sentenceCase]...? ^1/100
+  Did you know [outputreal.sentenceCase]
   [outputreal.sentenceCase]!!! ^1/100
   [outputreal.sentenceCase], And That's A Good Thing ^1/100
   [outputreal.sentenceCase]. wait wc ^1/100
+  [outputreal.sentenceCase]. Capital g gamer moment. ^1/30
+  Apparently...[outputreal.sentenceCase] ^1/100
+  [outputreal.sentenceCase]... Imagine being that retarded. ^1/50
+  The fuck is this channel and this bot? ^1/1000
+
 
 outputreal
   [drama] and [drama] ^1/4
@@ -37,7 +44,7 @@ actors
   [actor] ^10
   [actor] and [actor]
   [actorLoop], [actor], and [actor]
-  that little [actor] guy ^1/5
+  that little [actor] guy ^1/4
 
 // loop with base-2 exponential probabilities
 actorLoop
@@ -101,8 +108,27 @@ otherplace
   Femboy Hooters
   heaven
   [player]'s house irl
+  voter tree
+  the biggest vault in civ history
 
 player
+  [funnyplayer] ^ 15
+  [unfunnyplayer]
+  [player]'s beta orbiters
+
+unfunnyplayer
+  Fier
+  fk_54
+  GreatLordOz
+  Lokilog
+  MtAugusta
+  sgtshannon
+  Sharpcastle
+  Tritonio
+  Truck_Man1234
+  virizion
+
+funnyplayer
   adeadhead
   Ahri
   AllenY
@@ -130,20 +156,17 @@ player
   Dr_Oracle
   Dsclouse
   Falvyu
-  Fier
-  fk_54
   Gantoe
   guru gantoe
   Gjum
   Gobblin
   Godomasta
-  GreatLordOz
   HenryDraton
   Infra
   Jayms
   Lodish
-  Lokilog
   LordOfMarzipan
+  Lysika_Lantariel
   Maxopoly
   Matticus_Rex
   Medwedian
@@ -151,7 +174,6 @@ player
   Mickale
   mike0war
   MrLlamma
-  MtAugusta
   ObtainableSpatula
   Okx
   OLivay
@@ -166,9 +188,7 @@ player
   Raven
   RektTangle
   S4NTA
-  sgtshannon
   Shadedoom
-  Sharpcastle
   Shtim
   sintralin
   Slushhi
@@ -183,13 +203,11 @@ player
   Topher
   TopWolf
   Trevie303
-  Tritonio
-  Truck_Man1234
   ttk2
-  virizion
   Wingzero54
   wjkroeker
   Xavter
+  yellofishy
 
 nation
   [funnynation] ^10
@@ -408,7 +426,7 @@ drama
   [player] is a dumbass unfunny moron
   [player] recruited an army of jaja's from [site]
   [player] shared a macromod script that deleted all groups in [place]
-  [player] shared a macromod script which resulted in [drama]
+  [player] shared a macromod script and as a result [drama]
   [player] starred a racist message sent by [actor]
   [player] called [player] a retard
   The [nation] subreddit was banned because [player] was an admin of r/The_[actor]
@@ -421,10 +439,18 @@ drama
   [player] coded [plugin] but it was a little racist
   [player] started crying in vc because they called [actor] ugly in global
   [player] suggested adding [plugin]... [actor] didn't like that
-  Remember [player]? He was a [player] alt
-  Did you know [player] is a femboy?
+  Remember [player]? They were a [player] alt
+  [player] is a femboy?
+  [player] said he's {8-12|40-60} years old?
   [player] tried to advertise civ on [website]
   [player] was making weird noises in [actor]'s discord vc
+  [player] squeezed [player]
+  [player] missed his birthday because [actor] is fucking retarded
+  [player] edited [actor]'s CivWiki page
+  [player] is playing {1-8}D chess against [nation]
+  [player] stole [actor]'s pearl from the September Museum
+  [player] said he doesn't like [actor], "Too political" he claims
+
 
 twist
   and then everyone laughed.
@@ -458,6 +484,7 @@ twist
   and now the exchange rate is {5-60} iron to 1 diamond.
   and now they've crashed [plugin]
   and now there are 100 `@everyone` pings
+  and now [player] has pledged blind loyalty to [player]
   and all screenshots have been leaked to [website]
   but at least we have [plugin] ^2
   but instead they rebranded, and everything's ok now
@@ -470,8 +497,11 @@ twist
   while Teal was spending the server money on shoes
   ; this was apparently a reason why [player] quit
   after figuring out a new way to get up these giant cliffs
-  but Dr_Oracle told them to shut the fuck up
+  but [player] told them to shut the fuck up
   but it turns out it was all made up
+  Happy birthday [player], I hope your's turns out better than mine was!
+  ; Thank you for six years of entertainment.
+  [player] said he's never touching civ again.
 
 respond
   [respondWord]

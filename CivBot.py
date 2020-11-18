@@ -277,7 +277,6 @@ async def on_message(ctx):
         if ctx.author.id == bot.user.id: return  # ignore self
         else:
             if len(ctx.content) != 0 and prefix == ctx.content[0]:
-
                 await bot.process_commands(ctx)
             else:  # regular chat message
                 lower_content = ctx.content.lower()
@@ -295,6 +294,10 @@ async def on_message(ctx):
                     message += page.replace(" ", "_") + "\n"
                 if len(pages) > 0:
                     await ctx.channel.send(message)
+                # Check for drama said in relay channels
+                if re.match("(\[(\S+)\] )*\[(\S+)\] %drama", ctx.content):
+                    print("match of %drama")
+                    ctx.channel.send(perchance_gen(perchance_civ_classic))
             if len(ctx.attachments) != 0:
                 for x in ctx.attachments:
                     if os.path.splitext(x.filename)[1] == ".schematic":
