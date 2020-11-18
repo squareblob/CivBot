@@ -1,4 +1,4 @@
-# CreditBot
+# CivBot
 
 - [**invite code**](https://discordapp.com/api/oauth2/authorize?client_id=614086832245964808&permissions=0&scope=bot)
 *(Invite does not give CreditBot any permissions.)*
@@ -7,7 +7,7 @@
 CivBot is a discord bot for Civ-servers like [Civclassic](https://reddit.com/r/civclassics/). 
 
 
-## CreditBot Commands
+## CivBot Commands
 ### Meme
 
 #### Image
@@ -68,4 +68,4 @@ CivBot is a discord bot for Civ-servers like [Civclassic](https://reddit.com/r/c
 
 ---
 
-![pearl](https://cdn.discordapp.com/attachments/614147625809346581/674289814182297640/output.png)
+![pearl](https://cdn.discordapp.com/attachments/614147625809346581/778718066447876133/output.png)
