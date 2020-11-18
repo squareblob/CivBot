@@ -870,7 +870,7 @@ async def wiard(ctx, *, content):
 
 perchance_civ_classic = perchance_parse(open('resources/perchance.txt').read())
 
-@kdb.command(pass_context=True)
+@bot.command(pass_context=True)
 async def drama(ctx, *, content):
     """Generates CivClassic drama"""
     await ctx.channel.send(perchance_gen(perchance_civ_classic))

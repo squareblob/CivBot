@@ -50,8 +50,15 @@ def parse_line(line):
         else:  # {}
             left, inner, line = extract_inside_paren(line, '{}')
             segments.append({'type': 'raw', 'text': left})
-            options = [s.strip() for s in inner.split('|')]
-            segments.append({'type': 'multi', 'options': options})
+            if '|' in inner:
+                options = [s.strip() for s in inner.split('|')]
+                segments.append({'type': 'multi', 'options': options})
+            elif '-' in inner:
+                min_val, max_val = (int(s) for s in inner.split('-'))
+                segments.append(
+                    {'type': 'range', 'min': min_val, 'max': max_val})
+            else:
+                segments.append({'type': 'raw', 'text': inner})
 
     # remainder
     segments.append({'type': 'raw', 'text': line})
@@ -93,6 +100,10 @@ def perchance_gen_inner(definitions, name):
                     text = text.title()
             elif segment['type'] == 'multi':
                 text = random.choice(segment['options'])
+            elif segment['type'] == 'range':
+                text = str(random.randrange(segment['min'], segment['max']))
+            else:
+                raise ValueError('Unknown segment ' + segment)
             result += text
         except Exception as err:
             print('in segment', segment)
@@ -102,6 +113,4 @@ def perchance_gen_inner(definitions, name):
 
 if __name__ == "__main__":
     definitions = perchance_parse(open('resources/perchance.txt').read())
-    # import json
-    # print(json.dumps(definitions, indent=2))
     print(perchance_gen(definitions))
