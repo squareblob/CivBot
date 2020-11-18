@@ -29,10 +29,8 @@ from mcuuid.api import GetPlayerData
 from fuzzywuzzy import fuzz
 from fuzzywuzzy import process
 import pickle as pickle1
-import pycountry
 
 prefix = "%"
-
 
 def clean_text_for_discord(text):
     text = text.replace("_", "\_")
@@ -697,22 +695,22 @@ async def nato(ctx):
         pass
 
 
-@bot.command(pass_context=True)
-async def dox(ctx, content):
-    """'Doxes' a player"""
-    fake = Faker()
-    await ctx.channel.send("...Scanning information for " + discord.utils.escape_mentions(content) + "'s home address...")
-    await ctx.channel.trigger_typing()
-    await asyncio.sleep(3)
-    if random.randrange(0, 6) == 5:
-        try:
-            await ctx.guild.kick(ctx.message.author, reason="Dox attempt")
-            await ctx.channel.send("User was kicked from the server for attempted dox")
-        except discord.Forbidden:
-            pass
-    else:
-        Faker.seed(content)
-        await ctx.channel.send(":white_check_mark: " + fake.name() + "\n" + fake.address() + "\n")
+# @bot.command(pass_context=True)
+# async def dox(ctx, content):
+#     """'Doxes' a player"""
+#     fake = Faker()
+#     await ctx.channel.send("...Scanning information for " + discord.utils.escape_mentions(content) + "'s minecraft alts...")
+#     await ctx.channel.trigger_typing()
+#     await asyncio.sleep(3)
+#     if random.randrange(0, 6) == 5:
+#         try:
+#             await ctx.guild.kick(ctx.message.author, reason="Dox attempt")
+#             await ctx.channel.send("User was kicked from the server for attempted dox")
+#         except discord.Forbidden:
+#             pass
+#     else:
+#         Faker.seed(content)
+#         await ctx.channel.send(":white_check_mark: " + fake.name())
 
 
 def draw_derelict(input_string):
