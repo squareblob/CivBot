@@ -11,7 +11,7 @@ output
   [outputreal.sentenceCase]. Wholesome! ^1/100
   [outputreal.sentenceCase]. Kinda quirky ngl ^1/100
   [outputreal.sentenceCase] again ^1/100
-  /msg [player] [outputreal.sentenceCase] ^1/100
+  /msg [player] [outputreal.sentenceCase] ^1/300
   [outputreal.sentenceCase]...? ^1/100
   [outputreal.sentenceCase]!!! ^1/100
   [outputreal.sentenceCase], And That's A Good Thing ^1/100
@@ -78,6 +78,7 @@ otheractor
   Big Chungus
   Medium Chungus
   Small Chungus
+  Civclassic Admins
 
 otherplace
   0,0
@@ -127,6 +128,7 @@ player
   Daddy1015
   Diet_Cola
   Dr_Oracle
+  Dsclouse
   Falvyu
   Fier
   fk_54
@@ -364,6 +366,7 @@ drama
   [actors] stole Icenian UBI
   [actors] vote brigaded the MtA election
   [actors] won the Olympics
+  [actors] forgot they were hosting the Olympics
   [actors] repeatedly found themselves stagnating in life
   [actors] killed the server
   [actors] dropchested all their valuables
@@ -379,7 +382,6 @@ drama
   [actor] is smarter than we give them credit for
   [actors] got banned for logging in with a VPN
   [player] was elected the leader of [nation]
-  [actor] is learning a specific language
   [actors] called [actors] a "fucking thieving, stealing piece of shit"
   [player] asked what bloppa is
   [actors] forgot their latin homework
@@ -390,7 +392,7 @@ drama
   [player] squarespiralled
   [player] misclicked
   [player] made [plugin] but the admins won't add it
-  [player] keeps begging Maxopoly to add [plugin]
+  [player] keeps begging Maxopoly to add [plugin] ^2
   the server runs at {5-15} TPS
   [player] compacted all their wealth and logged out in the [place] factory bunker
   [player] moved to [place]
@@ -403,47 +405,74 @@ drama
   [actor] got [actor] banned
   [actor] is delusional
   [player] covered themselves in oil
+  [player] is a dumbass unfunny moron
+  [player] recruited an army of jaja's from [site]
+  [player] shared a macromod script that deleted all groups in [place]
+  [player] shared a macromod script which resulted in [drama]
+  [player] starred a racist message sent by [actor]
+  [player] called [player] a retard
+  The [nation] subreddit was banned because [player] was an admin of r/The_[actor]
+  [player] thought [nation] existed IRL
+  [player] told an admin they're retarded and they started crying
+  [player] thought [player] lived in [nation], but in reality they're Brazilian
+  [actor] had their post removed by moderators
+  [player] offered ${1-10000} to buy [nation]'s vault
+  [player] pearled [player] for real life money
+  [player] coded [plugin] but it was a little racist
+  [player] started crying in vc because they called [actor] ugly in global
+  [player] suggested adding [plugin]... [actor] didn't like that
+  Remember [player]? He was a [player] alt
+  Did you know [player] is a femboy?
+  [player] tried to advertise civ on [website]
+  [player] was making weird noises in [actor]'s discord vc
 
 twist
-  but at least we have [plugin]
-  without checking /tps
-  which made a big dent in the TPS
-  just before the server TPS grinded to a halt
-  and now there's a CivBot command for this
-  and a Maester wrote a book about it
+  and then everyone laughed.
   and the admins have banned all people involved
-  and now there's a {15-500} comment thread about it on the subreddit
-  then their DMs were leaked
+  and a Maester wrote a book about it ^1/3
+  and hired [player] to e-lawyer for them
   and hired Crimeo to e-lawyer for them ^1/10
   and hired The Hobbyist to e-lawyer for them ^1/10
-  and hired [player] to e-lawyer for them
-  while Teal was spending the server money on shoes
+  and a trial was requested in Mount Augusta
+  and someone made mapart of it
+  and [player] tried to blackmail them
+  and a Reddit post about this attracted more people to play Civ
+  and they have no intention with complying with botting rules
+  and they became really good allies after that
+  and the scheme turned out to be cringe roleplay
+  and [player] lost discord admin privileges
+  and then they met up irl
+  and then they yelled at each other on the subreddit
+  and then they joined a terrorist cell
+  and now there's a CivBot command for this
+  and now there's a {15-500} comment thread about it on the subreddit
   and now there's a massive bgbba rant post
   and now every cactus farm on the server is worldedited out
   and now they're in the Hallow quote collection
   and now [player] is no longer a superfriend
   and now essence costs have been doubled
+  and now you have {200-400} unread messaged in #general
+  and now they all hate each other
+  and now they're worshipped as a god
+  and now everyone is perma pearled
+  and now the exchange rate is {5-60} iron to 1 diamond.
+  and now they've crashed [plugin]
+  and now there are 100 `@everyone` pings
+  and all screenshots have been leaked to [website]
+  but at least we have [plugin] ^2
+  but instead they rebranded, and everything's ok now
+  but it's fine because none of them existed in the first place
+  without checking /tps
+  which made a big dent in the TPS
+  which caused another year-long war
+  just before the server TPS grinded to a halt
+  then their DMs were leaked
+  while Teal was spending the server money on shoes
   ; this was apparently a reason why [player] quit
   after figuring out a new way to get up these giant cliffs
-  and a trial was requested in Mount Augusta
-  and someone made mapart of it
-  and now #general has been spammed so that it's unreadable
-  and a Reddit post about this attracted more people to play Civ
-  and they have no intention with complying with botting rules
-  which caused another year-long war
-  and then they joined a terrorist cell
-  and they became really good allies after that
-  but instead they rebranded, and everything's ok now
-  and then they met up irl
-  and then they yelled at each other on the subreddit
-  and now they all hate each other
-  but it's fine because none of them existed in the first place
-  and now [player] lost discord admin privileges
-  and now they're is worshipped as a god
-  and now everyone is perma pearled
-  and the scheme turned out to be cringe roleplay
-  and now the exchange rate is {5-60} iron to 1 diamond.
-  
+  but Dr_Oracle told them to shut the fuck up
+  but it turns out it was all made up
+
 respond
   [respondWord]
   [respondWord] and [respondWord]
@@ -465,6 +494,7 @@ respondWord
   collapsing
   writhing
   hyperventilating
+  starring
 
 plugin
   [pluginprefix][pluginbase][pluginsuffix]
@@ -606,3 +636,13 @@ pluginsuffix
   Contraptions
   PvP
   Bank
+
+website
+  reddit
+  r/gaming
+  r/minecraft
+  r/civclassic
+  4chan
+  an obscure Russian forum
+
+//  [actors] revealed that they masterminded the Somber War -> masterminded [event]
