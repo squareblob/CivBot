@@ -1,10 +1,11 @@
 # CreditBot
 
-## [invite code](https://discordapp.com/api/oauth2/authorize?client_id=614086832245964808&permissions=0&scope=bot)
-*Invite does not give CreditBot any permissions.*
+- [**invite code**](https://discordapp.com/api/oauth2/authorize?client_id=614086832245964808&permissions=0&scope=bot)
+*(Invite does not give CreditBot any permissions.)*
+- prefix : %
 
-prefix | %
------------- | -------------
+CivBot is a discord bot for Civ-servers like [Civclassic](https://reddit.com/r/civclassics/). 
+
 
 ## CreditBot Commands
 ### Meme
@@ -17,7 +18,6 @@ prefix | %
 | `derelict <text1> <text2> <text3> <text4>`  | Places a dereliction sign on the previously posted image |
 | `joinedweezer [player1] <player2> <player3> <player4>` | Returns an image of the players minecraft skins in weezer  |
 | `laughat` | Returns the image with a black outline and 'LAUGH' appended |
-| `cryat` | Returns the image with a black outline and 'CRY' appended |
 | `cryat` | Returns the image with a black outline and 'CRY' appended |
 | `getalong [player1] [player2]` | Places a get along shirt over two players minecraft skins |
 | `dontcare [player]` | Appends the player head and a message about how little you care |
