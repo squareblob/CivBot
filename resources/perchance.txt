@@ -3,26 +3,28 @@ title
   
 output
   [outputreal.sentenceCase]
-  [outputreal.sentenceCase]. I am [respond.sentenceCase] ^1/10
-  [outputreal.sentenceCase] - nah, nevermind ^1/150
-  [outputreal.sentenceCase] LOL ^1/150
-  [outputreal.sentenceCase] tbh ^1/150
-  [outputreal.sentenceCase]. Wonder why. ^1/150
-  [outputreal.sentenceCase]. Wholesome! ^1/150
-  [outputreal.sentenceCase]. The current exchange rate is {12-40} iron to 1 diamond. ^1/150
-  [outputreal.sentenceCase]. Kinda quirky ngl ^1/150
-  [outputreal.sentenceCase] again ^1/150
-  /msg [player] [outputreal.sentenceCase] ^1/150
-  bingus [outputreal.sentenceCase] ^1/150
+  [outputreal.sentenceCase]. I am [respond.sentenceCase] ^1/12
+  [outputreal.sentenceCase] — nah, nevermind ^1/100
+  [outputreal.sentenceCase] LOL ^1/100
+  [outputreal.sentenceCase] tbh ^1/100
+  [outputreal.sentenceCase]. Wonder why. ^1/100
+  [outputreal.sentenceCase]. Wholesome! ^1/100
+  [outputreal.sentenceCase]. Kinda quirky ngl ^1/100
+  [outputreal.sentenceCase] again ^1/100
+  /msg [player] [outputreal.sentenceCase] ^1/100
+  [outputreal.sentenceCase]...? ^1/100
+  [outputreal.sentenceCase]!!! ^1/100
+  [outputreal.sentenceCase], And That's A Good Thing ^1/100
+  [outputreal.sentenceCase]. wait wc ^1/100
 
 outputreal
   [drama] and [drama] ^1/4
   [drama] [twist]
-  [drama] 
+  [drama]
+  [drama]. In other news, [drama]. ^1/100
   [actor] lied and [actor] died ^1/100
   [actor] moment ^1/200
-  [actor] pie ^1/200
-  
+
 actorOrPlace
   [actor]
   [place]
@@ -54,19 +56,14 @@ otheractor
   40 men in prot
   a bot
   a newfriend
-  Big Chungus
   the admins
   CivBot
-  Kira
   the MtAugusta bot
   HCF
   CivSPAN
   Empty Promises
   Liberty Gazette
-  Joe Biden
   Your mom
-  Obama
-  Bashar al-Assad
   everybody
   nobody
   ham_was_here
@@ -75,8 +72,13 @@ otheractor
   SATO
   a bgpost
   Kira
+  Bashar al-Assad
+  Obama
+  Joe Biden
+  Big Chungus
   Medium Chungus
-  
+  Small Chungus
+
 otherplace
   0,0
   real life
@@ -88,7 +90,7 @@ otherplace
   NATO
   SATO
   Entente
-  Brazil 
+  Brazil
   r/MtAugusta
   r/MtAugustaJustice
   a hole in the ground
@@ -96,6 +98,8 @@ otherplace
   Argentina
   hell
   Femboy Hooters
+  heaven
+  [player]'s house irl
 
 player
   adeadhead
@@ -184,11 +188,11 @@ player
   Wingzero54
   wjkroeker
   Xavter
-  
+
 nation
   [funnynation] ^10
   [unfunnynation]
-  
+
 funnynation
   some one-man nation
   Bloom
@@ -208,6 +212,7 @@ funnynation
   Mir
   Mount Augusta
   Mount September
+  Nipplerock
   Pacem
   SPQR
   Varkonia
@@ -247,10 +252,9 @@ unfunnynation
   Greenmarsh
   Impasse
   Iria
-  Jefferson Confederacy
+  the Jefferson Confederacy
   Kaltsburg
   Kanagawa
-  the Knights Templar
   Königsberg
   Laconia
   Leuven
@@ -260,7 +264,6 @@ unfunnynation
   Mithrin
   Mount Chungusta
   Nevrast
-  Nipplerock
   Nro'meagh
   Nyasaland
   Odresh
@@ -291,14 +294,14 @@ unfunnynation
   Xalta Moro
 
 drama
-  [place] made a trade embargo with [place]
-  [actors] world downloaded the vault belonging to [place]
-  [actors] claimed over [place]
+  [place] placed a trade embargo on [place]
+  [actors] world downloaded [place]'s vault
+  [actors] claimed [place]'s territory
   [nation] annexed [place]
-  [actors] used unknown alts to assassinate the leader of [place]
+  [actors] used alts to assassinate the leader of [place]
   [actors] funded poortea alts to raid [place]
-  [actors] fabricated fake evidence that shows duping done by the leader of [place]
-  [actors] built a border wall right up against [place]
+  [actors] fabricated evidence that shows the leader of [place] duping
+  [actors] put a border wall right up against [place]
   [actors] built a penis shaped embassy in the middle of [place]
   [actors] pearled someone in [place]
   [actor] has totally obby bombed [place]
@@ -307,14 +310,14 @@ drama
   [actors] insulted the diplomat from [place]
   [actor] is literally seething over [place]
   [actors] accidentally shot and pearled someone from [place]
-  [actor] has just brought on 20 NATO clickers to attack [place]
-  [place] first annexed and then immediately seceded from [place]
+  [actor] has just brought on twenty clickers to attack [place]
+  [place] annexed and then immediately seceded from [place]
   [actors] died in [place]
-  [actors] built an obsidian bunker directly inside the claims of [place]
+  [actors] built a bunker in [place]
   [actors] doxxed the members of [place]
   [actors] said Hantzu was babyraging over [place]
   [actors] built a secret 'friendly' bunker underneath [place]
-  [nation] is a tier four nation throwing pebbles at the tier one nation of [place]
+  [nation] is a tier four nation throwing pebbles at the tier one nation of [nation]
   [actor] is a mere puppet controlled by [place]
   [actors] tried to expand the GOR through [place]
   [actors] registered to vote in [place]
@@ -325,14 +328,14 @@ drama
   [actors] raised the ground level by 15 blocks in [place]
   [actors] built map art of [player] in [place]
   [actors] couped [place]
-  [player] stole the discord permissions of [place]
+  [player] stole the Discord permissions of [place]
   [actors] joined [place]
   [actor] has information that will lead to the arrest of [player]
   [actors] broke into [place] only to find [actorOrPlace]
   [actors] allied with [actorOrPlace]
   [actors] sent all their newfriends to [actorOrPlace]
-  [actors] organized a movie night with [actorOrPlace]
-  [actors] had the entire army logboxed by [actorOrPlace]
+  [actors] organised a movie night with [actorOrPlace]
+  [actors] had their entire army logboxed by [actorOrPlace]
   [actors] survived an ambush from [actorOrPlace]
   [actors] got caught hacking by [actorOrPlace]
   [actors] made a bot army to fight [actorOrPlace]
@@ -342,7 +345,7 @@ drama
   [player] is an alt of [actorOrPlace]
   [actor] fell in love with [actorOrPlace]
   [actors] drank cherry juice with [actorOrPlace]
-  [actor] is a chickenshit outfit
+  [place] is a chickenshit outfit
   [actors] told [actor] to stfu
   [actors] died
   [actors] revealed that they caused the Somber War
@@ -390,7 +393,17 @@ drama
   [player] keeps begging Maxopoly to add [plugin]
   the server runs at {5-15} TPS
   [player] compacted all their wealth and logged out in the [place] factory bunker
-  
+  [player] moved to [place]
+  Tom Scott is here, at [place]
+  the smallest chungus in [place] is bigger than the biggest chungus in [place]
+  [player] paid a visit to [place]
+  [actor] pearled [actor]
+  [player] got stuck in [place]
+  [actor] spammed the MtAugusta bot
+  [actor] got [actor] banned
+  [actor] is delusional
+  [player] covered themselves in oil
+
 twist
   but at least we have [plugin]
   without checking /tps
@@ -414,7 +427,7 @@ twist
   after figuring out a new way to get up these giant cliffs
   and a trial was requested in Mount Augusta
   and someone made mapart of it
-  and now #general has been spammed so that its unreadable
+  and now #general has been spammed so that it's unreadable
   and a Reddit post about this attracted more people to play Civ
   and they have no intention with complying with botting rules
   which caused another year-long war
@@ -429,7 +442,7 @@ twist
   and now they're is worshipped as a god
   and now everyone is perma pearled
   and the scheme turned out to be cringe roleplay
-  covered themselves in oil
+  and now the exchange rate is {5-60} iron to 1 diamond.
   
 respond
   [respondWord]
