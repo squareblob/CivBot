@@ -3,24 +3,22 @@ title
   
 output
   [outputreal.sentenceCase]
-  [outputreal.sentenceCase]. I am [respond.sentenceCase] ^1/3
+  [outputreal.sentenceCase]. I am [respond.sentenceCase] ^1/10
   [outputreal.sentenceCase] - nah, nevermind ^1/150
-  [outputreal.sentenceCase] {LOL| LOL (Laugh Out Loud)} ^1/150
+  [outputreal.sentenceCase] LOL ^1/150
   [outputreal.sentenceCase] tbh ^1/150
-  %wiard [outputreal.sentenceCase] ^1/150
-  %laughat [outputreal.sentenceCase] ^1/150
-  %cryat [outputreal.sentenceCase] ^1/150
   [outputreal.sentenceCase]. Wonder why. ^1/150
   [outputreal.sentenceCase]. Wholesome! ^1/150
   [outputreal.sentenceCase]. The current exchange rate is {12-40} iron to 1 diamond. ^1/150
-  /g ! [outputreal.sentenceCase] ^1/150
   [outputreal.sentenceCase]. Kinda quirky ngl ^1/150
   [outputreal.sentenceCase] again ^1/150
+  /msg [player] [outputreal.sentenceCase] ^1/150
+  bingus [outputreal.sentenceCase] ^1/150
 
 outputreal
-  [drama] and [drama] ^1/3
+  [drama] and [drama] ^1/4
   [drama] [twist]
-  [drama] ^1/2
+  [drama] 
   [actor] lied and [actor] died ^1/100
   [actor] moment ^1/200
   [actor] pie ^1/200
@@ -37,7 +35,7 @@ actors
   [actor] ^10
   [actor] and [actor]
   [actorLoop], [actor], and [actor]
-  that little [actor] guy ^1/10
+  that little [actor] guy ^1/5
 
 // loop with base-2 exponential probabilities
 actorLoop
@@ -51,6 +49,7 @@ actor
   everyone in [place]
 
 otheractor
+  [plugin]
   whoever is reading this right now
   40 men in prot
   a bot
@@ -75,8 +74,8 @@ otheractor
   NATO
   SATO
   a bgpost
-  a squarespiral
   Kira
+  Medium Chungus
   
 otherplace
   0,0
@@ -96,6 +95,7 @@ otherplace
   a hotel in Russia
   Argentina
   hell
+  Femboy Hooters
 
 player
   adeadhead
@@ -116,7 +116,7 @@ player
   Citylion
   ComradeNick
   ComradeRick
-  coolioomoose
+  cooliomoose
   Crimeo
   Crimsonblod
   cwage
@@ -170,7 +170,6 @@ player
   specificlanguage
   squareblob
   Stonato
-  S_Q_U_A_R_E
   Tealnerd
   The Hobbyist
   TheOrangeWizard
@@ -316,7 +315,7 @@ drama
   [actors] said Hantzu was babyraging over [place]
   [actors] built a secret 'friendly' bunker underneath [place]
   [nation] is a tier four nation throwing pebbles at the tier one nation of [place]
-  [actor] is a mere puppet controlled by  [place]
+  [actor] is a mere puppet controlled by [place]
   [actors] tried to expand the GOR through [place]
   [actors] registered to vote in [place]
   [actors] forgot to buy an obby loiscence from [place]
@@ -354,7 +353,7 @@ drama
   [player] lagged out during a fight
   [actor] is working on praxis
   [actors] finished Praxis
-  [actors] came back after a civrealms ban
+  [actors] came back after being unbanned
   [actors] spammed !
   [player] mistyped a command into global chat
   [actor] is breaching the MtA bill of rights
@@ -367,12 +366,12 @@ drama
   [actors] dropchested all their valuables
   [actors] edited CivWiki
   [actors] fell in love
-  [actors] squarespiralled
+  [player] squarespiralled
   [actors] dropped in
   [actors] dropped out
   [actors] explored the entire Dr Oracle collection
   [actor] gave a post-attempt monologue of a failure
-  [player] is one of the most unreasonable, unrealistic, and stupidest civ players I have ever talked to.
+  [player] is one of the most unreasonable, unrealistic, and stupidest civ players I have ever talked to
   [actors] deleted the discord archives
   [actor] is smarter than we give them credit for
   [actors] got banned for logging in with a VPN
@@ -384,32 +383,40 @@ drama
   [player] forgot they were a prot pinata
   [actor] is [respond]
   [player] called [player] a zillennial
+  [player] detected roleplay
+  [player] squarespiralled
+  [player] misclicked
+  [player] made [plugin] but the admins won't add it
+  [player] keeps begging Maxopoly to add [plugin]
+  the server runs at {5-15} TPS
+  [player] compacted all their wealth and logged out in the [place] factory bunker
   
 twist
+  but at least we have [plugin]
   without checking /tps
   which made a big dent in the TPS
-  just be fore the server TPS grinded to a halt
+  just before the server TPS grinded to a halt
   and now there's a CivBot command for this
   and a Maester wrote a book about it
   and the admins have banned all people involved
   and now there's a {15-500} comment thread about it on the subreddit
-  then their DMs were leaked, whoopsie.
+  then their DMs were leaked
   and hired Crimeo to e-lawyer for them ^1/10
   and hired The Hobbyist to e-lawyer for them ^1/10
   and hired [player] to e-lawyer for them
-  and now Teal spent the server money on shoes
+  while Teal was spending the server money on shoes
   and now there's a massive bgbba rant post
   and now every cactus farm on the server is worldedited out
   and now they're in the Hallow quote collection
   and now [player] is no longer a superfriend
   and now essence costs have been doubled
-  and now this is in [player]'s quitting post
+  ; this was apparently a reason why [player] quit
   after figuring out a new way to get up these giant cliffs
   and a trial was requested in Mount Augusta
   and someone made mapart of it
   and now #general has been spammed so that its unreadable
   and a Reddit post about this attracted more people to play Civ
-  and now they has no intention with complying with botting rules
+  and they have no intention with complying with botting rules
   which caused another year-long war
   and then they joined a terrorist cell
   and they became really good allies after that
@@ -419,9 +426,10 @@ twist
   and now they all hate each other
   but it's fine because none of them existed in the first place
   and now [player] lost discord admin privileges
-  and now [player] is worshipped as a God
+  and now they're is worshipped as a god
   and now everyone is perma pearled
   and the scheme turned out to be cringe roleplay
+  covered themselves in oil
   
 respond
   [respondWord]
@@ -444,3 +452,144 @@ respondWord
   collapsing
   writhing
   hyperventilating
+
+plugin
+  [pluginprefix][pluginbase][pluginsuffix]
+
+pluginprefix
+  Better
+  Civ
+  Realistic
+  Old
+  Simple
+  Meme
+  Add
+  Quirky
+
+pluginbase
+  Biomes
+  Bastion
+  Item
+  Citadel
+  Enchanting
+  Combat
+  Brewery
+  Border
+  Teleports
+  Instant_Death
+  BlockPuzzles
+  InformationOverload
+  Disinformation
+  Gravity
+  Bullet_Hell
+  Brawl
+  Disease
+  Crop
+  AnimalHusbandry
+  Archery
+  BronzeWorking
+  Calendar
+  Masonry
+  Mining
+  Pottery
+  Sailing
+  TheWheel
+  Trapping
+  Writing
+  Construction
+  Currency
+  DramaAndPoetry
+  Engineering
+  HorsebackRiding
+  IronWorking
+  Mathematics
+  Optics
+  Philosophy
+  Chivalry
+  CivilService
+  Compass
+  Education
+  Guilds
+  Machinery
+  MetalCasting
+  Physics
+  Steel
+  Theology
+  Acoustics
+  Architecture
+  Astronomy
+  Banking
+  Chemistry
+  Economics
+  Gunpowder
+  Metallurgy
+  Navigation
+  PrintingPress
+  Archaeology
+  Biology
+  Dynamite
+  Electricity
+  Fertilizer
+  Industrialization
+  MilitaryScience
+  Rifling
+  ScientificTheory
+  SteamPower
+  Ballistics
+  Combustion
+  Electronics
+  Flight
+  Plastics
+  Radio
+  Railroad
+  Refrigeration
+  ReplaceableParts
+  AtomicTheory
+  CombinedArms
+  Computers
+  Ecology
+  NuclearFission
+  Penicillin
+  Radar
+  Rocketry
+  AdvancedBallistics
+  FutureTech
+  Globalization
+  Lasers
+  MobileTactics
+  Nanotechnology
+  NuclearFusion
+  ParticlePhysics
+  Robotics
+  Satellites
+  Stealth
+  Telecommunications
+  TheInternet
+
+pluginsuffix
+  fuscator
+  limits
+  egg
+  Core
+  Alert
+  Spawn
+  Colors
+  Layer
+  Exchange
+  Mod
+  Stick
+  Mana
+  Spy
+  Plus
+  Manager
+  Fix
+  Alts
+  Tweaks
+  Tools
+  Pearl
+  Ore
+  Shards
+  Cull
+  Contraptions
+  PvP
+  Bank
