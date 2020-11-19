@@ -262,7 +262,7 @@ async def on_message(ctx):
     try:
         if ctx.author.id == bot.user.id: return  # ignore self
         else:
-            match_relay_chat_command = re.match("(?:`\[(?:\S+)\]` )*\[(?:\S+)\] ((%(?:\S+)).+)", ctx.content)
+            match_relay_chat_command = re.match("(?:`\[(?:\S+)\]` )*\[(?:\S+)\] ((%(?:\S+))(?: .+)*)", ctx.content)
             if len(ctx.content) != 0 and prefix == ctx.content[0]:
                 await bot.process_commands(ctx)
             elif match_relay_chat_command:
