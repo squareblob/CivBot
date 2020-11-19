@@ -214,7 +214,10 @@ async def oracle(ctx):
 @bot.command(pass_context=True)
 async def thraldrek(ctx):
     """Gives a thraldrek response"""
-    wordlist = ["Isn't " + ctx.author.name + " from " + random.choice(list(pycountry.countries)).name]
+    country_name = random.choice(list(pycountry.countries)).name
+    if random.randint(0, 200) == 1:
+        country_name = "Thrain Family Forest"
+    wordlist = ["Isn't " + ctx.author.name + " from " + country_name]
     await ctx.channel.send(random.choice(wordlist))
 
 
@@ -875,7 +878,7 @@ async def pickle(ctx, content):
         if a[0].casefold() == content[0].casefold():
             adjs.append(a)
     if content.casefold() == "pirater":
-            adjs = ["pickled"]
+        adjs = ["pickled"]
     if len(adjs) > 0:
         await ctx.channel.send(random.choice(adjs).capitalize() + " " + clean_text_for_discord(content))
 
@@ -1100,36 +1103,13 @@ if __name__ == "__main__":
     config.read('config.ini')
     token = config.get(config_type, 'token')
     discord_loc = config.get(config_type, 'discord_loc')
-
-    initial_extensions = ['cogs.VoiceRelay']
-    for extension in initial_extensions:
-        bot.load_extension(extension)
-
+    # initial_extensions = ['cogs.VoiceRelay']
+    # for extension in initial_extensions:
+    #     bot.load_extension(extension)
     while True:
         try:
             bot.run(token)
         except Exception as e:
             print("Error", e)
         print("Waiting until restart")
-        time.sleep(10)
-
-# Broken/deprecated CivBot commands
-
-
-def getmotd():
-    random.seed(datetime.datetime.today().strftime('%m/%d/%Y'))
-    return random.choice(["olive",
-                          "olives",
-                          "kalamata olive",
-                          "kalamata olives",
-                          "sliced kalamata olives",
-                          "sliced kalamata olives in brine",
-                          "pre-owned sliced kalamata olives in brine",
-                          "i think i'm going to take a meme detox",
-                          ])
-
-
-@bot.command(pass_context=True)
-async def motd(ctx):
-    """returns the message of the day"""
-    await ctx.channel.send(getmotd())
+        time.sleep(20)
