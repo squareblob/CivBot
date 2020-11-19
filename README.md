@@ -23,7 +23,7 @@ CivBot is a discord bot for Civ-servers like [Civclassic](https://reddit.com/r/c
 | `dontcare [player]` | Appends the player head and a message about how little you care |
 | `chart create <chart name>` | Creates a chart to plot minecraft skin heads to. Use `chart view <chart code>` and `chart edit <chart code> <minecraft username> <xcoord> <ycoord>`. |
 | `grey` | Makes an image greyscale |
-| `step <number>` | Shows you step n |
+| `step [number]` | Shows you step *n* |
 
 
 #### Text
@@ -39,7 +39,6 @@ CivBot is a discord bot for Civ-servers like [Civclassic](https://reddit.com/r/c
 | `nato` | Messages NATO image response |
 | `entente` | Messages entente image response |
 | `topher` `thraldrek` `oracle` `freestyle` | Gives a characteristic response |
-| `motd`* | returns the message of the day |
 | *delusional* | Responds with "Edit Civ Wiki" whenever 'delusional' is sent by a user.|
 
 
@@ -51,10 +50,10 @@ CivBot is a discord bot for Civ-servers like [Civclassic](https://reddit.com/r/c
 | `whois [player]`| Get info about that IGN from namemc.com and minecraft-statistic.net |
 | `invite` | gives CivBot invite |
 | *[[CIVWIKI PAGE]]* or *{{CIVWIKI TEMPLATE}}* | returns embed summary of linked civwiki page. Note that pages can be prefixed with `w:` to link to wikipedia. |
-| `civdiscord search <searchterm>` | Searches for fuzzy match in [Discord Servers Wiki collection](https://civclassic.miraheze.org/wiki/Discord_Servers) |
-| `civdiscord add <discord invite>` | Adds a discord to [Discord Servers Wiki collection](https://civclassic.miraheze.org/wiki/Discord_Servers) |
-| `civdiscord nick <invite> <nickname>` | Nicknames a discord, which can be used to aide searches |
-| `civdiscord rate <invite> <rating(1-5)>`| Rates a discord server
+| `civdiscord search [searchterm]` | Searches for fuzzy match in [Discord Servers Wiki collection](https://civclassic.miraheze.org/wiki/Discord_Servers) |
+| `civdiscord add [discord invite]` | Adds a discord to [Discord Servers Wiki collection](https://civclassic.miraheze.org/wiki/Discord_Servers) |
+| `civdiscord nick [invite] [nickname]` | Nicknames a discord, which can be used to aide searches |
+| `civdiscord rate [invite] [rating(1-5)]`| Rates a discord server
 
 
 ### Broken
