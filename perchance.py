@@ -77,7 +77,7 @@ def extract_inside_paren(line, open_close):
 
 
 def perchance_gen(definitions):
-    return perchance_gen_inner(definitions, 'output')
+    return perchance_gen_inner(definitions, 'output').replace(r'\s', ' ')
 
 
 def perchance_gen_inner(definitions, name):
