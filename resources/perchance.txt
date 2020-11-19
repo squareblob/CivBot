@@ -251,6 +251,7 @@ funnynation
   Tvtopia
   Tierra de Conciencia
   The Big Dogs
+  Gabon
 
 unfunnynation
   Air Bud Republic
@@ -277,7 +278,6 @@ unfunnynation
   Dagon
   the Entranan Republic
   Unitas
-  Gabon
   Gondolin
   Grand Imperium
   Greenmarsh
