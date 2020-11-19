@@ -270,8 +270,10 @@ async def on_message(ctx):
                 if match_relay_chat_command.group(2) == "%whereis":
                     coords = re.match("%whereis ((?:[+-]?\d)+)[ ,]((?:[+-]?\d)+)", ctx.content)
                     await whereis(ctx, coords.group(1), coords.group(2), True)
+                elif match_relay_chat_command.group(2) == "%drama": # set temporarily as somehow broken
+                    await drama(ctx)
                 else:
-                    print(ctx)
+                    print(ctx.content)
                     await bot.process_commands(ctx)
             else:  # regular chat message
                 lower_content = ctx.content.lower()
