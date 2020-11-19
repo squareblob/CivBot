@@ -21,7 +21,10 @@ CivBot is a discord bot for Civ-servers like [Civclassic](https://reddit.com/r/c
 | `cryat` | Returns the image with a black outline and 'CRY' appended |
 | `getalong [player1] [player2]` | Places a get along shirt over two players minecraft skins |
 | `dontcare [player]` | Appends the player head and a message about how little you care |
-| `chart create <chart name>` | Creates a chart to plot minecraft skin heads to. Use `chart view <chart code>` and `chart edit <chart code> <minecraft username> <xcoord> <ycoord>`. 
+| `chart create <chart name>` | Creates a chart to plot minecraft skin heads to. Use `chart view <chart code>` and `chart edit <chart code> <minecraft username> <xcoord> <ycoord>`. |
+| `grey` | Makes an image greyscale |
+| `step <number>` | Shows you step n |
+
 
 #### Text
 
@@ -35,6 +38,7 @@ CivBot is a discord bot for Civ-servers like [Civclassic](https://reddit.com/r/c
 | `animemer` | Returns a screenshot of one of animemer's first ever reddit comments. |
 | `nato` | Messages NATO image response |
 | `entente` | Messages entente image response |
+| `topher` `thraldrek` `oracle` `freestyle` | Gives a characteristic response |
 | `motd`* | returns the message of the day |
 | *delusional* | Responds with "Edit Civ Wiki" whenever 'delusional' is sent by a user.|
 
@@ -60,11 +64,11 @@ CivBot is a discord bot for Civ-servers like [Civclassic](https://reddit.com/r/c
 
 `voicerelay [create|remove]`
 * Uses current channel to relay member counts of servers which have used `selectvoicechannels`
-* TODO : probably has many bugs
+* TODO : probably broken
 
 *Upload .schematica file*
 * Returns list of material
-* TODO : Does not account for block data values (e.g. wood types) - will simply append '???'
+* TODO : probably broken
 
 ---
 
