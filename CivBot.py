@@ -263,9 +263,11 @@ async def on_message(ctx):
         if ctx.author.id == bot.user.id: return  # ignore self
         else:
             match_relay_chat_command = re.match("(?:`\[(?:\S+)\]` )*\[(?:\S+)\] ((%(?:\S+))(?: .+)*)", ctx.content)
+            print(match_relay_chat_command)
             if len(ctx.content) != 0 and prefix == ctx.content[0]:
                 await bot.process_commands(ctx)
             elif match_relay_chat_command:
+                print("hmmmm")
                 ctx.content = match_relay_chat_command.group(1)
                 if match_relay_chat_command.group(2) == "%whereis":
                     coords = re.match("%whereis ((?:[+-]?\d)+)[ ,]((?:[+-]?\d)+)", ctx.content)
@@ -1092,7 +1094,7 @@ async def help(ctx):
 
 
 if __name__ == "__main__":
-    config_type = 'auth'
+    config_type = 'test'
     config = configparser.ConfigParser()
     config.read('config.ini')
     token = config.get(config_type, 'token')
