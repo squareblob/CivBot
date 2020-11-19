@@ -4,8 +4,8 @@ title
 output
   [outputreal.sentenceCase]
   [outputreal.sentenceCase][outputAppend] ^1/5
-  [outputPreprend.sentenceCase][outputreal] ^1/75
-  [outputPreprend.sentenceCase][outputreal][outputAppend] ^1/250
+  [outputPreprend.sentenceCase] [outputreal] ^1/75
+  [outputPreprend.sentenceCase] [outputreal][outputAppend] ^1/250
   The fuck is this channel and this bot? ^1/600
 
 outputPreprend
@@ -15,7 +15,7 @@ outputPreprend
 
 outputAppend
   . LMFAOOOOOOOO
-  . I am [respond.sentenceCase] ^2
+  . I am [respond] ^2
   \s— nah, nevermind
   \sLOL
   \stbh
@@ -33,12 +33,12 @@ outputAppend
 
 outputreal
   [drama], [drama] and [drama] ^1/200
-  [drama], [drama] and [twist] ^1/200
+  [drama], [drama] [twist] ^1/200
   [drama] and [drama] ^1/5
   [drama] [twist]
   [drama]
   [drama]. In other news, [drama]. ^1/100
-  [actor] lied and [actor] died ^1/100
+  [actor] lied, [actor] died ^1/100
   [actor] moment ^1/200
 
 actorOrPlace
