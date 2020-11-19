@@ -4,7 +4,7 @@ title
 output
   [outputreal.sentenceCase]
   [outputreal.sentenceCase]. LMFAOOOOOOOO ^1/100
-  [outputreal.sentenceCase]. I am [respond.sentenceCase] ^1/12
+  [outputreal.sentenceCase]. I am [respond.sentenceCase] ^1/20
   [outputreal.sentenceCase] — nah, nevermind ^1/100
   [outputreal.sentenceCase] LOL ^1/100
   [outputreal.sentenceCase] tbh ^1/100
@@ -14,13 +14,13 @@ output
   [outputreal.sentenceCase] again ^1/100
   /msg [player] [outputreal.sentenceCase] ^1/300
   [outputreal.sentenceCase]...? ^1/100
-  Did you know [outputreal.sentenceCase]
+  Did you know [outputreal.sentenceCase]? ^1/15
   [outputreal.sentenceCase]!!! ^1/100
   [outputreal.sentenceCase], And That's A Good Thing ^1/100
   [outputreal.sentenceCase]. wait wc ^1/100
-  [outputreal.sentenceCase]. Capital g gamer moment. ^1/30
+  [outputreal.sentenceCase]. Capital g gamer moment. ^1/100
   Apparently...[outputreal.sentenceCase] ^1/100
-  [outputreal.sentenceCase]... Imagine being that retarded. ^1/50
+  [outputreal.sentenceCase]... Imagine being that retarded. ^1/100
   The fuck is this channel and this bot? ^1/1000
 
 
@@ -450,6 +450,7 @@ drama
   [player] is playing {1-8}D chess against [nation]
   [player] stole [actor]'s pearl from the September Museum
   [player] said he doesn't like [actor], "Too political" he claims
+  an army of zoomers from [place]
 
 
 twist
@@ -476,6 +477,7 @@ twist
   and now every cactus farm on the server is worldedited out
   and now they're in the Hallow quote collection
   and now [player] is no longer a superfriend
+  and now [player] ascended to superfriend
   and now essence costs have been doubled
   and now you have {200-400} unread messaged in #general
   and now they all hate each other
@@ -675,4 +677,5 @@ website
   4chan
   an obscure Russian forum
 
-//  [actors] revealed that they masterminded the Somber War -> masterminded [event]
+event
+  the Somber War

@@ -14,6 +14,7 @@ from _operator import itemgetter
 import io
 from os import path
 
+import pycountry
 import requests
 
 import aiofiles
@@ -24,7 +25,6 @@ import discord
 from discord.ext import commands
 import nbtlib
 from PIL import Image, ImageDraw, ImageFont, ImageOps
-from faker import Faker
 from mcuuid.api import GetPlayerData
 from fuzzywuzzy import fuzz
 from fuzzywuzzy import process
@@ -195,20 +195,6 @@ def wiardify(text):
             t2 += text[i]
     return t2
 
-
-def getmotd():
-    random.seed(datetime.datetime.today().strftime('%m/%d/%Y'))
-    return random.choice(["olive",
-                          "olives",
-                          "kalamata olive",
-                          "kalamata olives",
-                          "sliced kalamata olives",
-                          "sliced kalamata olives in brine",
-                          "pre-owned sliced kalamata olives in brine",
-                          "i think i'm going to take a meme detox",
-                          ])
-
-
 bot = commands.Bot(command_prefix=prefix, description="CivBot")
 
 
@@ -256,7 +242,6 @@ async def topher(ctx):
 @bot.command(pass_context=True)
 async def freestyle(ctx):
     await ctx.channel.send(file=discord.File('resources/topher.gif'))
-
 
 @bot.event
 async def on_ready():
@@ -665,12 +650,6 @@ async def generateplugin(ctx, content='1'):
             gen_prefix = random.choice(prefix)
         response += gen_prefix + random.choice(plugin_base) + gen_suffix + "\n"
     await ctx.channel.send(response)
-
-
-@bot.command(pass_context=True)
-async def motd(ctx):
-    """returns the message of the day"""
-    await ctx.channel.send(getmotd())
 
 
 @bot.command(pass_context=True)
@@ -1116,3 +1095,24 @@ if __name__ == "__main__":
             print("Error", e)
         print("Waiting until restart")
         time.sleep(10)
+
+# Broken/deprecated CivBot commands
+
+
+def getmotd():
+    random.seed(datetime.datetime.today().strftime('%m/%d/%Y'))
+    return random.choice(["olive",
+                          "olives",
+                          "kalamata olive",
+                          "kalamata olives",
+                          "sliced kalamata olives",
+                          "sliced kalamata olives in brine",
+                          "pre-owned sliced kalamata olives in brine",
+                          "i think i'm going to take a meme detox",
+                          ])
+
+
+@bot.command(pass_context=True)
+async def motd(ctx):
+    """returns the message of the day"""
+    await ctx.channel.send(getmotd())
