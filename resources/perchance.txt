@@ -1,31 +1,40 @@
 title
   CivClassic Reddit Post Generator
-  
+
 output
   [outputreal.sentenceCase]
-  [outputreal.sentenceCase]. LMFAOOOOOOOO ^1/100
-  [outputreal.sentenceCase]. I am [respond.sentenceCase] ^1/20
-  [outputreal.sentenceCase] — nah, nevermind ^1/100
-  [outputreal.sentenceCase] LOL ^1/100
-  [outputreal.sentenceCase] tbh ^1/100
-  [outputreal.sentenceCase]. Wonder why. ^1/100
-  [outputreal.sentenceCase]. Wholesome! ^1/100
-  [outputreal.sentenceCase]. Kinda quirky ngl ^1/100
-  [outputreal.sentenceCase] again ^1/100
-  /msg [player] [outputreal.sentenceCase] ^1/300
-  [outputreal.sentenceCase]...? ^1/100
-  Did you know [outputreal.sentenceCase]? ^1/15
-  [outputreal.sentenceCase]!!! ^1/100
-  [outputreal.sentenceCase], And That's A Good Thing ^1/100
-  [outputreal.sentenceCase]. wait wc ^1/100
-  [outputreal.sentenceCase]. Capital g gamer moment. ^1/100
-  Apparently...[outputreal.sentenceCase] ^1/100
-  [outputreal.sentenceCase]... Imagine being that retarded. ^1/100
-  The fuck is this channel and this bot? ^1/1000
+  [outputreal.sentenceCase][outputAppend] ^1/5
+  [outputPreprend.sentenceCase][outputreal] ^1/75
+  [outputPreprend.sentenceCase][outputreal][outputAppend] ^1/250
+  The fuck is this channel and this bot? ^1/600
 
+outputPreprend
+  Did you know
+  Apparently...
+  /msg [player]
+
+outputAppend
+  . LMFAOOOOOOOO
+  . I am [respond.sentenceCase] ^2
+  \s— nah, nevermind
+  \sLOL
+  \stbh
+  . Wonder why.
+  . Wholesome!
+  . Kinda quirky ngl
+  \sagain
+  . Capital g gamer moment.
+  . wait wc
+  , And That's A Good Thing
+  !!!
+  ... Imagine being that retarded.
+  ...?
+  but ok
 
 outputreal
-  [drama] and [drama] ^1/4
+  [drama], [drama] and [drama] ^1/200
+  [drama], [drama] and [twist] ^1/200
+  [drama] and [drama] ^1/5
   [drama] [twist]
   [drama]
   [drama]. In other news, [drama]. ^1/100
@@ -81,6 +90,7 @@ otheractor
   Kira
   Bashar al-Assad
   Obama
+  Jesus
   Joe Biden
   Big Chungus
   Medium Chungus
@@ -112,24 +122,29 @@ otherplace
   the biggest vault in civ history
 
 player
-  [funnyplayer] ^ 15
-  [unfunnyplayer]
-  [player]'s beta orbiters
+  [funnyplayer] ^15
+  [otherplayer] ^2
+  [funnyplayer]'s beta orbiters
+  [otherplayer]'s beta orbiters ^15
 
-unfunnyplayer
+otherplayer
+  adeadhead
   Fier
   fk_54
   GreatLordOz
   Lokilog
+  Matticus_Rex
   MtAugusta
   sgtshannon
   Sharpcastle
   Tritonio
   Truck_Man1234
   virizion
+  Crimsonblod
+  mike0war
+  Psygate
 
 funnyplayer
-  adeadhead
   Ahri
   AllenY
   Ameliorate
@@ -149,7 +164,6 @@ funnyplayer
   ComradeRick
   cooliomoose
   Crimeo
-  Crimsonblod
   cwage
   Daddy1015
   Diet_Cola
@@ -168,11 +182,9 @@ funnyplayer
   LordOfMarzipan
   Lysika_Lantariel
   Maxopoly
-  Matticus_Rex
   Medwedian
   Metriximor
   Mickale
-  mike0war
   MrLlamma
   ObtainableSpatula
   Okx
@@ -183,7 +195,6 @@ funnyplayer
   Poortea
   ProgramMC
   ProgrammerDan
-  Psygate
   QJI
   Raven
   RektTangle

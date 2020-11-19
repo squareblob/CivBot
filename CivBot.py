@@ -195,7 +195,8 @@ def wiardify(text):
             t2 += text[i]
     return t2
 
-bot = commands.Bot(command_prefix=prefix, description="CivBot")
+
+bot = commands.Bot(command_prefix=prefix, description="CivBot", help_command=None);
 
 
 @bot.command(pass_context=True)
@@ -245,7 +246,7 @@ async def freestyle(ctx):
 
 @bot.event
 async def on_ready():
-    print(getmotd(), "(connected to discord)")
+    print("connected to discord")
     print("In " + str(len(bot.guilds)) + " guilds")
     for guild in bot.guilds:
         print("    " + guild.name + " - " + str(len(guild.members)) + " members")
@@ -261,8 +262,16 @@ async def on_message(ctx):
     try:
         if ctx.author.id == bot.user.id: return  # ignore self
         else:
+            match_relay_chat_command = re.match("(?:`\[(?:\S+)\]` )*\[(?:\S+)\] ((%(?:\S+)).+)", ctx.content)
             if len(ctx.content) != 0 and prefix == ctx.content[0]:
                 await bot.process_commands(ctx)
+            elif match_relay_chat_command:
+                ctx.content = match_relay_chat_command.group(1)
+                if match_relay_chat_command.group(2) == "%whereis":
+                    coords = re.match("%whereis ((?:[+-]?\d)+)[ ,]((?:[+-]?\d)+)", ctx.content)
+                    await whereis(ctx, coords.group(1), coords.group(2), True)
+                else:
+                    await bot.process_commands(ctx)
             else:  # regular chat message
                 lower_content = ctx.content.lower()
                 if 'delusional' in lower_content:
@@ -279,9 +288,6 @@ async def on_message(ctx):
                     message += page.replace(" ", "_") + "\n"
                 if len(pages) > 0:
                     await ctx.channel.send(message)
-                # Check for drama said in relay channels
-                if re.match("(`\[(\S+)\]` )*\[(\S+)\] %drama", ctx.content):
-                    await ctx.channel.send(perchance_gen(perchance_civ_classic))
             if len(ctx.attachments) != 0:
                 for x in ctx.attachments:
                     if os.path.splitext(x.filename)[1] == ".schematic":
@@ -1013,11 +1019,10 @@ async def getalong(ctx, player1, player2):
 
 
 @bot.command(pass_context=True)
-async def whereis(ctx, x, z):
+async def whereis(ctx, x, z, fromRelay=False):
     """Gives nearby markers from CCmap data"""
     if re.match("[+-]?\d", x) and re.match("[+-]?\d", z):
         distances = {}
-
         with open("resources/settlements.civmap.json") as f:
             ccmap = json.load(f)
 
@@ -1027,7 +1032,7 @@ async def whereis(ctx, x, z):
         distances = {k: v for k, v in sorted(distances.items(), key=lambda item: item[1])}
 
         out = str("<https://ccmap.github.io/#c="+ str(int(x)) + "," + str(int(z)) + "," + "r400>") + " ```asciidoc\n"
-        for d in range(0, 14):
+        for d in range(0, 14 if not fromRelay else 4):
             ind = list(map(itemgetter('id'), ccmap['features'])).index(list(distances)[d])
             rad = math.atan2(ccmap['features'][ind]['z'] - int(z), ccmap['features'][ind]['x'] - int(x))
 
@@ -1041,7 +1046,10 @@ async def whereis(ctx, x, z):
             out += str(distances[list(distances)[d]]).rjust(4, " ") + "  blocks " + (dirs[ix % len(dirs)]).rjust(5,
                                                                                                                  " ") + "  " + \
                    ccmap['features'][ind]['name'] + xtra + "\n"
-        await ctx.channel.send((str(out) + "```"))
+        if not fromRelay:
+            await ctx.channel.send((str(out) + "```"))
+        else:
+            await ctx.channel.send((str(out).replace("```asciidoc", "").replace("::","✪")))
 
 
 @bot.command(pass_context=True)
@@ -1077,8 +1085,14 @@ Sources: <{info[mcstats_url]}> <https://namemc.com/profile/{ign}> {info[head_url
 '''.format(**locals()).strip()
     await ctx.channel.send(text)
 
+
+@bot.command()
+async def help(ctx):
+    await ctx.channel.send("**For a full list of commands visit the link below**\nhttps://github.com/squareblob/CivBot/blob/master/README.md")
+
+
 if __name__ == "__main__":
-    config_type = 'auth'
+    config_type = 'test'
     config = configparser.ConfigParser()
     config.read('config.ini')
     token = config.get(config_type, 'token')
