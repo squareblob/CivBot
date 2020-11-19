@@ -4,18 +4,19 @@ title
 output
   [outputreal.sentenceCase]
   [outputreal.sentenceCase][outputAppend] ^1/5
-  [outputPreprend.sentenceCase] [outputreal] ^1/75
-  [outputPreprend.sentenceCase] [outputreal][outputAppend] ^1/250
+  [outputPreprend][outputreal] ^1/75
+  [outputPreprend][outputreal][outputAppend] ^1/250
   The fuck is this channel and this bot? ^1/600
 
 outputPreprend
-  Did you know
-  Apparently...
-  /msg [player]
+  Did you know\s
+  Apparently... ^1/2
+  /msg [player]\s ^1/2
+  Can you believe\s
 
 outputAppend
   . LMFAOOOOOOOO
-  . I am [respond] ^2
+  . I am [respond.sentenceCase] ^2
   \s— nah, nevermind
   \sLOL
   \stbh
@@ -29,16 +30,15 @@ outputAppend
   !!!
   ... Imagine being that retarded.
   ...?
-  but ok
 
 outputreal
   [drama], [drama] and [drama] ^1/200
-  [drama], [drama] [twist] ^1/200
+  [drama], [drama] and [twist] ^1/200
   [drama] and [drama] ^1/5
   [drama] [twist]
   [drama]
   [drama]. In other news, [drama]. ^1/100
-  [actor] lied, [actor] died ^1/100
+  [actor] lied and [actor] died ^1/100
   [actor] moment ^1/200
 
 actorOrPlace
@@ -104,6 +104,7 @@ otherplace
   Devoted
   CivClassics
   CivRealms
+  {Civcraft 2.0|Civcraft 3.0}
   CivEx
   NATO
   SATO
@@ -122,10 +123,10 @@ otherplace
   the biggest vault in civ history
 
 player
-  [funnyplayer] ^15
-  [otherplayer] ^2
-  [funnyplayer]'s beta orbiters
-  [otherplayer]'s beta orbiters ^15
+  [funnyplayer] ^12
+  [otherplayer]
+  [funnyplayer]'s beta orbiters ^1/2
+  [otherplayer]'s beta orbiters ^1/5
 
 otherplayer
   adeadhead
@@ -143,6 +144,7 @@ otherplayer
   Crimsonblod
   mike0war
   Psygate
+  Jyn
 
 funnyplayer
   Ahri
@@ -218,7 +220,7 @@ funnyplayer
   Wingzero54
   wjkroeker
   Xavter
-  yellofishy
+  Yellofishy
 
 nation
   [funnynation] ^10
@@ -435,7 +437,7 @@ drama
   [actor] is delusional
   [player] covered themselves in oil
   [player] is a dumbass unfunny moron
-  [player] recruited an army of jaja's from [site]
+  [player] recruited an army of jaja's from [website]
   [player] shared a macromod script that deleted all groups in [place]
   [player] shared a macromod script and as a result [drama]
   [player] starred a racist message sent by [actor]
@@ -462,6 +464,9 @@ drama
   [player] stole [actor]'s pearl from the September Museum
   [player] said he doesn't like [actor], "Too political" he claims
   an army of zoomers from [place]
+  [player] tried to buy [player] bath-water
+  [nation] just got caught duping
+  [player] used their {fourth|fifth|sixth} VPN alt to infiltrate [nation]
 
 
 twist
@@ -498,6 +503,7 @@ twist
   and now they've crashed [plugin]
   and now there are 100 `@everyone` pings
   and now [player] has pledged blind loyalty to [player]
+  and now [player] has confessed their love for [player]
   and all screenshots have been leaked to [website]
   but at least we have [plugin] ^2
   but instead they rebranded, and everything's ok now
@@ -508,13 +514,15 @@ twist
   just before the server TPS grinded to a halt
   then their DMs were leaked
   while Teal was spending the server money on shoes
-  ; this was apparently a reason why [player] quit
+  - this was apparently a reason why [player] quit
   after figuring out a new way to get up these giant cliffs
   but [player] told them to shut the fuck up
   but it turns out it was all made up
-  Happy birthday [player], I hope your's turns out better than mine was!
-  ; Thank you for six years of entertainment.
+  . Happy birthday [player], I hope yours turns out better than mine was!
+  - Thank you for six years of entertainment.
   [player] said he's never touching civ again.
+  ...time for your daily quitting post
+  and now [player] is taking off work to break the vault
 
 respond
   [respondWord]
