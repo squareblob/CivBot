@@ -1,5 +1,8 @@
+// For help editing this fle, see https://perchance.org/tutorial
+// (It's easiest to ignore the generation at the top of this file and skip down to the "drama" and "twist" categories)
+
 title
-  CivClassic Reddit Post Generator
+  CivClassic Drama Generator
 
 output
   [outputreal.sentenceCase]
@@ -7,11 +10,13 @@ output
   [outputPreprend][outputreal] ^1/75
   [outputPreprend][outputreal][outputAppend] ^1/250
   The fuck is this channel and this bot? ^1/600
+  Ran out of good drama? Make a pull request to update the drama generator here: https://github.com/squareblob/CivBot/blob/master/resources/perchance.txt ^1/150
 
 outputPreprend
   Did you know\s
   Apparently... ^1/2
   /msg [player]\s ^1/2
+  PSA:\s
   Can you believe\s
 
 outputAppend
@@ -696,6 +701,3 @@ website
   r/civclassic
   4chan
   an obscure Russian forum
-
-event
-  the Somber War
