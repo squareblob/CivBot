@@ -30,7 +30,7 @@ CivBot is a discord bot for Civ-servers like [Civclassic](https://reddit.com/r/c
 
 | Command | Usage |
 | ------------- | ------------- |
-| `drama` | Returns some randomly generated drama |
+| `drama` | Returns some randomly generated drama. To edit drama see [here](https://github.com/squareblob/CivBot/blob/master/resources/perchance.txt)|
 | `generateplugin` | Returns a randomly generated plugin |
 | `respond` | Returns a randomised reponse, such as "shaking and crying" or "oscillating, crying, deleting vault group" |
 | `wiard [text]` | wiardifies text by changing vowels and consonants |
