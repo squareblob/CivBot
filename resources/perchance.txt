@@ -520,7 +520,7 @@ twist
   but it turns out it was all made up
   . Happy birthday [player], I hope yours turns out better than mine was!
   - Thank you for six years of entertainment
-  [player] said he's never touching civ again
+  and [player] said he's never touching civ again
   ...time for your daily quitting post
   and now [player] is taking off work to break the vault
 
