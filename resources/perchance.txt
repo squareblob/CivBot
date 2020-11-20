@@ -10,6 +10,7 @@ output
   [outputPreprend][outputreal] ^1/75
   [outputPreprend][outputreal][outputAppend] ^1/250
   The fuck is this channel and this bot? ^1/600
+  *Ran out of good drama? Make a pull request to update the drama generator here:* **github.com/squareblob/CivBot/blob/master/resources/perchance.txt** ^1/150
 
 outputPreprend
   Did you know\s
