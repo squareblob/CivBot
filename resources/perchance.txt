@@ -473,6 +473,7 @@ drama
   [player] tried to buy [player] bath-water
   [nation] just got caught duping
   [player] used their {fourth|fifth|sixth} VPN alt to infiltrate [nation]
+  [player] said [player]'s house looked like something a 3 year old built
 
 
 twist
