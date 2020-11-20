@@ -1098,7 +1098,7 @@ async def help(ctx):
 
 
 if __name__ == "__main__":
-    config_type = 'test'
+    config_type = 'auth'
     config = configparser.ConfigParser()
     config.read('config.ini')
     token = config.get(config_type, 'token')
