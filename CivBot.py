@@ -34,6 +34,9 @@ from perchance import perchance_gen, perchance_parse
 
 prefix = "%"
 
+# cut down on spam: don't respond if last response was recent
+last_times = {}
+
 def clean_text_for_discord(text):
     text = text.replace("_", "\_")
     text = text.replace("*", "\*")
@@ -284,6 +287,9 @@ async def on_message(ctx):
                     await ctx.channel.send("Edit CivWiki <https://civclassic.miraheze.org/wiki/CivWiki:Editing_Guide>")
                 if 'lusitanian' in lower_content:
                     await ctx.channel.send(file=discord.File('resources/Lusitan.png'))
+                if 'linux' in lower_content and not 'gnu' in lower_content and 60 > time.time() - last_times.get('gnu_linux', 0):
+                    last_times['gnu_linux'] = time.time()
+                    await ctx.channel.send(gnu_linux)
                 message = ""
                 pages = list(set(re.findall("(\[\[ *[^\]]+ *\]\])", ctx.content) + re.findall("(\{\{ *[^\]]+ *\}\})", ctx.content)))
                 for page in pages:
@@ -1096,6 +1102,14 @@ Sources: <{info[mcstats_url]}> <https://namemc.com/profile/{ign}> {info[head_url
 async def help(ctx):
     await ctx.channel.send("**For a full list of commands visit the link below**\nhttps://github.com/squareblob/CivBot/blob/master/README.md")
 
+
+gnu_linux = """
+I'd just like to interject for a moment. What you're referring to as Linux, is in fact, GNU/Linux, or as I've recently taken to calling it, GNU plus Linux. Linux is not an operating system unto itself, but rather another free component of a fully functioning GNU system made useful by the GNU corelibs, shell utilities and vital system components comprising a full OS as defined by POSIX.
+
+Many computer users run a modified version of the GNU system every day, without realizing it. Through a peculiar turn of events, the version of GNU which is widely used today is often called "Linux", and many of its users are not aware that it is basically the GNU system, developed by the GNU Project.
+
+There really is a Linux, and these people are using it, but it is just a part of the system they use. Linux is the kernel: the program in the system that allocates the machine's resources to the other programs that you run. The kernel is an essential part of an operating system, but useless by itself; it can only function in the context of a complete operating system. Linux is normally used in combination with the GNU operating system: the whole system is basically GNU with Linux added, or GNU/Linux. All the so-called "Linux" distributions are really distributions of GNU/Linux.
+""".strip()
 
 if __name__ == "__main__":
     config_type = 'auth'
