@@ -531,6 +531,8 @@ drama
   [player] dropped out to become a full time civ player
   [player] was last seen 3 months ago, they were playing from jail this whole time
   [player] called [player] an asshat from [actor]'s discord and got banned
+  [player] formulated a plan for world domination
+  [nation] doesn't exist and I can prove it with server logs
 
 twist
   and then everyone laughed
