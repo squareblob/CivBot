@@ -868,11 +868,17 @@ async def wiard(ctx, *, content):
     await ctx.channel.send(wiardify(content))
 
 perchance_civ_classic = perchance_parse(open('resources/perchance.txt').read())
+perchance_fun_fact = perchance_parse(open('resources/perchance_funfact.txt').read())
 
 @bot.command(pass_context=True)
 async def drama(ctx):
     """Generates CivClassic drama"""
     await ctx.channel.send(perchance_gen(perchance_civ_classic))
+
+@bot.command(pass_context=True)
+async def funfact(ctx):
+    """Generates a CivClassic funfact"""
+    await ctx.channel.send(perchance_gen(perchance_fun_fact))
 
 @bot.command(pass_context=True)
 async def pickle(ctx, content):
@@ -1112,7 +1118,7 @@ There really is a Linux, and these people are using it, but it is just a part of
 """.strip()
 
 if __name__ == "__main__":
-    config_type = 'auth'
+    config_type = 'test'
     config = configparser.ConfigParser()
     config.read('config.ini')
     token = config.get(config_type, 'token')

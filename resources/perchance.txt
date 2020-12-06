@@ -7,19 +7,21 @@ title
 output
   [outputreal.sentenceCase]
   [outputreal.sentenceCase][outputAppend] ^1/5
-  [outputPreprend.sentenceCase] [outputreal] ^1/75
-  [outputPreprend.sentenceCase] [outputreal][outputAppend] ^1/250
+  [outputPrepend.sentenceCase] [outputreal] ^1/75
+  [outputPrepend.sentenceCase] [outputreal][outputAppend] ^1/250
   The fuck is this channel and this bot? ^1/1000
-  *Ran out of good drama? Make a pull request to update the drama generator here:* **github.com/squareblob/CivBot/blob/master/resources/perchance.txt** ^1/150
+  *Ran out of good drama? Make a pull request to update the drama generator here:* **github.com/squareblob/CivBot/blob/master/resources/perchance.txt** ^1/250
 
-outputPreprend
+outputPrepend
   Did you know
   Apparently, ^1/10
   /msg [player] ^1/10
   Can you believe ^1/5
+  It's quite [player]ist that ^1/20
   PSA:
   I heard that
-  It's quite [player]ist that ^1/100
+  They won't admit it, but
+  Can't believe ^1/5
 
 outputAppend
   . LMFAOOOOOOOO
@@ -37,15 +39,23 @@ outputAppend
   !!!
   ... Imagine being that retarded.
   ...?
+  ? ^1/5
+  but ok ^1/5
   . Happy birthday [player], I hope yours turns out better than mine was!
   . Idiot. 
   \slol
+  . Discuss.
+  . Interesting, don't you think? 
+  . What now? 
   . Pretty funny right?
+  . The whole gang is here. ^1/5
+  . Cringe. 
+  . Holy fuck.
   . Go outside for fucks sake.
 
 outputreal
-  [drama], [drama] and [drama] ^1/200
-  [drama], [drama] and [twist] ^1/200
+  [drama], [drama] and [drama] ^1/150
+  [drama], [drama] and [twist] ^1/150
   [drama] and [drama] ^1/5
   [drama] [twist]
   [drama]
@@ -76,7 +86,7 @@ actor
   [nation] ^5
   [player] ^5
   [otheractor]
-  everyone in [place]
+  everyone in [nation]
 
 otheractor
   [plugin]
@@ -110,6 +120,8 @@ otheractor
   the CivClassic admins
   a turgid boomer
   somebody
+  The Big Dogs
+  a femboy
 
 otherplace
   0,0
@@ -139,6 +151,11 @@ otherplace
   r/The_Godo
   r/bestof[player]
   CivCraft
+  some shithole
+  Reddit
+  Hypixel
+  Thrain Family Forest
+  Praxis
 
 player
   [funnyplayer] ^12
@@ -163,6 +180,14 @@ otherplayer
   mike0war
   Psygate
   Jyn
+  roycato1
+  triangleblob
+  Circleblob
+  belabour
+  S_Q_U_A_R_E
+  6d6164756c6f6f6b
+  arcsintralin
+  Garman
 
 funnyplayer
   Ahri
@@ -196,6 +221,7 @@ funnyplayer
   Gobblin
   Godomasta
   HenryDraton
+  hkl
   Infra
   Jayms
   Lodish
@@ -270,7 +296,6 @@ funnynation
   South Augusta
   Tvtopia
   Tierra de Conciencia
-  The Big Dogs
   Gabon
 
 unfunnynation
@@ -415,6 +440,7 @@ drama
   [actors] stole Icenian UBI
   [actors] vote brigaded the MtA election
   [actors] won the Olympics
+  [actors] is hosting the Olympics
   [actors] forgot they were hosting the Olympics
   [actors] repeatedly found themselves stagnating in life
   [actors] killed the server
@@ -445,13 +471,14 @@ drama
   the server runs at {5-15} TPS
   [player] compacted all their wealth and logged out in the [place] factory bunker
   [player] moved to [place]
-  Tom Scott is here, at [place]
+  Tom Scott: I'm here, at [place] ^1/2
+  Tom Scott is here, at [place] ^1/2
   the smallest chungus in [place] is bigger than the biggest chungus in [place]
   [player] paid a visit to [place]
-  [actor] pearled [actor]
+  [actors] pearled [actor]
   [player] got stuck in [place]
   [actor] spammed the MtAugusta bot
-  [actor] got [actor] banned
+  [actor] got [actors] banned
   [actor] is delusional
   [player] covered themselves in oil
   [player] is a dumbass unfunny moron
@@ -463,15 +490,16 @@ drama
   The [nation] subreddit was banned because [player] was an admin of r/The_[actor]
   [player] thought [nation] existed IRL
   [player] told an admin they're retarded and they started crying
-  [player] thought [player] lived in [nation], but in reality they're Brazilian
+  [player] thought [player] lived in [nation], but actually they're Brazilian
   [actor] had their post removed by moderators
-  [player] offered ${1-10000} to buy [nation]'s vault
+  [player] offered ${1-100000} to buy [nation]'s vault
   [player] pearled [player] for real life money
   [player] coded [plugin] but it was a little racist
   [player] started crying in vc because they called [actor] ugly in global
-  [player] suggested adding [plugin]... [actor] didn't like that
+  [player] suggested adding [plugin]... [actors] didn't like that
   Remember [player]? They were a [player] alt
-  [player] is a femboy?
+  [player] is a femboy
+  [player] is a femboy ^1/5
   [player] said they're {8-12|40-60} years old?
   [player] tried to advertise civ on [website]
   [player] was making weird noises in [actor]'s Discord vc
@@ -487,6 +515,16 @@ drama
   [player] is being a turgid stubborn boomer
   [actors] made a new currency
   [player] was arrested irl
+  The entity known as [actor] has escaped containment in [place]. They are to be shot and killer on site.
+  [player] is the heart and soul of [place]
+  [player] had sex with [player]'s wife
+  [player] gave all their groups to [player]
+  [player] mortgaged [place]
+  [actors] cobbybombed [place]
+  [actor] recruited an army of zoomers
+  [actor] kicked [actor] off their infrastructure groups
+  [actor] joined Weezer
+  [actor] forgot to register their Mount September property in #property
   [nation] just got caught duping
   [player] used their {fourth|fifth|sixth} VPN alt to infiltrate [nation]
   [player] said [player]'s house looked like something a 3 year old built
@@ -528,7 +566,6 @@ twist
   and now they've crashed [plugin]
   and now there are {3-150} `@everyone` pings
   and now [player] has pledged blind loyalty to [player]
-  and now [player] has confessed their love for [player]
   and all screenshots have been leaked to [website]
   but at least we have [plugin] ^2
   but instead they rebranded, and everything's ok now
@@ -545,6 +582,7 @@ twist
   but it turns out it was all made up
   —Thank you for six years of entertainment
   which is quite [player]ist
+  because it was funny
   and [player] said he's never touching civ again
   ...time for your daily quitting post
   and now [player] is taking off work to break the vault
