@@ -198,6 +198,22 @@ def wiardify(text):
             t2 += text[i]
     return t2
 
+def unwiardify(text):
+    vowels = "aeiouy"
+    consonants = "bcdfghjklmnpqrstvwxz"
+    t2 = ""
+    for i in range(len(text)):
+        try:
+            if text[i].lower() in vowels and text[i+1].lower() in vowels:
+                if random.random()>0.5:
+                    t2 += text[i]
+                    t2 += random.choice(consonants)
+            else:
+                t2 += text[i]
+        except:
+            t2 += text[i]
+    return t2
+
 
 bot = commands.Bot(command_prefix=prefix, description="CivBot", help_command=None);
 
@@ -866,6 +882,11 @@ async def ppfree(ctx, *, content):
 async def wiard(ctx, *, content):
     """wiardifies a message"""
     await ctx.channel.send(wiardify(content))
+    
+@bot.command(pass_context=True)
+async def unwiard(ctx, *, content):
+    """unwiardifies a message"""
+    await ctx.channel.send(unwiardify(content))
 
 perchance_civ_classic = perchance_parse(open('resources/perchance.txt').read())
 # perchance_fun_fact = perchance_parse(open('resources/perchance_funfact.txt').read())
