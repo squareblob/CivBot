@@ -10,14 +10,14 @@ output
   [outputPrepend.sentenceCase] [outputreal] ^1/75
   [outputPrepend.sentenceCase] [outputreal][outputAppend] ^1/250
   The fuck is this channel and this bot? ^1/1000
-  *Ran out of good drama? Make a pull request to update the drama generator here:* **github.com/squareblob/CivBot/blob/master/resources/perchance.txt** ^1/250
+  *Ran out of good drama? Make a pull request to update the drama generator here:* **github.com/squareblob/CivBot/blob/master/resources/perchance.txt** ^1/500
 
 outputPrepend
   Did you know
-  Apparently, ^1/10
+  Apparently, ^1/5
   /msg [player] ^1/10
   Can you believe ^1/5
-  It's quite [player]ist that ^1/20
+  It's quite [player]ist that ^1/10
   PSA:
   I heard that
   They won't admit it, but
@@ -380,9 +380,9 @@ drama
   [actors] put a border wall right up against [place]
   [actors] built a penis shaped embassy in the middle of [place]
   [actors] pearled someone in [place]
-  [actor] has totally obby bombed [place]
-  [actor] has totally cobble bombed [place]
-  [actor] has totally tnt bombed [place]
+  [actor] has obby bombed [place]
+  [actor] has cobble bombed [place]
+  [actor] has tnt bombed [place]
   [actors] insulted the diplomat from [place]
   [actor] is literally seething over [place]
   [actors] accidentally shot and pearled someone from [place]
@@ -499,7 +499,6 @@ drama
   [player] suggested adding [plugin]... [actors] didn't like that
   Remember [player]? They were a [player] alt
   [player] is a femboy
-  [player] is a femboy ^1/5
   [player] said they're {8-12|40-60} years old?
   [player] tried to advertise civ on [website]
   [player] was making weird noises in [actor]'s Discord vc
@@ -533,12 +532,13 @@ drama
   [player] called [player] an asshat from [actor]'s discord and got banned
   [player] formulated a plan for world domination
   [nation] doesn't exist and I can prove it with server logs
+  [player] built a bastioned, trenched, obsidian spider grinder a hundred blocks from [nation]
 
 twist
   and then everyone laughed
   and the admins have banned all people involved
-  and a Maester wrote a book about it ^1/3
-  and hired [player] to e-lawyer for them
+  and a Maester wrote a book about it 
+  and hired [player] to e-lawyer for them ^1/2
   and hired Crimeo to e-lawyer for them ^1/10
   and hired The Hobbyist to e-lawyer for them ^1/10
   and a trial was requested in Mount Augusta
