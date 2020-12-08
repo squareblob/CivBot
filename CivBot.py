@@ -208,6 +208,8 @@ def unwiardify(text):
                 if random.random()>0.5:
                     t2 += text[i]
                     t2 += random.choice(consonants)
+                else:
+                    t2 += text[i]
             else:
                 t2 += text[i]
         except:
