@@ -7,10 +7,12 @@ title
 output
   [outputreal.sentenceCase]
   [outputreal.sentenceCase][outputAppend] ^1/5
-  [outputPrepend.sentenceCase] [outputreal] ^1/75
+  [outputPrepend.sentenceCase] [outputreal] ^1/50
   [outputPrepend.sentenceCase] [outputreal][outputAppend] ^1/250
+  [outputreal.sentenceCase][outputAppend][outputAppend] ^1/100
+  [outputPrepend.sentenceCase] [outputreal][outputAppend][outputAppend] ^1/1000
   The fuck is this channel and this bot? ^1/1000
-  *Ran out of good drama? Make a pull request to update the drama generator here:* **github.com/squareblob/CivBot/blob/master/resources/perchance.txt** ^1/500
+  *Out of good drama? Make a pull request to update the drama generator here:* **github.com/squareblob/CivBot/blob/master/resources/perchance.txt** ^1/500
 
 outputPrepend
   Did you know
@@ -39,8 +41,8 @@ outputAppend
   !!!
   ... Imagine being that retarded.
   ...?
-  ? ^1/5
-  but ok ^1/5
+  ? 
+  but ok 
   . Happy birthday [player], I hope yours turns out better than mine was!
   . Idiot. 
   \slol
@@ -48,10 +50,16 @@ outputAppend
   . Interesting, don't you think? 
   . What now? 
   . Pretty funny right?
-  . The whole gang is here. ^1/5
+  . The whole gang is here. ^1/4
   . Cringe. 
   . Holy fuck.
   . Go outside for fucks sake.
+  . kill
+  . Delusional. 
+  . I'm quite scared. 
+  aaaaaaaaaaaaaaaa
+  ???????
+  .    nah just kidding
 
 outputreal
   [drama], [drama] and [drama] ^1/150
@@ -59,9 +67,8 @@ outputreal
   [drama] and [drama] ^1/5
   [drama] [twist]
   [drama]
-  [drama]. In other news, [drama]. ^1/100
-  [actor] lied and [actor] died ^1/100
-  [actor] moment ^1/200
+  [drama]. In other news, [drama] ^1/100
+  [drama]. On the other hand, [drama] ^1/150
 
 actorOrPlace
   [actor]
@@ -120,8 +127,17 @@ otheractor
   the CivClassic admins
   a turgid boomer
   somebody
-  The Big Dogs
+  the Big Dogs
   a femboy
+  floppa
+  bingus
+  the Mayor of Mount Augusta ^1/2
+  the Mayor of Mount September ^1/2
+  the leader of [nation]
+  someone from [place]
+  COVID-19
+  the MtA Bone Collector
+  Bernie Sanders
 
 otherplace
   0,0
@@ -156,12 +172,18 @@ otherplace
   Hypixel
   Thrain Family Forest
   Praxis
+  Latin
+  a Towny server
+  a Factions server
+  the GOR
+  the CivClassic server host
+  CivUniverse ^1/2
 
 player
-  [funnyplayer] ^12
+  [funnyplayer] ^10
   [otherplayer]
   [funnyplayer]'s beta orbiters ^1/2
-  [otherplayer]'s beta orbiters ^1/5
+  [otherplayer]'s beta orbiters ^1/20
 
 otherplayer
   adeadhead
@@ -224,6 +246,7 @@ funnyplayer
   hkl
   Infra
   Jayms
+  Jerry
   Lodish
   LordOfMarzipan
   Lysika_Lantariel
@@ -370,6 +393,8 @@ unfunnynation
   Xalta Moro
 
 drama
+  [actors] moment
+  [actor] lied and [actor] died
   [place] placed a trade embargo on [place]
   [actors] world downloaded [place]'s vault
   [actors] claimed [place]'s territory
@@ -459,7 +484,7 @@ drama
   [player] was elected the leader of [nation]
   [actors] called [actors] a "fucking thieving, stealing piece of shit"
   [player] asked what bloppa is
-  [actors] forgot their latin homework
+  [actors] forgot their Latin homework
   [player] forgot they were a prot pinata
   [actor] is [respond]
   [player] called [player] a zillennial
@@ -467,12 +492,11 @@ drama
   [player] squarespiralled
   [player] misclicked
   [player] made [plugin] but the admins won't add it
-  [player] keeps begging Maxopoly to add [plugin] ^2
+  [player] keeps begging Maxopoly to add [plugin]
   the server runs at {5-15} TPS
   [player] compacted all their wealth and logged out in the [place] factory bunker
   [player] moved to [place]
-  Tom Scott: I'm here, at [place] ^1/2
-  Tom Scott is here, at [place] ^1/2
+  Tom Scott: I'm here, at [place]
   the smallest chungus in [place] is bigger than the biggest chungus in [place]
   [player] paid a visit to [place]
   [actors] pearled [actor]
@@ -498,7 +522,7 @@ drama
   [player] started crying in vc because they called [actor] ugly in global
   [player] suggested adding [plugin]... [actors] didn't like that
   Remember [player]? They were a [player] alt
-  [player] is a femboy
+  [player] became a femboy
   [player] said they're {8-12|40-60} years old?
   [player] tried to advertise civ on [website]
   [player] was making weird noises in [actor]'s Discord vc
@@ -510,7 +534,7 @@ drama
   [player] said they don't like [actor], "too political" they claim
   [actors] got their alts entangled with [actors]
   [player] said they're never touching civ again.
-  [player] is a NEET
+  [player] became a NEET
   [player] is being a turgid stubborn boomer
   [actors] made a new currency
   [player] was arrested irl
@@ -531,8 +555,9 @@ drama
   [player] was last seen 3 months ago, they were playing from jail this whole time
   [player] called [player] an asshat from [actor]'s discord and got banned
   [player] formulated a plan for world domination
-  [nation] doesn't exist and I can prove it with server logs
+  [actorOrPlace] doesn't exist and I can prove it with server logs
   [player] built a bastioned, trenched, obsidian spider grinder a hundred blocks from [nation]
+  [player] announced they're running for leader of [nation]
 
 twist
   and then everyone laughed
@@ -547,7 +572,7 @@ twist
   and a Reddit post about this attracted more people to play Civ
   and they have no intention with complying with botting rules
   and they became really good allies after that
-  and the scheme turned out to be cringe roleplay
+  but the scheme turned out to be cringe roleplay
   and [player] lost discord admin privileges
   and then they met up irl
   and then they yelled at each other on the subreddit
@@ -585,9 +610,10 @@ twist
   —Thank you for six years of entertainment
   which is quite [player]ist
   because it was funny
-  and [player] said he's never touching civ again
+  and [player] said they're never touching civ again
   ...time for your daily quitting post
   and now [player] is taking off work to break the vault
+  which sounds like something %drama made up
 
 respond
   [respondWord]
