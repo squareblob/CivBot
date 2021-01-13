@@ -281,6 +281,29 @@ async def on_ready():
         pickle1.dump([], handle, protocol=pickle1.HIGHEST_PROTOCOL)
 
 
+def draw_grimreminder(player):
+    background = Image.open("resources/grimreminder.jpg")
+    r = requests.get("https://mc-heads.net/avatar/" + player + "/254.png")
+    head = Image.open(io.BytesIO(r.content)).convert('RGBA')
+    head = head.rotate(-12, Image.NEAREST, True, fillcolor=2)
+    background.paste(head, (215, 372), head)
+    background.save('resources/output.png', "PNG")
+
+
+@bot.command(pass_context=True)
+async def grimreminder(ctx, player):
+    """test"""
+    if not GetPlayerData(player).valid:
+        await ctx.channel.send(
+            discord.utils.escape_markdown(discord.utils.escape_mentions(
+                player)) + " does not appear to be a valid player. Are you sure you typed correctly?")
+        return
+    params = functools.partial(draw_grimreminder, player)
+    msg = await bot.loop.run_in_executor(None, params)
+    await ctx.channel.send(file=discord.File('resources/output.png'))
+
+
+
 @bot.event
 async def on_message(ctx):
     try:
