@@ -1118,7 +1118,7 @@ async def whereis(ctx, x, z, fromRelay=False):
 
 
 @bot.command(pass_context=True)
-async def generateusername(ctx):
+async def generatename(ctx):
     await ctx.channel.send("Random Minecraft name generator is creating your username...")
     await ctx.channel.trigger_typing()
     await asyncio.sleep(3)
