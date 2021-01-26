@@ -6,6 +6,7 @@ import json
 import math
 import os
 import random
+from random import randint
 import re
 import string
 import time
@@ -1114,6 +1115,25 @@ async def whereis(ctx, x, z, fromRelay=False):
             await ctx.channel.send((str(out) + "```"))
         else:
             await ctx.channel.send((str(out).replace("```asciidoc", "").replace("::","✪")))
+
+
+@bot.command(pass_context=True)
+async def generateusername(ctx):
+    await ctx.channel.send("Random Minecraft name generator is creating your username...")
+    await ctx.channel.trigger_typing()
+    await asyncio.sleep(3)
+
+    if random.randint(0, 20) != 1:
+        await ctx.channel.send("...please be patient, our state of the art algorithms are still processing your request...")
+        await ctx.channel.trigger_typing()
+        await asyncio.sleep(random.randint(5, 7))
+
+        if random.randint(0, 3) == 3:
+            await ctx.channel.send("...your request was computationally intensive and requires additional processing...")
+            await ctx.channel.trigger_typing()
+            await asyncio.sleep(random.randint(7, 12))
+
+    await ctx.channel.send("Your username is **minemaster" + str(randint(100, 999)) + "**")
 
 
 @bot.command(pass_context=True)
