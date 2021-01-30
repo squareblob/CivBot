@@ -7,6 +7,7 @@ certifi==2020.4.5.2
 chardet==3.0.4
 config==0.5.0.post0
 discord==1.0.1
+discord-ext-menus==1.0.0a27+g6f2b873
 discord.py==1.4.0
 docopt==0.6.2
 Faker==4.1.1
@@ -20,6 +21,8 @@ Pillow==7.1.2
 pipreqs==0.4.10
 pycountry==19.8.18
 python-dateutil==2.8.1
+python-Levenshtein==0.12.1
+PyYAML==5.4.1
 requests==2.23.0
 six==1.15.0
 soupsieve==2.0.1
