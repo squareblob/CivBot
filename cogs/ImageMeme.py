@@ -7,29 +7,29 @@ import string
 import re
 import json
 import functools
+import uuid
 
 import aiofiles
 import aiohttp
 import requests
-from mcuuid.api import GetPlayerData #https://github.com/clerie/mcuuid/issues/1
-
 import discord
+from os import path
+from mcuuid.api import GetPlayerData
 from PIL import Image, ImageDraw, ImageFont, ImageOps
 
 from discord.ext import commands
-from discord.ext.commands import has_permissions
-
 
 # -----------
 # Draw images
 # -----------
+
 
 def draw_pearl_image(pearled_player, pearled_by, now):
     random.seed(a=pearled_player.lower() + pearled_by.lower() + now, version=2)
     code = ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))
     font = ImageFont.truetype("resources/fonts/Minecraftia.ttf", 24)
     font_italic = ImageFont.truetype("resources/fonts/Minecraft-Italic.otf", 30)
-    im = Image.open("resources/ImageMemeTemplates/Pearl_template.png")
+    im = Image.open("resources/ImageMeme/Pearl_template.png")
 
     req_width = max(129 + font.getsize(pearled_player + "#" + code)[0] + 23, 129 + font.getsize(pearled_by)[0] + 40)
 
@@ -71,7 +71,7 @@ def draw_joinedweezer_image(players):
         [(153, 300), (222, 94)],
         [(226, 300), (294, 100)]
     ]
-    background = Image.open("resources/ImageMemeTemplates/Weezer_template.png")
+    background = Image.open("resources/ImageMeme/Weezer_template.png")
     draw = ImageDraw.Draw(background)
 
     players = players[:4]
@@ -110,7 +110,7 @@ def draw_joinedweezer_image(players):
 
 def draw_derelict_image(input_string):
     background = Image.open("resources/output.png")
-    sign = Image.open("resources/ImageMemeTemplates/Sign_template.png")
+    sign = Image.open("resources/ImageMeme/Sign_template.png")
     for i in range(0, len(input_string)):
         font = ImageFont.truetype("resources/fonts/Minecraftia.ttf", 42 - (i * 2))
         draw = ImageDraw.Draw(sign)
@@ -137,7 +137,7 @@ def draw_derelict_image(input_string):
 
 
 def draw_getalong_image(players):
-    img_shirt = Image.open("resources/ImageMemeTemplates/shirt.png")
+    img_shirt = Image.open("resources/ImageMeme/shirt.png")
     background = Image.new('RGB', (600, 500), color=(255, 255, 255))
     for i, player in enumerate(players):
         r = requests.get("https://mc-heads.net/player/" + player + "/160.png")
@@ -162,14 +162,14 @@ def draw_dontcare_image(username):
     flip = ImageOps.mirror(new)
     new_image.paste(flip, (int(temp.width / 2), 0))
 
-    upper = Image.open("resources/ImageMemeTemplates/Dontcare_template.png")
+    upper = Image.open("resources/ImageMeme/Dontcare_template.png")
     new_image = new_image.convert('RGBA')
     new_image.paste(upper, (0, 0), upper.convert('RGBA'))
     new_image.save('resources/output.png', "PNG")
 
 
 def draw_grimreminder_image(player):
-    background = Image.open("resources/ImageMemeTemplates/grimreminder.jpg")
+    background = Image.open("resources/ImageMeme/grimreminder.jpg")
     r = requests.get("https://mc-heads.net/avatar/" + player + "/254.png")
     head = Image.open(io.BytesIO(r.content)).convert('RGBA')
     head = head.rotate(-12, Image.NEAREST, True, fillcolor=2)
@@ -178,7 +178,7 @@ def draw_grimreminder_image(player):
 
 
 def draw_step_image(number):
-    img_background = Image.open("resources/ImageMemeTemplates/oil_template.png")
+    img_background = Image.open("resources/ImageMeme/oil_template.png")
     draw = ImageDraw.Draw(img_background)
     font = ImageFont.truetype("resources/fonts/NotoSans-Bold.ttf", 30)
     draw.text((40, 0), str(number) + ") cover yourself in oil", (30, 30, 30), font=font)
@@ -198,6 +198,48 @@ def draw_verb_at_image(filepath):
 def draw_greyscale_image():
     inner = Image.open("resources/output.png").convert('L')
     inner.save('resources/output.png', "PNG")
+
+
+def draw_chart_image(chart_data, chart_code):
+    x_axis = chart_data[str(chart_code)]["x_axis"]
+    y_axis = chart_data[str(chart_code)]["y_axis"]
+
+    # DRAW TEXT
+    background = Image.open("resources/ImageMeme/Chart/grid2500.png")
+    font = ImageFont.truetype("resources/fonts/NotoSans-Bold.ttf", 128)
+    img_txt = Image.new('L', font.getsize(y_axis))
+    draw_txt = ImageDraw.Draw(img_txt)
+    draw_txt.text((0, 0), y_axis, font=font, fill=255)
+    t = img_txt.rotate(90, expand=1)
+    background.paste(ImageOps.colorize(t, (0, 0, 0), (0, 0, 0)),
+                     (-10, int((background.height - font.getsize(y_axis)[0]) / 2)), t)
+    draw = ImageDraw.Draw(background)
+    draw.text((int((background.width - font.getsize(x_axis)[0]) / 2), 2320), x_axis, (0, 0, 0), font=font)
+
+    # DRAW faces
+    for player_name in chart_data[str(chart_code)]['chart_data'].keys():
+        x_cord_total = 0
+        y_cord_total = 0
+        for discord_id in chart_data[str(chart_code)]['chart_data'][str(player_name)]:
+            x_cord_total += float(chart_data[str(chart_code)]['chart_data'][str(player_name)][str(discord_id)]["x_coord"])
+            y_cord_total += float(chart_data[str(chart_code)]['chart_data'][str(player_name)][str(discord_id)]["y_coord"])
+
+        total = len(chart_data[str(chart_code)]['chart_data'][str(player_name)])
+        coords = [x_cord_total/total, y_cord_total/total]
+        face_width = 120
+        fixed_coords = [int((coords[0] / 100) * background.width - (face_width / 2)),
+                        int((background.height - ((coords[1] / 100) * background.height)) - (face_width / 2))]
+        if GetPlayerData(player_name).valid:
+            if path.exists("resources/playerheads/" + str(player_name) + ".png"):
+                pass
+            else:
+                r = requests.get(
+                    "https://mc-heads.net/avatar/" + GetPlayerData(player_name).uuid + "/" + str(face_width) + ".png")
+                with open("resources/playerheads/" + str(player_name) + ".png", 'wb') as f:
+                    f.write(r.content)
+            playertopaste = Image.open("resources/playerheads/" + player_name + ".png")
+            background.paste(playertopaste, tuple(fixed_coords))
+    background.save('resources/output.png', "PNG")
 
 # -------
 # helpers
@@ -348,12 +390,12 @@ class ImageMeme(commands.Cog):
     @commands.command(pass_context=True)
     async def cryat(self, ctx, *args):
         """Crys at the image"""
-        await self.verb_at_image(ctx, "resources/ImageMemeTemplates/Cry_template.png")
+        await self.verb_at_image(ctx, "resources/ImageMeme/Cry_template.png")
 
     @commands.command(pass_context=True)
     async def laughat(self, ctx, *args):
         """Laughs at the image"""
-        await self.verb_at_image(ctx, "resources/ImageMemeTemplates/Laugh_template.png")
+        await self.verb_at_image(ctx, "resources/ImageMeme/Laugh_template.png")
 
     @commands.command(pass_context=True)
     async def grey(self, ctx):
@@ -367,12 +409,12 @@ class ImageMeme(commands.Cog):
     @commands.command(pass_context=True)
     async def animemer(self, ctx):
         """returns the animemer codex"""
-        await ctx.channel.send(file=discord.File('resources/ImageMemeTemplates/Animemer_template.png'))
+        await ctx.channel.send(file=discord.File('resources/ImageMeme/Animemer_template.png'))
 
     @commands.command(pass_context=True)
     async def entente(self, ctx):
         """Responds to an entente player"""
-        await ctx.channel.send(file=discord.File('resources/ImageMemeTemplates/entente.png'))
+        await ctx.channel.send(file=discord.File('resources/ImageMeme/entente.png'))
         try:
             await ctx.message.delete()
         except:
@@ -381,11 +423,100 @@ class ImageMeme(commands.Cog):
     @commands.command(pass_context=True)
     async def nato(self, ctx):
         """Responds to a NATO player"""
-        await ctx.channel.send(file=discord.File('resources/ImageMemeTemplates/NATO.png'))
+        await ctx.channel.send(file=discord.File('resources/ImageMeme/NATO.png'))
         try:
             await ctx.message.delete()
         except:
             pass
+
+    # ------
+    # chart commands
+    # ------
+
+    @commands.group()
+    async def chart(self, ctx):
+        """Create x,y charts with Minecraft faces"""
+        if ctx.invoked_subcommand is None:
+            await ctx.send('Invalid command passed...\nOptions include `view`,`edit`,`create`')
+
+    @chart.command()
+    async def view(self, ctx, chart_code):
+        """Views a saved chart"""
+        with open("resources/ImageMeme/Chart/chart_creator.txt") as json_file:
+            chart_data = json.load(json_file)
+        if str(chart_code) in chart_data.keys():
+            params = functools.partial(draw_chart_image, chart_data, chart_code)
+            await self.bot.loop.run_in_executor(None, params)
+            await ctx.channel.send(file=discord.File('resources/output.png'))
+
+    @chart.command()
+    async def edit(self, ctx, chart_code, playername, xpos, ypos):
+        """Edits a chart with given chart code, Minecraft username, x coord and y coord."""
+        with open("resources/ImageMeme/Chart/chart_creator.txt") as json_file:
+            chart_data = json.load(json_file)
+        try:
+            if float(xpos) > 100 or float(xpos) < 0 or float(ypos) > 100 or float(ypos) < 0:
+                await ctx.send("input must range between 0 to 100")
+                return
+        except ValueError:
+            await ctx.send("Must be number")
+            return
+        if not GetPlayerData(playername).valid:
+            await ctx.send("this is not a valid playername")
+            return
+        if str(chart_code) in chart_data.keys():
+            if not str(playername) in chart_data[chart_code]['chart_data'].keys():
+                chart_data[chart_code]['chart_data'][str(playername)] = {}
+
+            chart_data[chart_code]['chart_data'][str(playername)][str(ctx.author.id)] = {
+                "x_coord": str(xpos),
+                "y_coord": str(ypos)
+            }
+
+            with open("resources/ImageMeme/Chart/chart_creator.txt", "w") as json_file:
+                json.dump(chart_data, json_file)
+
+            # optional : show chart after posting
+            params = functools.partial(draw_chart_image, chart_data, chart_code)
+            await self.bot.loop.run_in_executor(None, params)
+            await ctx.channel.send(file=discord.File('resources/output.png'))
+        else:
+            await ctx.send("chart not found")
+        # make create chart method, view
+
+    @chart.command()
+    async def create(self, ctx, chart_name):
+        """Creates a chart with given chart name"""
+        with open("resources/ImageMeme/Chart/chart_creator.txt") as json_file:
+            chart_data = json.load(json_file)
+
+        await ctx.send('Name X-axis:')
+
+        def pred(m):
+            return m.author == ctx.author and m.channel == ctx.channel
+
+        x_axis = await self.bot.wait_for('message', check=pred, timeout=60.0)
+        await ctx.send('Name Y-axis:')
+        y_axis = await self.bot.wait_for('message', check=pred, timeout=60.0)
+
+        if len(x_axis.content) > 20 or len(y_axis.content) > 20:
+            await ctx.send('Both X-axis and Y-axis must be under 20')
+            return
+
+        while True:
+            chart_id = str(uuid.uuid4())[:6]
+            if str(chart_id) not in chart_data.keys():
+                break
+        chart_data[str(chart_id)] = {}
+        chart_data[str(chart_id)]['chart_name'] = str(chart_name)
+        chart_data[str(chart_id)]['chart_owner'] = ctx.author.id
+        chart_data[str(chart_id)]['x_axis'] = str(x_axis.content)
+        chart_data[str(chart_id)]['y_axis'] = str(y_axis.content)
+        chart_data[str(chart_id)]['chart_data'] = {}
+
+        with open("resources/ImageMeme/Chart/chart_creator.txt", "w") as json_file:
+            json.dump(chart_data, json_file)
+        await ctx.send(':white_check_mark: Chart created. Chart can be accessed with the code ' + str(chart_id))
 
     # -------
     # Helpers

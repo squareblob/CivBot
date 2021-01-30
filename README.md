@@ -24,6 +24,7 @@ CivBot is a discord bot for Civ-servers like [Civclassic](https://reddit.com/r/c
 | `chart create <chart name>` | Creates a chart to plot minecraft skin heads to. Use `chart view <chart code>` and `chart edit <chart code> <minecraft username> <xcoord> <ycoord>`. |
 | `grey` | Makes an image greyscale |
 | `step [number]` | Shows you step *n* |
+| `grimreminder [player]` | Shows you a grim reminder | 
 
 
 #### Text
@@ -47,7 +48,7 @@ CivBot is a discord bot for Civ-servers like [Civclassic](https://reddit.com/r/c
 | Command | Usage |
 | ------------- | ------------- |
 | `whereis [x] [z]` | Gives nearby markers from CCmap data. *Note : Cardinal directions probably need to be fixed* |
-| `whois [player]`| Get info about that IGN from namemc.com and minecraft-statistic.net |
+| `whois [player]`| Get info about that IGN from namemc.com and minecraft-statistic.net (Note : may be broken) |
 | `invite` | gives CivBot invite |
 | *[[CIVWIKI PAGE]]* or *{{CIVWIKI TEMPLATE}}* | returns embed summary of linked civwiki page. Note that pages can be prefixed with `w:` to link to wikipedia. |
 | `civdiscord search [searchterm]` | Searches for fuzzy match in [Discord Servers Wiki collection](https://civclassic.miraheze.org/wiki/Discord_Servers) |
