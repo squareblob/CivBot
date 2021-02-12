@@ -501,7 +501,8 @@ drama
   [player] suggested adding [plugin]... [actors] didn't like that
   Remember [player]? They were a [player] alt
   [player] is a femboy
-  [player] said they're {8-12|40-60} years old?
+  [player] said they're {8-12} years old? ^1/2
+  [player] said they're {40-60} years old? ^1/2
   [player] tried to advertise civ on [website]
   [player] was making weird noises in [actor]'s Discord vc
   [player] squeezed [player]
