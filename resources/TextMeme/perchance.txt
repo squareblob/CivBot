@@ -231,7 +231,7 @@ funnyplayer
   LordOfMarzipan
   Lysika_Lantariel
   Maxopoly
-  {minemaster{100-999}|BinaryToast1}
+  {minemaster|BinaryToast1}
   Medwedian
   Metriximor
   Mickale
