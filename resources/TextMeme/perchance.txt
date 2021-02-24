@@ -191,8 +191,10 @@ otherplayer
   Garman
 
 funnyplayer
+  ahme63
   Ahri
   AllenY
+  {AmandaCC|Amanda Closed Captions}
   Ameliorate
   Amelorate
   {animeme_master|animaymay}
@@ -229,6 +231,7 @@ funnyplayer
   LordOfMarzipan
   Lysika_Lantariel
   Maxopoly
+  {minemaster{100-999}|BinaryToast1}
   Medwedian
   Metriximor
   Mickale
