@@ -196,7 +196,7 @@ class TextMeme(commands.Cog):
         phrase = "We do a little " + selection
         emoji = discord.utils.get(self.bot.emojis, name='trolle')
         if emoji:
-            phrase += " " + emoji
+            phrase += " " + str(emoji)
         await ctx.channel.send(phrase)
 
     @commands.command(pass_context=True)
