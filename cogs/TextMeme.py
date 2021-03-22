@@ -189,6 +189,17 @@ class TextMeme(commands.Cog):
             await ctx.channel.send(random.choice(adjs).capitalize() + " " + escape_mentions(content))
 
     @commands.command(pass_context=True)
+    async def trolling(self, ctx):
+        """Things we do a little of"""
+        troll_words = "bohling, boling, bolling, boweling, bowelling, bowling, coaling, doling, drolling, foaling, growling, holing, koelling, loling, moling, owling, poling, polling, prolling, rohling, roling, rowling, scrolling, shoaling, soling, strolling, tholing, toling, tolling, trolling, wauling, yowling, bankrolling, cajoling, carolling, condoling, consoling, controlling, enrolling, erholung, extolling, inscrolling, lawn bowling, paroling, patrolling, unrolling"
+        selection = random.choice(troll_words.split(", "))
+        phrase = "We do a little " + selection
+        emoji = discord.utils.get(self.bot.emojis, name='trolle')
+        if emoji:
+            phrase += " " + emoji
+        await ctx.channel.send(phrase)
+
+    @commands.command(pass_context=True)
     async def generatename(self, ctx):
         """Generates a custom minecraft username"""
         await ctx.channel.send("Random Minecraft name generator is creating your username...")
