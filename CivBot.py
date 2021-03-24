@@ -54,6 +54,8 @@ async def on_message(ctx):
                     await ctx.channel.send("Edit CivWiki <https://civclassic.miraheze.org/wiki/CivWiki:Editing_Guide>")
                 if 'lusitanian' in lower_content:
                     await ctx.channel.send(file=discord.File('resources/ImageMeme/Lusitan.png'))
+                if 'henry' in lower_content:
+                    await ctx.channel.send("To live as a septemberian, is to embrace death.")
                 if 'linux' in lower_content and not 'gnu' in lower_content and 60 > time.time() - last_times.get('gnu_linux', 0):
                     last_times['gnu_linux'] = time.time()
                     await ctx.channel.send(gnu_linux)
