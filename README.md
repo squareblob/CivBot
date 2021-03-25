@@ -42,7 +42,8 @@ CivBot is a discord bot for Civ-servers like [Civclassic](https://reddit.com/r/c
 | `entente` | Messages entente image response |
 | `topher` `thraldrek` `oracle` `freestyle` | Gives a characteristic response |
 | *delusional* | Responds with "Edit Civ Wiki" whenever 'delusional' is sent by a user.|
-| *His final message* | Responds with "To live as a septembrian, is to embrace death." whenever 'His final message' is sent by a user.|
+| *his final message* | Responds with "To live as a septembrian, is to embrace death." whenever 'his final message' is sent by a user.|
+| *the regime is real* | Responds with "heil square" whenever 'the regime is real' is sent by a user.|
 
 
 ### Useful
