@@ -6,6 +6,7 @@ from operator import itemgetter
 
 import aiohttp
 import async_timeout
+import discord
 import nbtlib
 from bs4 import BeautifulSoup
 from discord.ext import commands
@@ -76,7 +77,7 @@ class MiscUtilities(commands.Cog):
         # todo : this command is probably broken
 
         """Get info about that IGN from namemc.com and minecraft-statistic.net"""
-        ign = content.split(' ')[0]
+        ign = discord.utils.escape_mentions(content.split(' ')[0])
         info = await get_account_info_from_web(ign)
         num_servers = len(info['servers'])
         if num_servers == 10: num_servers = '9+'
