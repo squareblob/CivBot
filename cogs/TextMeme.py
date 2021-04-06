@@ -36,7 +36,6 @@ def get_response():
         response = ", ".join(words)
     return response
 
-
 def wiardify(text):
     vowels = "aeiouy"
     consonants = "bcdfghjklmnpqrstvwxz"
@@ -229,7 +228,20 @@ class TextMeme(commands.Cog):
             await ctx.channel.send(locations[content])
         else:
             await ctx.channel.send("**" + escape_mentions(content) + "**'s pearl could not be located")
+   
+    @commands.command(pass_context=True)
+    async def election(self, ctx, content):
+        newM = content
+        try:
+            newM = newM + " is the new 'mayor' of Mount September."
+            await ctx.channel.send(newM)
+        except:
+            newM = str(newM)
+            newM = newM + " is the new 'mayor' of Mount September."
+            await ctx.channel.send(newM)
+    
 
+            
     @commands.command(pass_context=True, brief="Frees a players pearl")
     async def ppfree(self, ctx, *, content):
         """`ppfree <playername>`"""
