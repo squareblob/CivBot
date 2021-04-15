@@ -25,6 +25,7 @@ CivBot is a discord bot for Civ-servers like [Civclassic](https://reddit.com/r/c
 | `grey` | Makes an image greyscale |
 | `step [number]` | Shows you step *n* |
 | `grimreminder [player]` | Shows you a grim reminder | 
+| `election [player]` | Declares the new mayor | 
 
 
 #### Text
@@ -41,6 +42,7 @@ CivBot is a discord bot for Civ-servers like [Civclassic](https://reddit.com/r/c
 | `entente` | Messages entente image response |
 | `topher` `thraldrek` `oracle` `freestyle` | Gives a characteristic response |
 | *delusional* | Responds with "Edit Civ Wiki" whenever 'delusional' is sent by a user.|
+| *his final message* | Responds with "To live as a septembrian, is to embrace death." whenever 'his final message' is sent by a user.|
 
 
 ### Useful
