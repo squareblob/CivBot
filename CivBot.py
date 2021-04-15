@@ -57,7 +57,7 @@ async def on_message(ctx):
             else:  # regular chat message
                 lower_content = ctx.content.lower()
                 if 'delusional' in lower_content:
-                    await ctx.channel.send("Edit CivWiki <https://civclassic.miraheze.org/wiki/CivWiki:Editing_Guide>")
+                    await ctx.channel.send("Edit CivWiki <https://civwiki.org/wiki/CivWiki:Editing_Guide>")
                 if 'lusitanian' in lower_content:
                     await ctx.channel.send(file=discord.File('resources/ImageMeme/Lusitan.png'))
                 if 'his final message' in lower_content:
@@ -71,7 +71,7 @@ async def on_message(ctx):
                 message = ""
                 pages = list(set(re.findall("(\[\[ *[^\]]+ *\]\])", ctx.content) + re.findall("(\{\{ *[^\]]+ *\}\})", ctx.content)))
                 for page in pages:
-                    message = 'https://civclassic.miraheze.org/wiki/'
+                    message = 'https://civwiki.org/wiki/'
                     if re.match("\{\{ *([^\]]+) *\}\}", page):
                         message += "Template:"
                     page = list(set(re.findall("\[\[ *([^\]]+) *\]\]", ctx.content) + re.findall("\{\{ *([^\]]+) *\}\}", ctx.content)))[0]
