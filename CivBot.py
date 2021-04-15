@@ -67,6 +67,7 @@ async def on_message(ctx):
                     await ctx.channel.send(gnu_linux)
                 if ctx.author.id == 318296849775722497 and do_orange_response and ctx.guild.id == 742831212711772261:
                     await ctx.channel.send("blocked. That response was too stupid to continue any discussion with orange wizard")
+                    do_orange_response = False
                 message = ""
                 pages = list(set(re.findall("(\[\[ *[^\]]+ *\]\])", ctx.content) + re.findall("(\{\{ *[^\]]+ *\}\})", ctx.content)))
                 for page in pages:
