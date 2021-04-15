@@ -5,6 +5,7 @@ import time
 import discord
 from discord.ext import commands
 
+
 prefix = "%"
 bot = commands.Bot(command_prefix=prefix, description="CivBot", help_command=None)
 
@@ -15,7 +16,7 @@ Many computer users run a modified version of the GNU system every day, without 
 
 There really is a Linux, and these people are using it, but it is just a part of the system they use. Linux is the kernel: the program in the system that allocates the machine's resources to the other programs that you run. The kernel is an essential part of an operating system, but useless by itself; it can only function in the context of a complete operating system. Linux is normally used in combination with the GNU operating system: the whole system is basically GNU with Linux added, or GNU/Linux. All the so-called "Linux" distributions are really distributions of GNU/Linux.
 """.strip()
-
+do_orange_response = False
 # cut down on spam: don't respond if last response was recent
 last_times = {}
 
@@ -48,6 +49,11 @@ async def on_message(ctx):
                 else:
                     print(ctx.content)
                     await bot.process_commands(ctx)
+            elif not ctx.guild:
+                allowed = [745078491065614336, 145342519784374272]
+                if 'orange' in ctx.content and ctx.author.id in allowed:
+                    global do_orange_response
+                    do_orange_response = True
             else:  # regular chat message
                 lower_content = ctx.content.lower()
                 if 'delusional' in lower_content:
@@ -59,6 +65,8 @@ async def on_message(ctx):
                 if 'linux' in lower_content and not 'gnu' in lower_content and 60 > time.time() - last_times.get('gnu_linux', 0):
                     last_times['gnu_linux'] = time.time()
                     await ctx.channel.send(gnu_linux)
+                if ctx.author.id == 318296849775722497 and do_orange_response and ctx.guild.id == 742831212711772261:
+                    await ctx.channel.send("blocked. That response was too stupid to continue any discussion with orange wizard")
                 message = ""
                 pages = list(set(re.findall("(\[\[ *[^\]]+ *\]\])", ctx.content) + re.findall("(\{\{ *[^\]]+ *\}\})", ctx.content)))
                 for page in pages:
