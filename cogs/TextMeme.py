@@ -199,6 +199,26 @@ class TextMeme(commands.Cog):
         await ctx.channel.send(phrase)
 
     @commands.command(pass_context=True)
+    async def pac(self, ctx):
+        """PacGaming"""
+        wordlist = ["Gaming", "Blaming", "Claiming", "Taming", "Statue", "Framing", "Naming", "Aiming"]
+        message = "Pac" + random.choice(wordlist)
+        await ctx.channel.send(message)
+        
+    @commands.command(pass_context=True)
+    async def allen(self, ctx):
+        """Dispenses some allenist thought"""
+        wordlist = ["we eat of squareblob's flesh and drink of squareblob's blood", 
+                    "you are all in squarecords none of you are free of sin", 
+                   "square never does anything he feels pressured to; natural elasticity allows him to retain shape after squeezing",
+                   "if you see me afking irl just kill me",
+                   "kill",
+                   "mts academy of linguistics is a prescriptivist pseudoscientific diploma mill",
+                   "i have always enjoyed the aesthetics of a dictatorship where you go to jail if you mess up the 7 stream recycling"]
+        message = "Pac" + random.choice(wordlist)
+        await ctx.channel.send(random.choice(wordlist))
+        
+    @commands.command(pass_context=True)
     async def generatename(self, ctx):
         """Generates a custom minecraft username"""
         await ctx.channel.send("Random Minecraft name generator is creating your username...")
