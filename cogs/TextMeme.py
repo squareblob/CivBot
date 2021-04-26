@@ -214,8 +214,13 @@ class TextMeme(commands.Cog):
                    "if you see me afking irl just kill me",
                    "kill",
                    "mts academy of linguistics is a prescriptivist pseudoscientific diploma mill",
-                   "i have always enjoyed the aesthetics of a dictatorship where you go to jail if you mess up the 7 stream recycling"]
-        message = "Pac" + random.choice(wordlist)
+                   "i have always enjoyed the aesthetics of a dictatorship where you go to jail if you mess up the 7 stream recycling",
+                    "oh",
+                   "i live in considerable fear that i will go down in history like dr oracle, known for like three mildly funny quotes total because of my inclusion in a bot",
+                   "my piss memes have literally changed the course of mta history nobody needs to be told",
+                   "WHERE IS SQUAREBLOB I WANT SQUAREBLOB",
+                   ":blueone: is like having done something transgressive, but you arent sorry for it, and in fact may be indicating that in your lack of remorse you will do something more transgressive though it's not being brazen or flamey about it: it's a sort of"
+                   ]
         await ctx.channel.send(random.choice(wordlist))
         
     @commands.command(pass_context=True)
