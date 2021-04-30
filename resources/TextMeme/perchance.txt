@@ -166,6 +166,7 @@ player
 
 otherplayer
   adeadhead
+  BlueSylvaer
   Fier
   fk_54
   GreatLordOz
@@ -189,7 +190,9 @@ otherplayer
   6d6164756c6f6f6b
   arcsintralin
   Garman
-
+  NebulaSSR
+  alts_ruin_civ 
+  
 funnyplayer
   ahme63
   Ahri
@@ -227,6 +230,8 @@ funnyplayer
   hkl
   Infra
   Jayms
+  JuniorTide
+  kaprediem
   Lodish
   LordOfMarzipan
   Lysika_Lantariel
@@ -236,6 +241,7 @@ funnyplayer
   Metriximor
   Mickale
   MrLlamma
+  NEBULANDD
   ObtainableSpatula
   Okx
   OLivay
@@ -248,12 +254,14 @@ funnyplayer
   QJI
   Raven
   RektTangle
+  RedDevel
   S4NTA
   Shadedoom
   Shtim
   sintralin
   Slushhi
   SoundTech
+  SandFalls
   specificlanguage
   squareblob
   Stonato
@@ -279,6 +287,7 @@ funnynation
   Bloom
   Rhodesia
   Columbia
+  CSA
   The Commonwealth
   Hjaltland
   Gensokyo
@@ -374,6 +383,11 @@ unfunnynation
   Xalta Moro
 
 drama
+  [actor] said the full name of Hjaltland
+  [player] said he would pearl every female on the server
+  [player] banned [player] from the [nation] discord
+  [player] cracked [nation]'s vault
+  [player] popped a shop chest in [place]
   [place] placed a trade embargo on [place]
   [actors] world downloaded [place]'s vault
   [actors] claimed [place]'s territory
@@ -386,6 +400,7 @@ drama
   [actors] pearled someone in [place]
   [actor] has obby bombed [place]
   [actor] has cobble bombed [place]
+  [actor] drobby bombed [place]
   [actor] has tnt bombed [place]
   [actors] insulted the diplomat from [place]
   [actor] is literally seething over [place]
@@ -541,6 +556,8 @@ drama
   [player] built a bastioned, trenched, obsidian spider grinder a hundred blocks from [nation]
 
 twist
+  and [player] reviewed this from a squareblobist lens
+  and this apparently led to the server shutting down
   and then everyone laughed
   and the admins have banned all people involved
   and a Maester wrote a book about it 
