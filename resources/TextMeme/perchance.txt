@@ -383,6 +383,7 @@ unfunnynation
   Xalta Moro
 
 drama
+  [actor] said the full name of Hjaltland
   [player] said he would pearl every female on the server
   [player] banned [player] from the [nation] discord
   [player] cracked [nation]'s vault
