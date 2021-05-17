@@ -537,7 +537,6 @@ drama
   [player] was arrested irl
   The entity known as [actor] has escaped containment in [place]. They are to be shot and killer on site.
   [player] is the heart and soul of [place]
-  [player] had sex with [player]'s wife
   [player] gave all their groups to [player]
   [player] mortgaged [place]
   [actors] cobbybombed [place]
