@@ -122,6 +122,11 @@ otheractor
   somebody
   The Big Dogs
   a femboy
+  Rodrigo Duterte
+  Angela Merkel
+  Erdogan
+  Xi Jinping
+  Bill Gates
 
 otherplace
   0,0
@@ -157,6 +162,7 @@ otherplace
   Hypixel
   Thrain Family Forest
   Praxis
+  Iran
 
 player
   [funnyplayer] ^12
@@ -211,6 +217,7 @@ funnyplayer
   Callum
   ChrisChrispie
   Citylion
+  CommradePotatoe
   ComradeNick
   ComradeRick
   cooliomoose
@@ -246,6 +253,7 @@ funnyplayer
   Okx
   OLivay
   Orinnari
+  OperationguyMCS
   pamplemousse
   Pirater
   Poortea
@@ -310,6 +318,9 @@ funnynation
   Tvtopia
   Tierra de Conciencia
   Gabon
+  Lambat
+  Potistan
+  Capeland
 
 unfunnynation
   Air Bud Republic
@@ -553,6 +564,7 @@ drama
   [player] formulated a plan for world domination
   [nation] doesn't exist and I can prove it with server logs
   [player] built a bastioned, trenched, obsidian spider grinder a hundred blocks from [nation]
+  [nation] annexes [nation]
 
 twist
   and [player] reviewed this from a squareblobist lens
@@ -610,6 +622,8 @@ twist
   and [player] said he's never touching civ again
   ...time for your daily quitting post
   and now [player] is taking off work to break the vault
+  and all of [nation]'s citizens transfer citizenship
+  and [player] gets a vaccine
 
 respond
   [respondWord]
