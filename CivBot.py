@@ -50,8 +50,8 @@ async def on_message(ctx):
                     print(ctx.content)
                     await bot.process_commands(ctx)
             elif not ctx.guild:
-                allowed = [745078491065614336, 145342519784374272]
-                if 'orange' in ctx.content and ctx.author.id in allowed:
+                #allowed = [745078491065614336, 145342519784374272]
+                if 'orange' in ctx.content:
                     global do_orange_response
                     do_orange_response = True
             else:  # regular chat message
@@ -65,7 +65,7 @@ async def on_message(ctx):
                 if 'linux' in lower_content and not 'gnu' in lower_content and 60 > time.time() - last_times.get('gnu_linux', 0):
                     last_times['gnu_linux'] = time.time()
                     await ctx.channel.send(gnu_linux)
-                if ctx.author.id == 318296849775722497 and do_orange_response and ctx.guild.id == 742831212711772261:
+                if ctx.author.id == 318296849775722497 and  ctx.guild.id == 742831212711772261:
                     await ctx.channel.send("blocked. That response was too stupid to continue any discussion with orange wizard")
                     do_orange_response = False
                 message = ""
