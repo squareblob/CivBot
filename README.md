@@ -40,7 +40,7 @@ CivBot is a discord bot for Civ-servers like [Civclassic](https://reddit.com/r/c
 | `animemer` | Returns a screenshot of one of animemer's first ever reddit comments. |
 | `nato` | Messages NATO image response |
 | `entente` | Messages entente image response |
-| `topher` `thraldrek` `oracle` `freestyle` | Gives a characteristic response |
+| `topher` `thraldrek` `oracle` `freestyle` `allen` `pac` | Gives a characteristic response |
 | *delusional* | Responds with "Edit Civ Wiki" whenever 'delusional' is sent by a user.|
 | *his final message* | Responds with "To live as a septembrian, is to embrace death." whenever 'his final message' is sent by a user.|
 
