@@ -137,7 +137,7 @@ def draw_derelict_image(input_string):
 
 
 def draw_getalong_image(players):
-    img_shirt = Image.open("resources/ImageMeme/shirt.png")
+    img_shirt = Image.open("resources/ImageMeme/Getalong_template.png")
     background = Image.new('RGB', (600, 500), color=(255, 255, 255))
     for i, player in enumerate(players):
         r = requests.get("https://mc-heads.net/player/" + player + "/160.png")
