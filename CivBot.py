@@ -60,16 +60,17 @@ async def on_message(ctx):
                 if 'linux' in lower_content and not 'gnu' in lower_content and 60 > time.time() - last_times.get('gnu_linux', 0):
                     last_times['gnu_linux'] = time.time()
                     await ctx.channel.send(gnu_linux)
-                message = ""
-                pages = list(set(re.findall("(\[\[ *[^\]]+ *\]\])", ctx.content) + re.findall("(\{\{ *[^\]]+ *\}\})", ctx.content)))
-                for page in pages:
-                    message = 'https://civwiki.org/wiki/'
-                    if re.match("\{\{ *([^\]]+) *\}\}", page):
-                        message += "Template:"
-                    page = list(set(re.findall("\[\[ *([^\]]+) *\]\]", ctx.content) + re.findall("\{\{ *([^\]]+) *\}\}", ctx.content)))[0]
-                    message += page.replace(" ", "_") + "\n"
+
+                match_page = "\[{2}([^\]\n]+) *\]{2}"
+                match_template = "\{{2}([^\]\n]+) *\}{2}"
+                wiki_link = "https://civwiki.org/wiki/"
+                pages = list(set(re.findall(match_page, ctx.content) + re.findall(match_template, ctx.content)))
+                for page in pages[:10]:
+                    if re.match(match_template, page):
+                        wiki_link += "Template:"
+                    wiki_link += page.replace(" ", "_") + "\n"
                 if len(pages) > 0:
-                    await ctx.channel.send(message)
+                    await ctx.channel.send(wiki_link)
             if len(ctx.attachments) != 0:
                 for x in ctx.attachments:
                     if os.path.splitext(x.filename)[1] == ".schematic" or os.path.splitext(x.filename)[1] == ".schem":
