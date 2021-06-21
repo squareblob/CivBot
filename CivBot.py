@@ -64,10 +64,12 @@ async def on_message(ctx):
                 match_page = "\[{2}([^\]\n]+) *\]{2}"
                 match_template = "\{{2}([^\]\n]+) *\}{2}"
                 wiki_link = "https://civwiki.org/wiki/"
-                pages = list(set(re.findall(match_page, ctx.content) + re.findall(match_template, ctx.content)))
+
+                pages = list(set(re.findall(match_page, ctx.content)))
+                templates =  list(set(re.findall(match_template, ctx.content)))
+                for template in templates:
+                    pages.append("Template:" + template)
                 for page in pages[:10]:
-                    if re.match(match_template, page):
-                        wiki_link += "Template:"
                     wiki_link += page.replace(" ", "_") + "\n"
                 if len(pages) > 0:
                     await ctx.channel.send(wiki_link)
