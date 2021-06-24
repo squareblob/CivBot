@@ -63,16 +63,18 @@ async def on_message(ctx):
 
                 match_page = "\[{2}([^\]\n]+) *\]{2}"
                 match_template = "\{{2}([^\]\n]+) *\}{2}"
+
+                wiki_message = ""
                 wiki_link = "https://civwiki.org/wiki/"
 
                 pages = list(set(re.findall(match_page, ctx.content)))
-                templates =  list(set(re.findall(match_template, ctx.content)))
+                templates = list(set(re.findall(match_template, ctx.content)))
                 for template in templates:
                     pages.append("Template:" + template)
                 for page in pages[:10]:
-                    wiki_link += page.replace(" ", "_") + "\n"
+                    wiki_message += wiki_link + page.replace(" ", "_") + "\n"
                 if len(pages) > 0:
-                    await ctx.channel.send(wiki_link)
+                    await ctx.channel.send(wiki_message)
             if len(ctx.attachments) != 0:
                 for x in ctx.attachments:
                     if os.path.splitext(x.filename)[1] == ".schematic" or os.path.splitext(x.filename)[1] == ".schem":
