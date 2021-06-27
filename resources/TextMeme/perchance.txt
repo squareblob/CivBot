@@ -129,6 +129,7 @@ otheractor
   Bill Gates
 
 otherplace
+  the #feedback channel
   0,0
   real life
   Westminster
