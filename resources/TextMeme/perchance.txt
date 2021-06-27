@@ -215,6 +215,7 @@ funnyplayer
   Convoy
   BritishWanderer
   Callum
+  ChocChips
   ChrisChrispie
   Citylion
   CommradePotatoe
@@ -270,6 +271,7 @@ funnyplayer
   Slushhi
   SoundTech
   SandFalls
+  Smal
   specificlanguage
   squareblob
   Stonato
