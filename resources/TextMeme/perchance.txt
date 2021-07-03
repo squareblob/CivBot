@@ -10,7 +10,7 @@ output
   [outputPrepend.sentenceCase] [outputreal] ^1/75
   [outputPrepend.sentenceCase] [outputreal][outputAppend] ^1/250
   The fuck is this channel and this bot? ^1/1000
-  *Ran out of good drama? Make a pull request to update the drama generator here:* **github.com/squareblob/CivBot/blob/master/resources/perchance.txt** ^1/500
+  *Ran out of good drama? Make a pull request to update the drama generator here:* **https://github.com/squareblob/CivBot/blob/master/resources/TextMeme/perchance.txt** ^1/500
 
 outputPrepend
   Did you know
@@ -106,8 +106,6 @@ otheractor
   nobody
   ham_was_here
   a civ dad
-  NATO
-  SATO
   a bgpost
   Kira
   Bashar al-Assad
@@ -139,8 +137,6 @@ otherplace
   CivRealms
   {Civcraft 2.0|Civcraft 3.0}
   CivEx
-  NATO
-  SATO
   Entente
   Brazil
   r/MtAugusta
@@ -228,8 +224,10 @@ funnyplayer
   cwage
   Daddy1015
   Diet_Cola
+  darthorangejuice
   Dr_Oracle
   Dsclouse
+  EngineeringBean
   Falvyu
   Gantoe
   guru gantoe
@@ -238,13 +236,17 @@ funnyplayer
   Godomasta
   HenryDraton
   hkl
+  hockey328
   Infra
+  InvertedMind
   Jayms
   JuniorTide
   kaprediem
   Lodish
+  Lowtuff
   LordOfMarzipan
   Lysika_Lantariel
+  Magmus
   Maxopoly
   {minemaster|BinaryToast1}
   Medwedian
@@ -286,13 +288,18 @@ funnyplayer
   Trevie303
   ttk2
   Wingzero54
+  WNS2
   wjkroeker
   Xavter
   Yellofishy
+  yodabird19
+  
+  
 
 nation
   [funnynation] ^10
   [unfunnynation]
+  [alliance] ^2
 
 funnynation
   some one-man nation
@@ -325,6 +332,14 @@ funnynation
   Lambat
   Potistan
   Capeland
+  Carson
+  Cortesia Del Mar
+  some Nro tribe
+  CCCP
+  Monterrey
+  Wolken
+  Admin Town
+  
 
 unfunnynation
   Air Bud Republic
@@ -396,6 +411,17 @@ unfunnynation
   Wayrest
   Westeros
   Xalta Moro
+
+alliance
+  the UDF
+  the Entente
+  the Augustan Federation
+  the CES
+  SATO
+  NATO
+  the DUMP
+  the UNC
+  
 
 drama
   [actor] said the full name of Hjaltland
@@ -569,6 +595,9 @@ drama
   [nation] doesn't exist and I can prove it with server logs
   [player] built a bastioned, trenched, obsidian spider grinder a hundred blocks from [nation]
   [nation] annexes [nation]
+  [actor] found the poop sock
+  [player] edited [nation]'s claim polygon without asking
+  [nation] revived
 
 twist
   and [player] reviewed this from a squareblobist lens
@@ -628,6 +657,8 @@ twist
   and now [player] is taking off work to break the vault
   and all of [nation]'s citizens transfer citizenship
   and [player] gets a vaccine
+  and now [nation] is dead
+  and now [actor] is back
 
 respond
   [respondWord]
@@ -804,3 +835,8 @@ website
 
 event
   the Somber War
+  the Infinity War
+  [actor] quitting
+  the Kidnapping of December
+  [nation] forming
+  Wingzero's latest pull request
