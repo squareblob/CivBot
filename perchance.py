@@ -7,7 +7,9 @@ def perchance_parse(text):
     for line_orig in text.split('\n'):
         try:
             line = line_orig
-            line = line[:len(line.split('//')[0])].rstrip()
+            if line_orig.startswith('//'):
+                continue
+            line = line[:len(line.split(' //')[0])].rstrip()
             if not line:
                 continue
             if line[0] not in ' \t':
