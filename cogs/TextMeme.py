@@ -209,7 +209,7 @@ class TextMeme(commands.Cog):
     async def guy(self, ctx):
         """Quirky little Civbot guy"""
         adjectives = ["quirky", "wacky", "weird", "hsm", "wholesome", "squishy", "squeezable", "funny", "stupid", "naughty", "adorable", "pleasant", "big", "speedy", "clever", "profound", "violent", "peaceful", "spunky", "that", "comfy"]
-        names = ["blob", "squareblob", "topher", "godo", "nebula", "ahme", "gjum", "oange", "thraldrek", "allen", "oracle", "pac", "metrix", "specific", "civbot", "kapre", "oracle", "imp", "minemaster", "llamma", "sambonusg]
+        names = ["blob", "squareblob", "topher", "godo", "nebula", "ahme", "gjum", "oange", "thraldrek", "allen", "oracle", "pac", "metrix", "specific", "civbot", "kapre", "oracle", "imp", "minemaster", "llamma", "sambonusg"]
         message =  random.choice(adjectives) + " little " + random.choice(names) + " guy"
         await ctx.channel.send(message)
        
