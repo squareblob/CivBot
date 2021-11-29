@@ -9,6 +9,7 @@ from discord.utils import escape_mentions
 from perchance import perchance_gen, perchance_parse
 
 perchance_civ_classic = perchance_parse(open('resources/TextMeme/perchance.txt').read())
+perchance_neb = perchance_parse(open('resources/TextMeme/perchance_neb.txt').read())
 
 def get_response():
     wordlist = ["crying",
@@ -172,6 +173,11 @@ class TextMeme(commands.Cog):
     async def drama(self, ctx):
         """Generates CivClassic drama"""
         await ctx.channel.send(escape_mentions(perchance_gen(perchance_civ_classic)))
+
+    @commands.command(pass_context=True)
+    async def nebulang(self, ctx):
+        """Nebulang"""
+        await ctx.channel.send(escape_mentions(perchance_gen(perchance_neb)))
 
     @commands.command(pass_context=True)
     async def pickle(self, ctx, content):

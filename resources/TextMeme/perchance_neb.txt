@@ -1,0 +1,197 @@
+title
+  Nebulang
+
+output
+  [output.upperCase]^20
+  [nebula.titleCase]^30
+  [nebula.titleCase] activated
+  [nebula.titleCase] deactivated
+  free [nebula.titleCase]
+  Comrade[nebula.titleCase]
+  Zombie[nebStem.titleCase][uStem][loidStem]^1/10
+
+nebula
+  [nebula.upperCase]^10
+  [nebStem][uStem][loidStem]^30
+  [nebStemLong] [uStemLong] [loidStemLong]^10
+  [loidStem]^1/10
+  [nebStem] [loidStem]
+  [nebStem] [uStem] [loidStem]
+  [nebStemLong]
+  [nebStem][loidStem]^3
+  [nebStem][uloidStem]
+  The [nebula]^2
+  [nebula]SSR^1/2
+  "Nick Land"^1/10
+
+nebStem
+  neb^25
+  nab^5
+  nib^3
+  knob^3
+  newb^3
+  neeb^2
+  dweeb^2
+  pleb^2
+  numb^2
+  kneb^2
+  nucl^2
+  nimb
+  nyeb
+  jeb^2
+  sheep
+  cheap
+  nether
+  nebat
+  zeb
+  zip
+  'sup
+  sub
+  weeb
+  n. {|}
+  n^1/2
+  nuc
+  nick
+  never
+  nevergonnagive
+  nap
+  nav
+
+uStem
+  u^5
+  {|} u. {|} // spaces at beginning+end
+  {|} E.T. {|}
+  , y u {|}
+  {|} "the uhh" {|}
+  {|} :blueone: {|}
+  {|} "Bunker" {|}
+  oo
+  oh
+  you
+  yo
+  ruh^1/2 // "bruh"
+  lue // "blue"
+  rude
+  yoaht
+  uchadnezza
+  en
+  ul
+  æ
+  {|} "Nick Land" [uStem]
+  {|} "Niederbarnimer Eisenbahn" [uStem]
+  er^1/2
+  ber^1/2
+  [uStem][uStem]
+
+loidStem
+  ahtlon
+  chad
+  ffloyd
+  fight
+  fjord
+  flight
+  floyd
+  floyde
+  flude
+  flute
+  freud
+  lated
+  land
+  landd
+  landdo
+  lando
+  lang
+  lapse
+  la
+  lar
+  lé
+  lead
+  lean
+  left
+  ler
+  lend
+  less
+  lette
+  lewd
+  lewis
+  lex
+  lhuyd
+  liar
+  lick
+  lide
+  lier
+  light
+  line
+  ling
+  lite
+  lloyd
+  lloyd wright
+  lloyd george
+  llwyd
+  load
+  lode
+  loid
+  loided
+  lon
+  lond
+  loot
+  lor
+  lord
+  loud
+  lous
+  losi
+  louis
+  lu
+  lue
+  ly
+  nerd
+  site
+  stan
+  thllewyd
+  thloyd
+
+nebStemLong
+  n[ebStemLong]^10
+  z[ebStemLong]^2
+  pl[ebStemLong]
+
+// -eb is prefixed with stuff in nebStemLong
+ebStemLong
+  ebuchadnezzar
+  ebula
+  ebuland
+  .E.B.
+  ebat
+  eb
+  eben
+  ebbish
+  ebich
+  ebek
+  ebulon
+  ebullion
+  ebouillon
+  eb!
+
+uStemLong
+  ulysses
+  underwood
+  undertale
+  understandable
+
+loidStemLong
+  lloyd
+  loid
+
+uloidStem
+  oolean
+  ule
+  at
+  oner
+  æ
+  ik
+  in
+  oid
+  brulé
+  ist
+  ellend
+  bed

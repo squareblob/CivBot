@@ -100,6 +100,8 @@ def perchance_gen_inner(definitions, name):
                 text = perchance_gen_inner(definitions, segment['name'])
                 if segment['mod'] == 'titleCase':
                     text = text.title()
+                if segment['mod'] == "upperCase":
+                    text = text.upper()
             elif segment['type'] == 'multi':
                 text = random.choice(segment['options'])
             elif segment['type'] == 'range':
