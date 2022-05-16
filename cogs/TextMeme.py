@@ -304,6 +304,39 @@ class TextMeme(commands.Cog):
                     "Is that supposed to be a congnizable sentence?"
                     ]
         await ctx.channel.send(random.choice(wordlist))
+    
+    @commands.command(pass_context=True)
+    async def lowtuff(self, ctx):
+        """Digs up lowtuffisms for all to see"""
+        wordlist = ["im gonna go back in time and ask 1.0 ancaps how they feel about pronouns and theyll tell me they hate they/them pronouns but only because they encourage a collectivist mindset",
+                   "'mare nostrum' man just say you hate newfriends",
+                   "just bounced around my head like the dvd screensaver before slotting right into the groove that ted cruz iowa butter cow burnt into me",
+                   "it is for the best we dont talk about herbs to eachother",
+                   "IMO if depression era strikers had nfts they would have won",
+                   "this is like if you told me someone invented ants on accident",
+                   "the first communication we get with whales will be a first strike imo",
+                   "ok i critically misunderstood something when i misread evangelical as evangelion",
+                   "lol i told my mate nick to deliver presents to all the worlds children in under 24 hours.... the mad lad actually went and did it!!!",
+                   "i love this because it took me several reads to realise this wasn't someone responding to like, a sex truther",
+                   "getting into an animated discussion with the police chief on duty about my soul-exile based model of restorative justice",
+                   "future california president cheshire 'the lulcat' would be a controversial figure throughout his term, both for his ill fated attempt to conquer arizona & frequent misuse of presidential powers to text everyone pics of him flexing at once",
+                   "did the teacher get mad at you when you all were supposed to stand for the pledge of allegiance and you planked on your desk",
+                   "is alfredo italian for alfred",
+                   "oh come on as if you havent done the same thing. open that fridge and half a golf club'll come stumbling out asking you what a pdf is",
+                   "resume layout asks me what my skills are and i just list out every us state capital there and then",
+                   "i come home with a photo album and get paid in old coins made from fools gold that were in circulation in jefferson territory between 1862 and 1863",
+                   "i've studied for years on this topic to understand which ultimately arbitrary catagories we should arrange our new society on. and some damned journalist comes in and says that colorado is part of the midwest",
+                   "stealing a bunch of toothpicks from chain resturants to built convenient furniture with",
+                   "me, wrestling away the mic from the debate presenter: vice president biden, are you concerned about your lack of support among enbies?",
+                   "me a year from now: ehe... so you're tellin me you don't remember the capital of palau... lunch money. now.",
+                   "yeah well i'm talking to a cute climate denialist online",
+                   "getting super excited as we stumble upon some abandoned old soviet facility from when they tried to teach bears marxism. i'm traipsing around in a pair of hawaiian print shorts and contracting many unique infections from the ankle-high collections of rusty steel bars lying around the place",
+                   "i like to sit like a greedy little gremlin at the bottom of a large watery pit, collecting cacti that falls from the heavens",
+                   "if i saw a volcano go off while i was nearby i would simply use a vehicle to leave ",
+                   "i acknowledge that i often give people good reason to think i'm pretty smashed when typing on a phone",
+                   "do mimes count as goth"
+                   ]
+        await ctx.channel.send(random.choice(wordlist))
         
     @commands.command(pass_context=True)
     async def generatename(self, ctx):
