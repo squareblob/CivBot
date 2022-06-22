@@ -16,7 +16,7 @@ idna==2.9
 mcuuid==0.2
 multidict==4.7.6
 nbtlib==1.6.5
-numpy==1.18.5
+numpy==1.22.0
 Pillow==8.2.0
 pipreqs==0.4.10
 pycountry==19.8.18
